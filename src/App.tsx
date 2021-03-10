@@ -1,9 +1,10 @@
 import React from "react";
+import Test from "./components/molecules/test";
 
 function App() {
   return (
     <div className="App">
-      <h1 className={"text-2xl"}>asd</h1>
+      <Test></Test>
     </div>
   );
 }
