@@ -11,7 +11,7 @@ export interface IButtonProps extends ITailwind {
   /**
    * button text
    */
-  label: string;
+  label?: string;
 
   /**
    * Click 이벤트 처리
