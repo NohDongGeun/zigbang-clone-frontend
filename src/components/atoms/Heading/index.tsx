@@ -1,7 +1,7 @@
 import React from "react";
 import { ITailwind } from "../../../interfaces/Tailwind";
 
-interface ITitleProps extends ITailwind {
+export interface IHeadingProps extends ITailwind {
   /**
    * h1~h5 정하기
    */
@@ -13,7 +13,7 @@ interface ITitleProps extends ITailwind {
   label: string;
 }
 
-const Heading: React.FC<ITitleProps> = ({ Type, label, ...props }) => {
+const Heading: React.FC<IHeadingProps> = ({ Type, label, ...props }) => {
   return <Type {...props}>{label}</Type>;
 };
 

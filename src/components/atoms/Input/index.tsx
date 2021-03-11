@@ -5,7 +5,7 @@ interface IInputProps extends ITailwind {
   /**
    * type 여부
    */
-  type: "email" | "text" | "nuber" | "password";
+  type: "email" | "text" | "number" | "password";
 
   /**
    * placeholder
@@ -15,7 +15,7 @@ interface IInputProps extends ITailwind {
   /**
    * input 핸들러
    */
-  onChange?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input: React.FC<IInputProps> = ({
