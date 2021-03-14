@@ -6,7 +6,7 @@ interface ICardProps {
   /**
    * 방 거래유형
    */
-  dealType: "전세" | "월세" | "전체";
+  dealType: "전세" | "월세";
 
   /**
    * 방 종류

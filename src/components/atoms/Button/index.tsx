@@ -33,6 +33,7 @@ const Button: React.FC<IButtonProps> = ({
   to,
   onClick,
   className,
+  children,
   canClick = true,
   unableClassName,
   label,
@@ -42,17 +43,19 @@ const Button: React.FC<IButtonProps> = ({
       {to ? (
         <Link to={to} className={className}>
           {label}
+          {children}
         </Link>
       ) : (
         <button
           className={
             canClick
-              ? className
+              ? ["outline-none focus:outline-none", className].join(" ")
               : ["bg-gray-300 pointer-events-none", unableClassName].join(" ")
           }
           onClick={onClick}
         >
           {label}
+          {children}
         </button>
       )}
     </>

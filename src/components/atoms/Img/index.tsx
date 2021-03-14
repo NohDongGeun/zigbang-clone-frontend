@@ -1,6 +1,7 @@
 import React from "react";
+import { ITailwind } from "../../../interfaces/Tailwind";
 
-interface IImgProps {
+interface IImgProps extends ITailwind {
   /**
    * 이미지 소스
    */
@@ -12,8 +13,8 @@ interface IImgProps {
   alt: string;
 }
 
-const Img: React.FC<IImgProps> = ({ src, alt }) => {
-  return <img src={src} alt={alt} />;
+const Img: React.FC<IImgProps> = ({ src, alt, className }) => {
+  return <img src={src} alt={alt} className={className} />;
 };
 
 export default Img;
