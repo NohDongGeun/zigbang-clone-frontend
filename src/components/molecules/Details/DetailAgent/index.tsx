@@ -1,6 +1,6 @@
 import React from "react";
-import DetailBar from "..";
-import { Heading, Img, Text } from "../../../..";
+import DetailBar from "../DetailBar";
+import { Heading, Img, Text } from "../../..";
 
 interface IDetailAgent {
   agency: string;

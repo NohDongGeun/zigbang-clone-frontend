@@ -34,7 +34,7 @@ const FilterFixed: React.FC<IFilterHeader> = ({
   return (
     <section
       className={
-        "flex flex-row p-1 w-full justify-center items-center border border-gray-500"
+        "flex flex-row p-1 sm:p-2 w-full justify-center items-center border border-gray-500"
       }
     >
       <div className={"flex w-1/6"}>
