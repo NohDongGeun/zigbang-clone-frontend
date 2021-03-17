@@ -2,7 +2,7 @@ import { Meta } from "@storybook/react";
 import React from "react";
 import DetailAgent from "./index";
 import { text, withKnobs } from "@storybook/addon-knobs";
-import test_people from "../../../../../assets/img/test_people.png";
+import test_people from "../../../../assets/img/test_people.png";
 
 export default {
   title: "Molecules/DetailAgent",

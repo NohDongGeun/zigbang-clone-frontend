@@ -1,11 +1,7 @@
 import { Meta } from "@storybook/react";
 import React from "react";
 import FilterFixed from "./index";
-import {
-  radios,
-  text,
-  withKnobs,
-} from "@storybook/addon-knobs";
+import { radios, text, withKnobs } from "@storybook/addon-knobs";
 import { action } from "@storybook/addon-actions";
 
 export default {
@@ -26,7 +22,7 @@ export const filterFixed: React.FC = () => {
       <FilterFixed
         label={text("label", "검색 조건을 설정해주세요.")}
         value={radios("value", DealType, DealType.all)}
-        handleDealType={action("handleDealType")}
+        handleAlert={action("handleAlert")}
         handleFilter={action("handleFilter")}
       />
     </article>

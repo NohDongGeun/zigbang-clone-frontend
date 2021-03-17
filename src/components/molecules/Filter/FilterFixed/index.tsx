@@ -3,7 +3,7 @@ import { Button, Img, Text } from "../../..";
 import arrowUp from "../../../../assets/img/arrowUp.png";
 import filter_button from "../../../../assets/img/filter_button.png";
 
-interface IFilterHeader {
+interface IFilterFixed {
   /**
    * filter dealtype value
    */
@@ -15,9 +15,9 @@ interface IFilterHeader {
   label: string;
 
   /**
-   * dealtype onClick
+   * dealtype alert
    */
-  handleDealType: () => void;
+  handleAlert: () => void;
 
   /**
    * filter 창 열기
@@ -25,21 +25,21 @@ interface IFilterHeader {
   handleFilter: () => void;
 }
 
-const FilterFixed: React.FC<IFilterHeader> = ({
+const FilterFixed: React.FC<IFilterFixed> = ({
   value,
   label,
-  handleDealType,
+  handleAlert,
   handleFilter,
 }) => {
   return (
     <section
       className={
-        "flex flex-row p-1 sm:p-2 w-full justify-center items-center border border-gray-500"
+        "flex flex-row p-1 relative sm:p-2 w-full justify-center items-center bg-white shadow-md"
       }
     >
       <div className={"flex w-1/6"}>
         <Button
-          onClick={handleDealType}
+          onClick={handleAlert}
           className={
             "flex w-full flex-row flex-grow-0 flex-shrink-1 h-8 border border-gray-300 justify-center items-center text-gray-700"
           }

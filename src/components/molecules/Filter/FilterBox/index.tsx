@@ -1,7 +1,8 @@
 import React from "react";
 import { Heading } from "../../..";
+import { ITailwind } from "../../../../interfaces/Tailwind";
 
-interface IFilterBox {
+interface IFilterBox extends ITailwind {
   /**
    * filter 이름
    */
@@ -13,12 +14,18 @@ interface IFilterBox {
   value?: string;
 }
 
-const FilterBox: React.FC<IFilterBox> = ({ label, value, children }) => {
+const FilterBox: React.FC<IFilterBox> = ({
+  label,
+  value,
+  children,
+  className,
+}) => {
   return (
     <section
-      className={
-        "flex flex-col bg-white w-full p-1 sm:p-2 justify-center items-start border border-gray-500"
-      }
+      className={[
+        "flex flex-col bg-white w-full p-1 sm:p-2 justify-center items-start",
+        className,
+      ].join(" ")}
     >
       <Heading
         className={"text-base text-gray-700"}
@@ -27,7 +34,7 @@ const FilterBox: React.FC<IFilterBox> = ({ label, value, children }) => {
       />
       {value && (
         <Heading
-          className={" text-xl text-yellow-500 font-bold"}
+          className={" text-xl text-yellow-500 font-bold pt-2"}
           Type={"h2"}
           label={value}
         />

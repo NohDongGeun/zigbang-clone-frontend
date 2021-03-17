@@ -6,6 +6,7 @@ module.exports = {
       "36": "36px",
       "42": "42px",
     },
+
     extend: {
       width: {
         "400": "400px",
@@ -16,10 +17,19 @@ module.exports = {
         "14": "56px",
         "16": "64px",
       },
+      height: {
+        "111": "calc(100% - 111px)",
+        "094": "calc(100% - 94px)",
+        "400": "calc(100% - 40px)",
+      },
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundColor: ["checked", "active"],
+      margin: ["first", "last"],
+      borderWidth: ["first", "last"],
+    },
   },
   plugins: [],
 };

@@ -23,4 +23,7 @@ export { default as DetailText } from "./molecules/Details/DetailText";
 //molecules/Filter
 export { default as FilterBox } from "./molecules/Filter/FilterBox";
 export { default as FilterFixed } from "./molecules/Filter/FilterFixed";
+export { default as FilterHeader } from "./molecules/Filter/FilterHeader";
+export { default as FilterRange } from "./molecules/Filter/FilterRange";
+export { default as FilterAlert } from "./molecules/Filter/FilterAlert";
 //organisms

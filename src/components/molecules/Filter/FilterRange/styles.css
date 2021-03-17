@@ -1,0 +1,21 @@
+.sliderDot {
+  position: relative;
+  color: rgb(170, 170, 170);
+  line-height: 20px;
+  text-align: center;
+  margin-top: 2px;
+}
+.rc-slider-mark-text {
+  min-width: 28px;
+}
+
+.sliderDot::after {
+  content: "";
+  width: 1px;
+  height: 6px;
+  position: absolute;
+  top: -5px;
+  left: 50%;
+
+  background-color: rgb(204, 204, 204);
+}
