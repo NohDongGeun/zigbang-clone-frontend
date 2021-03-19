@@ -11,7 +11,7 @@ export default {
 export const filterHeader: React.FC = () => {
   return (
     <article className={"w-full sm:w-400"}>
-      <FilterHeader onClick={action("onClick")} />
+      <FilterHeader reset={action("reset")} onClick={action("onClick")} />
     </article>
   );
 };

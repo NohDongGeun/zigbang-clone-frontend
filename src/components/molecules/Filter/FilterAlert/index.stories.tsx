@@ -12,6 +12,7 @@ export const filterAlert: React.FC = () => {
   return (
     <div>
       <FilterAlert
+        alert={true}
         onClick={action("onClick")}
         alertHandler={action("alertHandler")}
       />

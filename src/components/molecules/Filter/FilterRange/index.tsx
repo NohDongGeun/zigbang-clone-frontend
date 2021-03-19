@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef } from "react";
 import Slider, { createSliderWithTooltip } from "rc-slider";
 import "./styles.css";
+import "rc-slider/assets/index.css";
 
 const Range = createSliderWithTooltip(Slider.Range);
 interface IFilterRange {
@@ -28,7 +29,6 @@ const FilterRange: React.FC<IFilterRange> = ({ labels, onChange }) => {
         }}
         step={5.55}
         allowCross={false}
-        tipFormatter={(value) => value}
         tipProps={{ placement: "top" }}
         onChange={onChange}
         dotStyle={{ display: "none" }}
@@ -55,4 +55,4 @@ const FilterRange: React.FC<IFilterRange> = ({ labels, onChange }) => {
   );
 };
 
-export default FilterRange;
+export default React.memo(FilterRange);

@@ -14,9 +14,19 @@ export interface IButtonProps extends ITailwind {
   label?: string;
 
   /**
+   * button name
+   */
+  name?: string;
+
+  /**
+   * button value
+   */
+  value?: string;
+
+  /**
    * Click 이벤트 처리
    */
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 
   /**
    * 버튼 클릭 여부
@@ -31,12 +41,12 @@ export interface IButtonProps extends ITailwind {
 
 const Button: React.FC<IButtonProps> = ({
   to,
-  onClick,
   className,
   children,
   canClick = true,
   unableClassName,
   label,
+  ...props
 }) => {
   return (
     <>
@@ -52,7 +62,7 @@ const Button: React.FC<IButtonProps> = ({
               ? ["outline-none focus:outline-none", className].join(" ")
               : ["bg-gray-300 pointer-events-none", unableClassName].join(" ")
           }
-          onClick={onClick}
+          {...props}
         >
           {label}
           {children}

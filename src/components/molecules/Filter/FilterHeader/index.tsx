@@ -3,10 +3,11 @@ import { Button, Heading, Img, Text } from "../../..";
 import x_image from "../../../../assets/img/x_image.png";
 
 interface IFilterHeader {
+  reset: () => void;
   onClick: () => void;
 }
 
-const FilterHeader: React.FC<IFilterHeader> = ({ onClick }) => {
+const FilterHeader: React.FC<IFilterHeader> = ({ reset, onClick }) => {
   return (
     <section
       className={
@@ -18,7 +19,9 @@ const FilterHeader: React.FC<IFilterHeader> = ({ onClick }) => {
           "flex-1 flex flex-row justify-start items-center px-3 sm:py-4 py-3"
         }
       >
-        <Img className={"w-6 h-6 mr-3"} src={x_image} alt={"필터 끄기"} />
+        <Button onClick={onClick}>
+          <Img className={"w-6 h-6 mr-3"} src={x_image} alt={"필터 끄기"} />
+        </Button>
         <Heading
           className={"text-gray-900 text-xl font-medium"}
           Type={"h1"}
@@ -29,11 +32,11 @@ const FilterHeader: React.FC<IFilterHeader> = ({ onClick }) => {
         <Button
           className={"text-gray-700 text-sm"}
           label={"모두 초기화"}
-          onClick={onClick}
+          onClick={reset}
         />
       </div>
     </section>
   );
 };
 
-export default FilterHeader;
+export default React.memo(FilterHeader);

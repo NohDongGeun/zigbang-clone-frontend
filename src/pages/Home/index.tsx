@@ -1,7 +1,11 @@
 import React from "react";
-import DetailRoadview from "../../components/molecules/Details/DetailRoadview";
+import Filter from "../../components/organisms/Filter";
 
 const Home: React.FC = () => {
-  return <article className={"w-full sm:w-400 h-screen"}></article>;
+  return (
+    <article className={"w-full sm:w-400 h-screen"}>
+      <Filter />
+    </article>
+  );
 };
 export default Home;
