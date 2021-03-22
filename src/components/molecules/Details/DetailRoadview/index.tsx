@@ -1,46 +1,64 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Button, Text } from "../../..";
+import React, { useState } from "react";
+import { Button, Img } from "../../..";
 import KakaoMap from "../../../atoms/KakaoMap";
-import DetailBar from "../DetailBar";
+import mapImg from "../../../../assets/img/mapImg.png";
+import roadviewImg from "../../../../assets/img/roadviewImg.png";
 
 interface IDetailRoadview {
-  lon: number;
-  lat: number;
-  onRoadview: () => void;
-  address: string;
+  location: number[];
 }
 
-const DetailRoadview: React.FC<IDetailRoadview> = ({
-  lon,
-  lat,
-  address,
-  onRoadview,
-}) => {
+const DetailRoadview: React.FC<IDetailRoadview> = ({ location }) => {
+  const [roadview, setRoadview] = useState<boolean>(true);
+
+  const handleRoadview = () => {
+    setRoadview(!roadview);
+  };
+
   return (
-    <DetailBar label={"위치"}>
-      <Text
-        label={address}
-        className={"text-gray-400 font-semibold  px-3 py-3"}
-      />
-      <div className={"w-full px-3 "}>
-        <div className={"relative w-full border border-gray-200"}>
+    <section className={"w-full h-full relative"}>
+      {roadview ? (
+        <>
           <KakaoMap
-            lon={126.570667}
-            lat={33.450701}
-            className={"w-full h-52 pointer-events-none "}
-            type={"StaticMap"}
+            lat={location[0]}
+            lon={location[1]}
+            type={"Roadview"}
+            className={"w-full h-full"}
+            level={3}
           />
           <Button
             className={
-              "absolute z-10 transform -translate-y-14 w-full bg-transparent h-14 border bg-white bg-opacity-80"
+              "absolute z-10 transform -translate-y-24 translate-x-2 w-16 h-16  text-sm"
             }
-            onClick={onRoadview}
+            onClick={handleRoadview}
           >
-            <Text label={"로드뷰 보기"} />
+            <Img src={mapImg} className={"w-full h-full"} alt={"지도로 보기"} />
           </Button>
-        </div>
-      </div>
-    </DetailBar>
+        </>
+      ) : (
+        <>
+          <KakaoMap
+            lat={location[0]}
+            lon={location[1]}
+            type={"Map"}
+            className={"w-full h-full"}
+            level={3}
+          />
+          <Button
+            className={
+              "absolute z-10 transform -translate-y-24 translate-x-2 w-16 h-16  text-sm"
+            }
+            onClick={handleRoadview}
+          >
+            <Img
+              src={roadviewImg}
+              className={"w-full h-full"}
+              alt={"로드뷰로 보기"}
+            />
+          </Button>
+        </>
+      )}
+    </section>
   );
 };
 

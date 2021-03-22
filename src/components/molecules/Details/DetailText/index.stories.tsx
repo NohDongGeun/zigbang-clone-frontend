@@ -12,7 +12,10 @@ export default {
 export const detailText: React.FC = () => {
   return (
     <article className={"w-full sm:w-400"}>
-      <DetailText text={text("text", "")} label={text("label", "상세 목록")} />
+      <DetailText
+        wysiwyg={text("wysiwyg", "")}
+        label={text("label", "상세 목록")}
+      />
     </article>
   );
 };
@@ -21,7 +24,7 @@ export const agentText: React.FC = () => {
   return (
     <article className={"w-full sm:w-400"}>
       <DetailText
-        text={text("text", "")}
+        wysiwyg={text("wysiwyg", "")}
         label={text("label", "중개사무소 인사말")}
       />
     </article>

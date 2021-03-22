@@ -13,9 +13,9 @@ export const detailInfo: React.FC = () => {
   return (
     <article className={"sm:w-400 w-full"}>
       <DetailInfo
-        isParking={text("isParking", "불가능")}
-        isElevator={text("isElevator", "없음")}
-        PosibleMove={text("PosibleMove", "바로 입주가능")}
+        isParking={boolean("isParking", false)}
+        isElevator={boolean("isElevator", false)}
+        posibleMove={text("PosibleMove", "바로 입주가능")}
         exclusiveArea={number("exclusiveArea", 13)}
         expense={number("expense", 7)}
         structure={text("structure", "분리형 원룸")}

@@ -4,14 +4,13 @@ import DetailBar from "../DetailBar";
 
 interface IDetailInfo {
   /** 주차가능 여부 */
-  isParking: string;
-  /** 주차가능 여부 */
+  isParking: boolean;
 
   /** 엘리베이터 여부 */
-  isElevator: string;
+  isElevator: boolean;
 
   /** 입주가능일 */
-  PosibleMove: string;
+  posibleMove: string;
 
   /** 면적 */
   exclusiveArea: number;
@@ -41,7 +40,7 @@ interface IDetailInfo {
 const DetailInfo: React.FC<IDetailInfo> = ({
   isParking,
   isElevator,
-  PosibleMove,
+  posibleMove,
   exclusiveArea,
   expense,
   structure,
@@ -53,9 +52,9 @@ const DetailInfo: React.FC<IDetailInfo> = ({
 }) => {
   return (
     <DetailBar label={"매물 정보"}>
-      <DetailItem label={"주차"} value={isParking} />
-      <DetailItem label={"엘리베이터"} value={isElevator} />
-      <DetailItem label={"입주가능일"} value={PosibleMove} />
+      <DetailItem label={"주차"} value={isParking ? "가능" : "불가능"} />
+      <DetailItem label={"엘리베이터"} value={isElevator ? "있음" : "없음"} />
+      <DetailItem label={"입주가능일"} value={posibleMove} />
       <DetailItem label={"관리비"} value={`${expense}만원`} />
       <DetailItem label={"구조"} value={structure} />
       <DetailItem
@@ -67,7 +66,10 @@ const DetailInfo: React.FC<IDetailInfo> = ({
         }
       />
       <DetailItem label={"준공날짜"} value={completionDate} />
-      <DetailItem label={"층/건물층수"} value={`${floor}/${buildingFloor}`} />
+      <DetailItem
+        label={"층/건물층수"}
+        value={`${floor}층/${buildingFloor}층`}
+      />
       <DetailItem label={"주소"} value={address} />
     </DetailBar>
   );

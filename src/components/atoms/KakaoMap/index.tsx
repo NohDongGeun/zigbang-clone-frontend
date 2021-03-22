@@ -8,62 +8,58 @@ interface IKakaoMapProps {
   lon: number;
   lat: number;
   className: string;
-  type: "StaticMap" | "Map" | "roadview";
+  level: number;
+  type: "StaticMap" | "Map" | "Roadview";
 }
 
-const KakaoMap: React.FC<IKakaoMapProps> = ({ lon, lat, className, type }) => {
+const KakaoMap: React.FC<IKakaoMapProps> = ({
+  lon,
+  lat,
+  className,
+  type,
+  level,
+  children,
+}) => {
   const container = useRef<HTMLDivElement>(null);
-  const staticContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<any>(null);
 
   useEffect(() => {
-    if (type !== "Map") {
+    if (container === null) {
       return;
     }
     window.kakao.maps.load(() => {
-      console.log("map");
       const center = new window.kakao.maps.LatLng(lat, lon);
       const options = {
         center,
-        level: 3,
+        level: level,
       };
-      const map = new window.kakao.maps.Map(container.current, options);
-      setMap(map);
-    });
-  }, [container]);
+      if (type === "Map") {
+        const map = new window.kakao.maps.Map(container.current, options);
+        return setMap(map);
+      }
+      if (type === "StaticMap") {
+        const map = new window.kakao.maps.StaticMap(container.current, options);
+        return setMap(map);
+      }
+      if (type === "Roadview") {
+        const roadview = new window.kakao.maps.Roadview(container.current);
+        roadview.setPanoId(1023434522, center);
+        roadview.setViewpoint({
+          pan: 321,
+          tilt: 0,
+          zoom: 0,
+        });
 
-  useEffect(() => {
-    if (type !== "StaticMap") {
+        return setMap(roadview);
+      }
       return;
-    }
-
-    window.kakao.maps.load(() => {
-      console.log("staticmap");
-      const center = new window.kakao.maps.LatLng(lat, lon);
-      const options = {
-        center,
-        level: 3,
-        marker: {
-          position: new window.kakao.maps.LatLng(lat, lon), // 좌표가 없으면 이미지 지도 중심에 마커가 표시된다.
-          text: "마커 위에 텍스트가 함께 표시된다", // 지정하지 않으면 마커만 표시된다.
-        },
-      };
-      const map = new window.kakao.maps.StaticMap(
-        staticContainer.current,
-        options
-      );
-      setMap(map);
     });
-  }, [staticContainer]);
+  }, [lat, lon, level, type]);
 
   return (
-    <>
-      {type === "StaticMap" ? (
-        <div ref={staticContainer} className={className}></div>
-      ) : type === "Map" ? (
-        <div ref={container} className={className}></div>
-      ) : null}
-    </>
+    <div ref={container} className={className}>
+      {children}
+    </div>
   );
 };
 

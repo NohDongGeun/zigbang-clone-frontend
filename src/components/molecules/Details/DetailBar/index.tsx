@@ -14,11 +14,7 @@ interface IDetailBar {
   subLabel?: string;
 }
 
-const DetailBar: React.FC<IDetailBar> = ({
-  label,
-  children,
-  subLabel,
-}) => {
+const DetailBar: React.FC<IDetailBar> = ({ label, children, subLabel }) => {
   //false일시 메뉴 숨김
   const [able, setAble] = useState<boolean>(true);
 
@@ -28,7 +24,7 @@ const DetailBar: React.FC<IDetailBar> = ({
   };
 
   return (
-    <section className={"flex flex-col bg-white w-full"}>
+    <section className={"flex flex-col bg-white w-full mb-3"}>
       <Button
         className={`flex-row flex px-2 py-3 w-full items-center ${
           able ? "border-b border-gray-300" : "border-b-0"

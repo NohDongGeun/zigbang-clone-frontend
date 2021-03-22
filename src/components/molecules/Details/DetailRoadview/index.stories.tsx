@@ -1,8 +1,7 @@
+import { number } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/react";
 import React from "react";
-import DetailRoadview from "./index";
-import { withKnobs, number, text } from "@storybook/addon-knobs";
-import { action } from "@storybook/addon-actions";
+import DetailRoadview from ".";
 
 declare global {
   interface Window {
@@ -13,18 +12,15 @@ declare global {
 export default {
   title: "Molecules/DetailRoadview",
   component: DetailRoadview,
-  decorators: [withKnobs],
 } as Meta;
 
-export const staticRoadview: React.FC = () => {
+export const roadview: React.FC = () => {
   return (
-    <article className={"w-full sm:w-400"}>
+    <div className={"w-full sm:w-400 h-screen"}>
       <DetailRoadview
-        address={text("address", "성동구 사근동")}
         lat={number("lat", 33.450701)}
         lon={number("lon", 126.570667)}
-        onRoadview={action("onRoadview")}
       />
-    </article>
+    </div>
   );
 };

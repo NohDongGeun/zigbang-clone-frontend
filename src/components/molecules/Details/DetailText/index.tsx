@@ -4,9 +4,9 @@ import DetailBar from "../DetailBar";
 
 interface IDetailText {
   /**
-   * 상세 설명 text
+   * 상세 설명 wysiwyg
    */
-  text: string;
+  wysiwyg: string;
 
   /**
    * 목록 이름
@@ -14,11 +14,11 @@ interface IDetailText {
   label: string;
 }
 
-const DetailText: React.FC<IDetailText> = ({ text, label }) => {
+const DetailText: React.FC<IDetailText> = ({ wysiwyg, label }) => {
   return (
     <DetailBar label={label}>
       <div className={"flex flex-1 px-3 py-4"}>
-        <Text label={text} className={"break-all"} />
+        <Text label={wysiwyg} className={"break-all"} />
       </div>
     </DetailBar>
   );

@@ -3,20 +3,20 @@ import DetailBar from "../DetailBar";
 import { Heading, Img, Text } from "../../..";
 
 interface IDetailAgent {
-  agency: string;
+  name: string;
   img: string;
   phone: string;
 }
 
-const DetailAgent: React.FC<IDetailAgent> = ({ agency, img, phone }) => {
+const DetailAgent: React.FC<IDetailAgent> = ({ name, img, phone }) => {
   return (
-    <section className={"flex flew-row  bg-white w-full overflow-hidden"}>
+    <section className={"flex flew-row  bg-white w-full mb-3 "}>
       <div
         className={"flex flex-grow-0 flex-shrink-0 p-3 min-w-14 sm:min-w-16"}
       >
         <Img
           src={img}
-          alt={agency}
+          alt={name}
           className={"sm:w-16 sm:h-16 w-14 h-14 rounded-full"}
         />
       </div>
@@ -30,7 +30,7 @@ const DetailAgent: React.FC<IDetailAgent> = ({ agency, img, phone }) => {
           className={
             "w-full font-bold sm:text-lg text-base truncate whitespace-nowrap"
           }
-          label={agency}
+          label={name}
         />
         <Text
           label={`대표번호: ${phone}`}
