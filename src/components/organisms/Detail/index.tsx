@@ -168,8 +168,9 @@ const Detail: React.FC<IDetail> = ({ id }) => {
               src={roadview ? xImg : arrowLeft}
               alt={"뒤로가기"}
               isDetail={true}
-              label={room.address}
+              label={roadview ? "위치보기" : room.address}
               handleUnit={handleUnit}
+              isRoadview={roadview}
               onClick={handleRoadview}
             />
           </div>

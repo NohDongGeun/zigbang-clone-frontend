@@ -1,14 +1,14 @@
 import React from "react";
 import { Button, Heading, Img } from "../..";
-import arrowLeft from "../../../assets/img/arrow-left.png";
 
 interface IListHeader {
   isDetail: boolean;
+  isRoadview?: boolean;
   src: string;
   label: string;
   alt: string;
   onClick: () => void;
-  handleUnit: () => void;
+  handleUnit: () => void | null;
 }
 
 const ListHeader: React.FC<IListHeader> = ({
@@ -16,6 +16,7 @@ const ListHeader: React.FC<IListHeader> = ({
   label,
   handleUnit,
   onClick,
+  isRoadview,
   src,
   alt,
 }) => {
@@ -29,9 +30,9 @@ const ListHeader: React.FC<IListHeader> = ({
         )}
         <Heading className={"text-lg sm:text-xl"} Type={"h1"} label={label} />
       </div>
-      <div className={"flex flex-auto flex-row justify-end items-center"}>
+      <div className={`flex flex-auto flex-row justify-end items-center `}>
         <Button
-          className={"text-sm sm:text-base  "}
+          className={`text-sm sm:text-base ${isRoadview && "hidden"} `}
           label={"단위"}
           onClick={handleUnit}
         />
