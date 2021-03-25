@@ -4,10 +4,10 @@ import { Button, Heading, Img } from "../..";
 interface IListHeader {
   isDetail: boolean;
   isRoadview?: boolean;
-  src: string;
+  src?: string;
   label: string;
-  alt: string;
-  onClick: () => void;
+  alt?: string;
+  onClick?: () => void;
   handleUnit: () => void | null;
 }
 
@@ -21,9 +21,9 @@ const ListHeader: React.FC<IListHeader> = ({
   alt,
 }) => {
   return (
-    <section className={"w-full flex flex-row p-4 border border-gray-300"}>
+    <section className={"w-full flex flex-row p-4 border-b border-gray-300"}>
       <div className={"flex flex-auto  flex-row justify-start items-center"}>
-        {isDetail && (
+        {isDetail && src && alt && (
           <Button onClick={onClick}>
             <Img className={"w-6 h-6 sm:w-7 sm:h-7 mr-2"} src={src} alt={alt} />
           </Button>

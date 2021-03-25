@@ -97,8 +97,8 @@ const Filter: React.FC = () => {
       />
       <article
         className={`w-full sm:w-400 ${
-          able && "h-400"
-        }  sm:w-400 sm:absolute sm:transform sm:translate-y-5 sm:translate-x-5 bg-gray-200 border border-gray-300 shadow-md`}
+          able && "h-700"
+        }  sm:w-400 sm:absolute sm:transform sm:translate-y-5 sm:translate-x-5 bg-gray-200 border border-gray-300 shadow-md z-10`}
       >
         <FilterFixed
           label={

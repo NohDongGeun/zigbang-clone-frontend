@@ -17,10 +17,10 @@ interface IList {
   /**
    * list page handler
    */
-  pageHangler: () => void;
+  pageHandler: () => void;
 }
 
-const List: React.FC<IList> = ({ rooms, count, pageHangler }) => {
+const List: React.FC<IList> = ({ rooms, count, pageHandler }) => {
   const [unit, setUnit] = useState<boolean>(false);
   const scroll = useRef<HTMLDivElement>(null);
 
@@ -33,7 +33,7 @@ const List: React.FC<IList> = ({ rooms, count, pageHangler }) => {
     const scrollTop = scroll.current.scrollTop;
     const clientHeight = scroll.current.clientHeight;
     if (scrollTop + clientHeight >= scrollHeight) {
-      pageHangler();
+      pageHandler();
     }
   };
 
@@ -52,12 +52,12 @@ const List: React.FC<IList> = ({ rooms, count, pageHangler }) => {
   };
 
   return (
-    <article className={"w-full flex flex-col h-full justify-start"}>
+    <article className={"w-full sm:w-400 flex flex-col h-full justify-start"}>
       <div className={"w-full"}>
         <ListHeader
           isDetail={false}
           label={`지역목록${count}개`}
-          onClick={handleUnit}
+          handleUnit={handleUnit}
         />
       </div>
       <div

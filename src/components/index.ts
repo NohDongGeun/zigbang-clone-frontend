@@ -33,3 +33,8 @@ export { default as FilterRange } from "./molecules/Filter/FilterRange";
 export { default as FilterAlert } from "./molecules/Filter/FilterAlert";
 
 //organisms
+export { default as Detail } from "./organisms/Detail";
+export { default as Filter } from "./organisms/Filter";
+export { default as Header } from "./organisms/Header";
+export { default as List } from "./organisms/List";
+export { default as Map } from "./organisms/Map";
