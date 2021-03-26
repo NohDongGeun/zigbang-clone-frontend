@@ -12,6 +12,17 @@ export enum DealType {
   year = "year",
 }
 
+export interface FindLocationInput {
+  dealType: string;
+  dist: number[];
+  coordinates: number[];
+  deposit: number[];
+  rent: number[];
+  floorType: string;
+  roomType: string;
+  isParking: boolean;
+}
+
 export interface RoomDetailInput {
   roomId: number;
 }

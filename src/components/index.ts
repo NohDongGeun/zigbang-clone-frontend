@@ -38,3 +38,6 @@ export { default as Filter } from "./organisms/Filter";
 export { default as Header } from "./organisms/Header";
 export { default as List } from "./organisms/List";
 export { default as Map } from "./organisms/Map";
+
+//templates
+export { default as Main } from "./templates/Main";

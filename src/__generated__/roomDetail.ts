@@ -20,6 +20,7 @@ export interface roomDetail_roomDetail_room {
   __typename: "Room";
   id: number;
   isParking: boolean;
+  location: number[];
   isElevator: boolean;
   posibleMove: string;
   exclusiveArea: number;
@@ -34,7 +35,6 @@ export interface roomDetail_roomDetail_room {
   rent: number;
   deposit: number;
   images: string[];
-  location: number[];
   agency: roomDetail_roomDetail_room_agency;
 }
 

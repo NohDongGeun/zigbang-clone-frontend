@@ -1,11 +1,12 @@
 import React from "react";
 import { Detail, Header, List, Map } from "../..";
 import { ICardProps } from "../../../interfaces/Card";
+import { locationMutation_filteredLocation_locations } from "../../../__generated__/locationMutation";
 
 interface IMain {
   logged: boolean;
   name: string;
-  point: number[];
+  point?: locationMutation_filteredLocation_locations[];
   rooms: ICardProps[];
   params?: number;
   count: number;

@@ -11,7 +11,7 @@ export default {
 export const list: React.FC = () => {
   return (
     <div className={"w-full sm:w-400 flex flex-col h-screen"}>
-      <List rooms={[]} count={0} pageHangler={action("pageHangler")} />
+      <List rooms={[]} count={0} pageHandler={action("pageHandler")} />
     </div>
   );
 };
