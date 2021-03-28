@@ -53,6 +53,7 @@ const Home: React.FC = () => {
     });
     console.log(data);
   }, [filter, location]);
+
   return (
     <div>
       <Main
@@ -60,7 +61,6 @@ const Home: React.FC = () => {
         name={"shehdrms"}
         rooms={[]}
         count={count}
-        pageHandler={() => console.log()}
         point={coordinates}
       />
     </div>

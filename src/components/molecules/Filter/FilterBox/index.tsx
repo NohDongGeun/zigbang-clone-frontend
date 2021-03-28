@@ -12,7 +12,6 @@ interface IFilterBox extends ITailwind {
    * filter된 값
    */
   value?: string;
-
 }
 
 const FilterBox: React.FC<IFilterBox> = ({

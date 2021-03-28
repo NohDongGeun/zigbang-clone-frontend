@@ -24,7 +24,7 @@ const Filter: React.FC = () => {
   //filter state
   const [state, dispatch] = useReducer(filterReducer, initialState);
 
-  //filter state가 변경될때마다 apollo에 저장
+  //filter state가 변경될때마다 cache에 저장
   useEffect(() => {
     filterVar(state);
     console.log(filterVar());

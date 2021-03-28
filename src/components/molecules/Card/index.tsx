@@ -17,7 +17,7 @@ const Card: React.FC<ICardProps> = ({
   unitChange = true,
 }) => {
   return (
-    <section className={"w-full"}>
+    <section className={"w-full bg-white"}>
       <Link
         to={`/room/${id}`}
         className={"flex flex-row py-3 px-4 w-full h-36 hover:bg-gray-200"}
@@ -28,9 +28,9 @@ const Card: React.FC<ICardProps> = ({
         <div className={"w-7/12 flex flex-col justify-center items-start px-3"}>
           <Heading
             label={
-              dealType === "월세"
-                ? `${dealType} ${deposit}/${rent}`
-                : `${dealType} ${deposit}`
+              dealType === "month"
+                ? `월세 ${deposit}/${rent}`
+                : `전세 ${deposit}`
             }
             className={"font-bold sm:text-xl text-lg"}
             Type={"h1"}

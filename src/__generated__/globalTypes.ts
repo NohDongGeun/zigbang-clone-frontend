@@ -12,6 +12,13 @@ export enum DealType {
   year = "year",
 }
 
+export enum RoomType {
+  oneRoom = "oneRoom",
+  threeRoom = "threeRoom",
+  threeRoomPlus = "threeRoomPlus",
+  twoRoom = "twoRoom",
+}
+
 export interface FindLocationInput {
   dealType: string;
   dist: number[];
@@ -21,6 +28,18 @@ export interface FindLocationInput {
   floorType: string;
   roomType: string;
   isParking: boolean;
+}
+
+export interface FindRoomsInput {
+  dealType: string;
+  dist: number[];
+  coordinates: number[];
+  deposit: number[];
+  rent: number[];
+  floorType: string;
+  roomType: string;
+  isParking: boolean;
+  page: number;
 }
 
 export interface RoomDetailInput {

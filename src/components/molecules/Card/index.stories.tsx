@@ -17,14 +17,14 @@ export default {
 } as Meta;
 
 enum DealType {
-  deposit = "전세",
-  rent = "월세",
+  month = "year",
+  year = "month",
 }
 enum RoomType {
-  oneRoom = "원룸",
-  twoRoom = "투룸",
-  threeRoom = "쓰리룸",
-  fourRoom = "포룸이상",
+  oneRoom = "oneRoom",
+  twoRoom = "twoRoom",
+  threeRoom = "threeRoom",
+  threeRoomPlus = "threeRoomPlus",
 }
 
 export const allCard: React.FC = () => {
@@ -32,7 +32,7 @@ export const allCard: React.FC = () => {
     <article className={"flex sm:w-400 w-full justify-center items-center"}>
       <Card
         id={123}
-        dealType={radios("dealType", DealType, DealType.deposit)}
+        dealType={radios("dealType", DealType, DealType.month)}
         roomType={radios("roomType", RoomType, RoomType.oneRoom)}
         rent={number("rent", 50)}
         deposit={number("deposit", 1000)}

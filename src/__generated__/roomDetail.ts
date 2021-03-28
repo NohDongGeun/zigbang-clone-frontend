@@ -9,6 +9,11 @@ import { RoomDetailInput, DealType } from "./globalTypes";
 // GraphQL query operation: roomDetail
 // ====================================================
 
+export interface roomDetail_roomDetail_room_point {
+  __typename: "geometryTypes";
+  coordinates: number[];
+}
+
 export interface roomDetail_roomDetail_room_agency {
   __typename: "Agency";
   name: string;
@@ -20,7 +25,7 @@ export interface roomDetail_roomDetail_room {
   __typename: "Room";
   id: number;
   isParking: boolean;
-  location: number[];
+  point: roomDetail_roomDetail_room_point;
   isElevator: boolean;
   posibleMove: string;
   exclusiveArea: number;

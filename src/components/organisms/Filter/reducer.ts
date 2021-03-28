@@ -9,7 +9,7 @@ export type Filter = {
   isParking: boolean;
 };
 
-type Action =   
+type Action =
   | { type: "SET_DEALTYPE"; dealType: DealType }
   | { type: "SET_ROOMTYPE"; roomType: RoomType }
   | { type: "SET_DEPOSIT"; deposit: number[] }
@@ -33,19 +33,29 @@ export const filterReducer = (state: Filter, action: Action): Filter => {
       return initialState;
     }
     case "SET_DEALTYPE": {
-      return { ...state, dealType: action.dealType };
+      return action.dealType === state.dealType
+        ? state
+        : { ...state, dealType: action.dealType };
     }
     case "SET_ROOMTYPE": {
-      return { ...state, roomType: action.roomType };
+      return action.roomType === state.roomType
+        ? state
+        : { ...state, roomType: action.roomType };
     }
     case "SET_DEPOSIT": {
-      return { ...state, deposit: action.deposit };
+      return action.deposit === state.deposit
+        ? state
+        : { ...state, deposit: action.deposit };
     }
     case "SET_RENT": {
-      return { ...state, rent: action.rent };
+      return action.rent === state.rent
+        ? state
+        : { ...state, rent: action.rent };
     }
     case "SET_FLOORTYPE": {
-      return { ...state, floorType: action.floorType };
+      return action.floorType === state.floorType
+        ? state
+        : { ...state, floorType: action.floorType };
     }
     case "SET_ISPARKING": {
       return { ...state, isParking: !state.isParking };

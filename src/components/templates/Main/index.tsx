@@ -10,30 +10,17 @@ interface IMain {
   rooms: ICardProps[];
   params?: number;
   count: number;
-  pageHandler: () => void;
 }
 
-const Main: React.FC<IMain> = ({
-  logged,
-  name,
-  point,
-  rooms,
-  params,
-  count,
-  pageHandler,
-}) => {
+const Main: React.FC<IMain> = ({ logged, name, point, params, count }) => {
   return (
-    <div className={"h-screen w-screen flex flex-col"}>
+    <div className={"h-screen w-screen flex flex-col "}>
       <div className={"w-full"}>
         <Header logged={logged} name={name} />
       </div>
       <div className={"flex flex-row h-full"}>
         <Map point={point} />
-        {params ? (
-          <Detail id={params} />
-        ) : (
-          <List rooms={rooms} count={count} pageHandler={pageHandler} />
-        )}
+        {params ? <Detail id={params} /> : <List count={count} />}
       </div>
     </div>
   );

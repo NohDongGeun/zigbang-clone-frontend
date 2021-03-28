@@ -85,7 +85,7 @@ interface IRoomDetail {
   /** 부동산 */
   agency: Agency;
   /** 방 좌표 */
-  location: number[];
+  point: number[];
 }
 export interface IRoom {
   room: IRoomDetail;
@@ -104,7 +104,9 @@ export const ROOM_QUERY = gql`
       room {
         id
         isParking
-        location
+        point{
+          coordinates
+        }
         isElevator
         posibleMove
         exclusiveArea
