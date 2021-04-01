@@ -46,3 +46,5 @@ export { default as Map } from "./organisms/Map";
 
 //templates
 export { default as Main } from "./templates/Main";
+export { default as LoginTemplate } from "./templates/LoginTemplate";
+export { default as SignupTemplate } from "./templates/SignupTemplate";

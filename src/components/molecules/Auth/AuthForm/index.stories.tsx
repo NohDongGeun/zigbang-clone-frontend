@@ -5,11 +5,11 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { ILogin } from "../../../../interfaces/Auth";
 import AuthInput from "../AuthInput";
-import AuthForm from "./index";
+import LoginForm from "./index";
 
 export default {
-  title: "Molecules/AuthForm",
-  component: AuthForm,
+  title: "Molecules/LoginForm",
+  component: LoginForm,
 } as Meta;
 
 export const LoginBox: React.FC = () => {
@@ -18,7 +18,7 @@ export const LoginBox: React.FC = () => {
   });
   return (
     <FormProvider {...methods}>
-      <AuthForm to={"/room"} onSubmit={action("onSubmit")} label={"시작하기"}>
+      <LoginForm to={"/room"} onSubmit={action("onSubmit")} label={"시작하기"}>
         <AuthInput
           type={"password"}
           registerOptions={{ required: true }}
@@ -31,7 +31,7 @@ export const LoginBox: React.FC = () => {
           placeholder={text("placeholder", "비밀번호")}
           name={"password"}
         />
-      </AuthForm>
+      </LoginForm>
     </FormProvider>
   );
 };

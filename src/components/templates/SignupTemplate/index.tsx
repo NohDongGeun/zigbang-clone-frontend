@@ -1,34 +1,30 @@
 import React from "react";
-import { AuthForm, AuthInput, AuthLink, Heading, Img, Text } from "../..";
-import logo from "../../../assets/img/zigbang_logo.png";
 import { FormProvider, useFormContext } from "react-hook-form";
-import { ILogin } from "../../../interfaces/Auth";
+import { AuthForm, AuthInput, Text } from "../..";
+import { ISignup } from "../../../interfaces/Auth";
 
-interface ILoginTemplate {
+interface ISignupTemplate {
   onSubmit: () => void;
 }
 
-const LoginTemplate: React.FC<ILoginTemplate> = ({ onSubmit }) => {
-  const methods = useFormContext<ILogin>();
-  const { handleSubmit } = methods;
+const SignupTemplate: React.FC<ISignupTemplate> = ({ onSubmit }) => {
+  const methods = useFormContext<ISignup>();
+  const { handleSubmit, watch } = methods;
+
   return (
     <div className={"h-screen w-screen flex items-center justify-center"}>
       <FormProvider {...methods}>
         <AuthForm
-          label={"시작하기"}
-          to={"/room"}
+          label={"다음"}
+          to={"/login"}
           onSubmit={handleSubmit(onSubmit)}
         >
           <div
-            className={"flex flex-col pt-5 pb-8 justify-center items-center"}
+            className={"flex flex-col  pt-5 pb-8 justify-center items-center"}
           >
-            <Img className={"w-28 h-12 mb-3"} src={logo} alt={"홈으로 가기"} />
+            <Text className={"text-base"} label={"간편하게 로그인하고"} />
             <Text
-              className={"text-xl font-light"}
-              label={"간편하게 로그인하고"}
-            />
-            <Text
-              className={"text-xl font-bold"}
+              className={"text-base "}
               label={"다양한 서비스를 이용하세요."}
             />
           </div>
@@ -40,7 +36,7 @@ const LoginTemplate: React.FC<ILoginTemplate> = ({ onSubmit }) => {
                 message: "이메일 주소를 다시 확인해 주세요",
               },
             }}
-            placeholder={"이메일주소"}
+            placeholder={"이메일 주소"}
             name={"email"}
             type={"text"}
           />
@@ -54,14 +50,25 @@ const LoginTemplate: React.FC<ILoginTemplate> = ({ onSubmit }) => {
                 message: "잘못된 비밀번호입니다",
               },
             }}
-            placeholder={"비밀번호"}
+            placeholder={"영문,숫자 포함 8자 이상"}
             name={"password"}
             type={"password"}
           />
-          <AuthLink />
+          <AuthInput
+            registerOptions={{
+              required: { value: true, message: "비밀번호를 입력하세요" },
+              validate: (value) =>
+                value === watch("password") ||
+                "입력한 비밀번호가 서로 다릅니다",
+            }}
+            placeholder={"비밀번호 재입력"}
+            name={"passwordVerify"}
+            type={"password"}
+          />
         </AuthForm>
       </FormProvider>
     </div>
   );
 };
-export default LoginTemplate;
+
+export default SignupTemplate;
