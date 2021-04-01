@@ -85,10 +85,12 @@ const List: React.FC<IList> = ({ count }) => {
 
   useEffect(() => {
     // scroll event listener 등록
+
     const handleScroll = () => {
       if (scroll.current === null) {
         return;
       }
+
       const scrollHeight = scroll.current.scrollHeight;
       const scrollTop = scroll.current.scrollTop;
       const clientHeight = scroll.current.clientHeight;
@@ -98,18 +100,15 @@ const List: React.FC<IList> = ({ count }) => {
       }
       if (scrollTop + clientHeight > scrollHeight - 0.5) {
         page.current = page.current + 1;
-        console.log(page.current);
         roomsMutation();
       }
     };
 
-    if (scroll && scroll.current) {
-      scroll.current.addEventListener("scroll", handleScroll, false);
-      return () => {
-        // scroll event listener 해제
-        scroll.current?.removeEventListener("scroll", handleScroll, false);
-      };
-    }
+    scroll.current?.addEventListener("scroll", handleScroll, false);
+    return () => {
+      // scroll event listener 해제
+      scroll.current?.removeEventListener("scroll", handleScroll, false);
+    };
   }, [scroll, roomsMutation]);
 
   //단위 handler
@@ -132,8 +131,12 @@ const List: React.FC<IList> = ({ count }) => {
           "flex flex-col flex-grow-0 h-620 overflow-y-auto  bg-gray-300 relative"
         }
       >
-        <div className={"absolute h-full transform  translate-y-0"}>
-          {rooms ? (
+        <div
+          className={
+            "absolute h-full flex flex-col transform  translate-y-0 w-full"
+          }
+        >
+          {rooms && count !== 0 ? (
             rooms.map((room, i) => {
               return <Card unitChange={unit} {...room} key={i} />;
             })

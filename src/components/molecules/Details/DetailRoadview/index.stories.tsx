@@ -1,3 +1,4 @@
+import { number } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/react";
 import React from "react";
 import DetailRoadview from ".";
@@ -16,7 +17,7 @@ export default {
 export const roadview: React.FC = () => {
   return (
     <div className={"w-full sm:w-400 h-screen"}>
-      <DetailRoadview location={[33.450701, 126.570667]} />
+      <DetailRoadview lon={number("lon", 127)} lat={number("lat", 37)} />
     </div>
   );
 };

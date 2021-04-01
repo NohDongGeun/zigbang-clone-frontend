@@ -1,4 +1,5 @@
 module.exports = {
+  important: "#root",
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -22,6 +23,7 @@ module.exports = {
         "111": "calc(100% - 111px)",
         "094": "calc(100% - 94px)",
         "400": "calc(100% - 40px)",
+        "455": "455px",
         "620": "calc(100% - 62px)",
         "700": "calc(100% - 40px)",
       },

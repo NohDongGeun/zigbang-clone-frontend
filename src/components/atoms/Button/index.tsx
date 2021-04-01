@@ -9,6 +9,11 @@ export interface IButtonProps extends ITailwind {
   to?: string;
 
   /**
+   * button type
+   */
+  type?: "button" | "submit";
+
+  /**
    * button text
    */
   label?: string;

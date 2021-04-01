@@ -1,5 +1,7 @@
 import React from "react";
+import { FieldElement, Ref } from "react-hook-form";
 import { ITailwind } from "../../../interfaces/Tailwind";
+import { useFormContext, ValidationRule } from "react-hook-form";
 
 interface IInputProps extends ITailwind {
   /**
@@ -36,16 +38,32 @@ interface IInputProps extends ITailwind {
    * input click핸들러
    */
   onClick?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
+  /**
+   * react-hook-form ref
+   */
+  isRef?: boolean;
+
+  /**
+   * react-hook-form validation
+   */
+  pattern?: ValidationRule<RegExp>;
+
+  /**input required */
+  required?: boolean;
 }
 
 const Input: React.FC<IInputProps> = ({
   placeholder,
   type,
   onChange,
+  isRef,
+  pattern,
   ...props
 }) => {
+  const { register } = useFormContext();
   return (
     <input
+      ref={isRef ? register({ required: true, pattern }) : null}
       type={type}
       placeholder={placeholder}
       onChange={onChange}

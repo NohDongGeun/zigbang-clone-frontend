@@ -1,6 +1,6 @@
 import React from "react";
 import { Heading, Img, Text } from "../..";
-import emptyImg from "../../../assets/img/empty.png"
+import emptyImg from "../../../assets/img/empty.png";
 
 const Empty: React.FC = () => {
   return (

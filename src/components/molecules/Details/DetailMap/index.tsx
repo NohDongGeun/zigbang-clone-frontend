@@ -20,8 +20,8 @@ const DetailMap: React.FC<IDetailMap> = ({ lon, lat, address, onRoadview }) => {
       <div className={"w-full px-3 "}>
         <div className={"relative w-full border border-gray-200 mb-3"}>
           <KakaoMap
-            lon={126.570667}
-            lat={33.450701}
+            lon={lon}
+            lat={lat}
             level={3}
             className={"w-full h-52 pointer-events-none "}
             type={"StaticMap"}

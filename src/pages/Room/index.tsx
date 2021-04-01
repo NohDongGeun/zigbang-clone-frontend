@@ -1,5 +1,6 @@
 import { gql, useMutation, useReactiveVar } from "@apollo/client";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { filterVar, locationVar } from "../../apollo";
 import { Main } from "../../components";
 import {
@@ -22,8 +23,13 @@ export const Location_Mutation = gql`
   }
 `;
 
-const Home: React.FC = () => {
+interface IRoomParams {
+  id?: string;
+}
+
+const Room: React.FC = () => {
   const filter = useReactiveVar(filterVar);
+  const { id } = useParams<IRoomParams>();
   const location = useReactiveVar(locationVar);
   const [count, setCount] = useState<number>(0);
   const [coordinates, setCoordinates] = useState<
@@ -62,8 +68,9 @@ const Home: React.FC = () => {
         rooms={[]}
         count={count}
         point={coordinates}
+        params={id}
       />
     </div>
   );
 };
-export default Home;
+export default Room;

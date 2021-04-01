@@ -1,5 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
+import { History } from "history";
+import useReactRouter from "use-react-router";
 import {
   DetailAgent,
   DetailExpenses,
@@ -15,6 +17,7 @@ import { IDetailOption } from "../../../interfaces/Option";
 import { roomDetail } from "../../../__generated__/roomDetail";
 import arrowLeft from "../../../assets/img/arrow-left.png";
 import xImg from "../../../assets/img/x_image.png";
+import { RouteComponentProps, withRouter } from "react-router";
 
 interface Agency {
   img: string;
@@ -104,7 +107,7 @@ export const ROOM_QUERY = gql`
       room {
         id
         isParking
-        point{
+        point {
           coordinates
         }
         isElevator
@@ -131,7 +134,7 @@ export const ROOM_QUERY = gql`
   }
 `;
 
-const Detail: React.FC<IDetail> = ({ id }) => {
+const Detail: React.FC<IDetail & RouteComponentProps> = ({ id, history }) => {
   const [unit, setUnit] = useState<boolean>(false);
   const [room, setRoom] = useState<any>(null);
   const [roadview, setRoadview] = useState<boolean>(false);
@@ -159,6 +162,10 @@ const Detail: React.FC<IDetail> = ({ id }) => {
     setRoadview(!roadview);
   };
 
+  const goBack = () => {
+    history.goBack();
+  };
+
   return (
     <>
       {room !== null && (
@@ -173,62 +180,71 @@ const Detail: React.FC<IDetail> = ({ id }) => {
               label={roadview ? "위치보기" : room.address}
               handleUnit={handleUnit}
               isRoadview={roadview}
-              onClick={handleRoadview}
+              onClick={roadview ? handleRoadview : goBack}
             />
           </div>
-          <div className={"flex flex-col h-620 overflow-y-auto bg-gray-200"}>
-            {roadview ? (
-              <DetailRoadview location={room.location}></DetailRoadview>
-            ) : (
-              <>
-                <DetailHeader
-                  unitChange={unit}
-                  dealType={room.dealType === "month" ? "월세" : "전세"}
-                  deposit={room.deposit}
-                  rent={room.rent}
-                  image={room.image}
-                  text={room.text}
-                  structure={room.structure}
-                  id={room.id}
-                  exclusiveArea={room.exclusiveArea}
-                  expense={room.expense}
-                />
-                <DetailInfo
-                  isParking={room.isParking}
-                  isElevator={room.isElevator}
-                  posibleMove={room.posibleMove}
-                  exclusiveArea={room.exclusiveArea}
-                  expense={room.expense}
-                  structure={room.structure}
-                  completionDate={room.completionDate}
-                  floor={room.floor}
-                  buildingFloor={room.buildingFloor}
-                  address={room.address}
-                  unitChange={unit}
-                />
-                <DetailOptions options={room.options} />
-                <DetailExpenses
-                  expense={room.expense}
-                  expenseOptions={room.expenseOptions}
-                />
-                <DetailText label={"상세 설명"} wysiwyg={room.wysiwyg} />
-                <DetailMap
-                  address={room.address}
-                  lat={room.location[0]}
-                  lon={room.location[1]}
-                  onRoadview={handleRoadview}
-                />
-                <DetailAgent
-                  name={room.agency.name}
-                  img={room.agency.agent}
-                  phone={room.agency.phoneNum}
-                />
-                <DetailText
-                  label={"중개사무소 인사말"}
-                  wysiwyg={room.agency.name}
-                />
-              </>
-            )}
+          <div
+            className={
+              "flex flex-col flex-grow-0 h-620 overflow-y-auto overflow-x-hidden  bg-gray-300 relative justify-center items-center"
+            }
+          >
+            <div className={"absolute h-full transform  translate-y-0"}>
+              {roadview ? (
+                <DetailRoadview
+                  lat={room.point.coordinates[1]}
+                  lon={room.point.coordinates[0]}
+                ></DetailRoadview>
+              ) : (
+                <>
+                  <DetailHeader
+                    unitChange={unit}
+                    dealType={room.dealType === "month" ? "월세" : "전세"}
+                    deposit={room.deposit}
+                    rent={room.rent}
+                    image={room.image}
+                    text={room.text}
+                    structure={room.structure}
+                    id={room.id}
+                    exclusiveArea={room.exclusiveArea}
+                    expense={room.expense}
+                  />
+                  <DetailInfo
+                    isParking={room.isParking}
+                    isElevator={room.isElevator}
+                    posibleMove={room.posibleMove}
+                    exclusiveArea={room.exclusiveArea}
+                    expense={room.expense}
+                    structure={room.structure}
+                    completionDate={room.completionDate}
+                    floor={room.floor}
+                    buildingFloor={room.buildingFloor}
+                    address={room.address}
+                    unitChange={unit}
+                  />
+                  <DetailOptions options={room.options} />
+                  <DetailExpenses
+                    expense={room.expense}
+                    expenseOptions={room.expenseOptions}
+                  />
+                  <DetailText label={"상세 설명"} wysiwyg={room.wysiwyg} />
+                  <DetailMap
+                    address={room.address}
+                    lat={room.point.coordinates[1]}
+                    lon={room.point.coordinates[0]}
+                    onRoadview={handleRoadview}
+                  />
+                  <DetailAgent
+                    name={room.agency.name}
+                    img={room.agency.agent}
+                    phone={room.agency.phoneNum}
+                  />
+                  <DetailText
+                    label={"중개사무소 인사말"}
+                    wysiwyg={room.agency.name}
+                  />
+                </>
+              )}
+            </div>
           </div>
         </article>
       )}
@@ -236,4 +252,4 @@ const Detail: React.FC<IDetail> = ({ id }) => {
   );
 };
 
-export default Detail;
+export default withRouter(Detail);

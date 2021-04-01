@@ -5,10 +5,11 @@ import mapImg from "../../../../assets/img/mapImg.png";
 import roadviewImg from "../../../../assets/img/roadviewImg.png";
 
 interface IDetailRoadview {
-  location: number[];
+  lon: number;
+  lat: number;
 }
 
-const DetailRoadview: React.FC<IDetailRoadview> = ({ location }) => {
+const DetailRoadview: React.FC<IDetailRoadview> = ({ lon, lat }) => {
   const [roadview, setRoadview] = useState<boolean>(true);
 
   const handleRoadview = () => {
@@ -18,31 +19,31 @@ const DetailRoadview: React.FC<IDetailRoadview> = ({ location }) => {
   return (
     <section className={"w-full h-full relative"}>
       <KakaoMap
-        lat={location[0]}
-        lon={location[1]}
+        lat={lat}
+        lon={lon}
         type={"Roadview"}
         className={`w-full h-full ${!roadview && "hidden"}`}
         level={3}
       />
       <Button
-        className={
-          "absolute z-10 transform -translate-y-24 translate-x-2 w-16 h-16  text-sm"
-        }
+        className={`absolute z-10 transform -translate-y-24 translate-x-2 w-16 h-16  text-sm ${
+          !roadview && "hidden"
+        }`}
         onClick={handleRoadview}
       >
         <Img src={mapImg} className={"w-full h-full"} alt={"지도로 보기"} />
       </Button>
       <KakaoMap
-        lat={location[0]}
-        lon={location[1]}
+        lat={lat}
+        lon={lon}
         type={"Map"}
         className={`w-full h-full ${roadview && "hidden"}`}
         level={3}
       />
       <Button
-        className={
-          "absolute z-10 transform -translate-y-24 translate-x-2 w-16 h-16  text-sm"
-        }
+        className={`absolute z-10 transform -translate-y-24 translate-x-2 w-16 h-16  text-sm ${
+          roadview && "hidden"
+        }`}
         onClick={handleRoadview}
       >
         <Img
