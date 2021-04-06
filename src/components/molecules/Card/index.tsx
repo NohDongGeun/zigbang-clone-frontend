@@ -17,15 +17,17 @@ const Card: React.FC<ICardProps> = ({
   unitChange = true,
 }) => {
   return (
-    <section className={"w-full bg-white"}>
+    <section className={"flex-grow-0 flex-shrink-0 w-full bg-white"}>
       <Link
         to={`/room/${id}`}
         className={"flex flex-row py-3 px-4 w-full h-36 hover:bg-gray-200"}
       >
-        <div className={"w-5/12 flex"}>
+        <div className={" w-5/12 flex"}>
           <Img src={image} alt={text} />
         </div>
-        <div className={"w-7/12 flex flex-col justify-center items-start px-3"}>
+        <div
+          className={"w-7/12  flex flex-col justify-center items-start px-3"}
+        >
           <Heading
             label={
               dealType === "month"

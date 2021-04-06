@@ -5,9 +5,13 @@ import { ISignup } from "../../../interfaces/Auth";
 
 interface ISignupTemplate {
   onSubmit: () => void;
+  isFindEmail?: boolean;
 }
 
-const SignupTemplate: React.FC<ISignupTemplate> = ({ onSubmit }) => {
+const SignupTemplate: React.FC<ISignupTemplate> = ({
+  onSubmit,
+  isFindEmail,
+}) => {
   const methods = useFormContext<ISignup>();
   const { handleSubmit, watch } = methods;
 
@@ -22,10 +26,21 @@ const SignupTemplate: React.FC<ISignupTemplate> = ({ onSubmit }) => {
           <div
             className={"flex flex-col  pt-5 pb-8 justify-center items-center"}
           >
-            <Text className={"text-base"} label={"간편하게 로그인하고"} />
             <Text
-              className={"text-base "}
-              label={"다양한 서비스를 이용하세요."}
+              className={"sm:text-base text-sm "}
+              label={
+                isFindEmail
+                  ? "가입하신 이메일 주소를 입력해주세요."
+                  : "간편하게 로그인하고"
+              }
+            />
+            <Text
+              className={"sm:text-base text-sm  "}
+              label={
+                isFindEmail
+                  ? "임시 비밀번호를 보내드립니다."
+                  : "다양한 서비스를 이용하세요."
+              }
             />
           </div>
           <AuthInput
@@ -40,31 +55,45 @@ const SignupTemplate: React.FC<ISignupTemplate> = ({ onSubmit }) => {
             name={"email"}
             type={"text"}
           />
-          <AuthInput
-            registerOptions={{
-              required: { value: true, message: "비밀번호를 입력하세요" },
-              min: { value: 8, message: "잘못된 비밀번호입니다" },
-              max: { value: 16, message: "잘못된 비밀번호입니다" },
-              pattern: {
-                value: /^[A-Za-z0-9]{8,16}$/,
-                message: "잘못된 비밀번호입니다",
-              },
-            }}
-            placeholder={"영문,숫자 포함 8자 이상"}
-            name={"password"}
-            type={"password"}
-          />
-          <AuthInput
-            registerOptions={{
-              required: { value: true, message: "비밀번호를 입력하세요" },
-              validate: (value) =>
-                value === watch("password") ||
-                "입력한 비밀번호가 서로 다릅니다",
-            }}
-            placeholder={"비밀번호 재입력"}
-            name={"passwordVerify"}
-            type={"password"}
-          />
+          {!isFindEmail && (
+            <>
+              <AuthInput
+                registerOptions={{
+                  required: { value: true, message: "이름을 입력하세요" },
+                  min: { value: 2, message: "잘못된 이름입니다." },
+                  max: { value: 8, message: "잘못된 이름입니다." },
+                }}
+                placeholder={"이름"}
+                name={"name"}
+                type={"text"}
+              />
+              <AuthInput
+                registerOptions={{
+                  required: { value: true, message: "비밀번호를 입력하세요" },
+                  min: { value: 8, message: "잘못된 비밀번호입니다" },
+                  max: { value: 16, message: "잘못된 비밀번호입니다" },
+                  pattern: {
+                    value: /^[A-Za-z0-9]{8,16}$/,
+                    message: "잘못된 비밀번호입니다",
+                  },
+                }}
+                placeholder={"영문,숫자 포함 8자 이상"}
+                name={"password"}
+                type={"password"}
+              />
+              <AuthInput
+                registerOptions={{
+                  required: { value: true, message: "비밀번호를 입력하세요" },
+                  validate: (value) =>
+                    value === watch("password") ||
+                    "입력한 비밀번호가 서로 다릅니다",
+                }}
+                placeholder={"비밀번호 재입력"}
+                name={"passwordVerify"}
+                type={"password"}
+              />
+            </>
+          )}
         </AuthForm>
       </FormProvider>
     </div>

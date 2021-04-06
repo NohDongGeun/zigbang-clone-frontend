@@ -10,7 +10,9 @@ export default {
 } as Meta;
 
 export const UserLogin: React.FC = () => {
-  const method = useForm<ILogin>();
+  const method = useForm<ILogin>({
+    mode: "onChange",
+  });
   return (
     <FormProvider {...method}>
       <Login />

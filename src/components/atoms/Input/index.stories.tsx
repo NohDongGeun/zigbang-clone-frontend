@@ -10,29 +10,20 @@ export default {
   decorators: [withKnobs],
 } as Meta;
 
-export const email: React.FC = () => (
+export const checkbox: React.FC = () => (
   <Input
-    type={"email"}
+    type={"checkbox"}
     className={text("className", "rounded-xl")}
     placeholder={text("placeholder", "이메일을 입력하세요")}
     onChange={action("onChage")}
   />
 );
 
-export const password: React.FC = () => (
+export const radio: React.FC = () => (
   <Input
-    type={"password"}
+    type={"radio"}
     className={text("className", "rounded-xl")}
     placeholder={text("placeholder", "비밀번호를 입력하세요")}
-    onChange={action("onChage")}
-  />
-);
-
-export const search: React.FC = () => (
-  <Input
-    type={"text"}
-    className={text("className", "rounded-xl")}
-    placeholder={text("placeholder", "입력하세요")}
     onChange={action("onChage")}
   />
 );

@@ -4,10 +4,13 @@ import { ITailwind } from "../../../interfaces/Tailwind";
 
 interface IUseFormInputProps extends ITailwind {
   name: string;
-  placeholder: string;
+  placeholder?: string;
   required?: boolean;
   registerOptions: RegisterOptions;
-  type: "text" | "email" | "password";
+  type: "text" | "email" | "password" | "checkbox" | "button";
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  
 }
 
 const UseFormInput: React.FC<IUseFormInputProps> = ({
@@ -15,7 +18,12 @@ const UseFormInput: React.FC<IUseFormInputProps> = ({
   ...props
 }) => {
   const { register } = useFormContext();
-  return <input ref={register(registerOptions)} {...props}></input>;
+  return (
+    <input
+      ref={register(registerOptions)}
+      {...props}
+    ></input>
+  );
 };
 
 export default React.memo(UseFormInput);

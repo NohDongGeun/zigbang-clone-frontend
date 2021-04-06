@@ -16,7 +16,7 @@ const AuthForm: React.FC<IAuthFormProps> = ({
   onSubmit,
   to,
 }) => {
-  const { handleSubmit } = useFormContext();
+  const { handleSubmit, formState } = useFormContext();
 
   return (
     <form
@@ -35,7 +35,11 @@ const AuthForm: React.FC<IAuthFormProps> = ({
         className={`flex flex-auto justify-center items-end sm:px-6 sm:py-3`}
       >
         <Button
-          className={" w-full py-3 font-bold text-white bg-yellow-500"}
+          className={` w-full py-3 font-bold ${
+            formState.isValid
+              ? "text-white bg-yellow-500"
+              : "text-gray-700 bg-gray-300 pointer-events-none"
+          }`}
           type={"submit"}
           label={label}
         />

@@ -11,7 +11,7 @@ export default {
 } as Meta;
 
 export const UserSignup: React.FC = () => {
-  const method = useForm<ISignup>();
+  const method = useForm<ISignup>({ mode: "onChange" });
   return (
     <FormProvider {...method}>
       <Signup />

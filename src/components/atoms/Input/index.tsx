@@ -7,7 +7,7 @@ interface IInputProps extends ITailwind {
   /**
    * type 여부
    */
-  type: "email" | "text" | "number" | "password" | "checkbox" | "radio";
+  type: "checkbox" | "radio";
 
   /**
    * placeholder
@@ -38,15 +38,6 @@ interface IInputProps extends ITailwind {
    * input click핸들러
    */
   onClick?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
-  /**
-   * react-hook-form ref
-   */
-  isRef?: boolean;
-
-  /**
-   * react-hook-form validation
-   */
-  pattern?: ValidationRule<RegExp>;
 
   /**input required */
   required?: boolean;
@@ -56,14 +47,11 @@ const Input: React.FC<IInputProps> = ({
   placeholder,
   type,
   onChange,
-  isRef,
-  pattern,
   ...props
 }) => {
   const { register } = useFormContext();
   return (
     <input
-      ref={isRef ? register({ required: true, pattern }) : null}
       type={type}
       placeholder={placeholder}
       onChange={onChange}

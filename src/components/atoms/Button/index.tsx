@@ -65,7 +65,10 @@ const Button: React.FC<IButtonProps> = ({
           className={
             canClick
               ? ["outline-none focus:outline-none", className].join(" ")
-              : ["bg-gray-300 pointer-events-none", unableClassName].join(" ")
+              : [
+                  "outline-none focus:outline-none pointer-events-none",
+                  unableClassName,
+                ].join(" ")
           }
           {...props}
         >

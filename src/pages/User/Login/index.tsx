@@ -5,8 +5,10 @@ import LoginTemplate from "../../../components/templates/LoginTemplate";
 import { ILogin } from "../../../interfaces/Auth";
 
 const Login: React.FC = () => {
-  const method = useForm<ILogin>();
-  const { getValues, errors } = method;
+  const method = useForm<ILogin>({
+    mode: "onChange",
+  });
+  const { getValues, errors, formState } = method;
 
   useEffect(() => {
     console.log(errors);

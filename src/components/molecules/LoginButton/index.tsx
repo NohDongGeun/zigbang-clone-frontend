@@ -1,21 +1,24 @@
 import React from "react";
-import { Heading, Img } from "../..";
+import { Button, Heading, Img } from "../..";
 
 interface LoginButtonProps {
   src: string;
   alt: string;
   label: string;
   className: string;
+  onClick?: () => void;
 }
 
 const LoginButton: React.FC<LoginButtonProps> = ({
   src,
   alt,
   label,
+  onClick,
   className,
 }) => {
   return (
-    <section
+    <Button
+      onClick={onClick}
       className={[
         "flex flex-1 justify-center items-center border border-gray-300 rounded-3xl",
         ,
@@ -26,7 +29,7 @@ const LoginButton: React.FC<LoginButtonProps> = ({
         <Img src={src} className={"w-7 h-7 mr-1"} alt={alt} />
         <Heading Type={"h2"} label={label} />
       </div>
-    </section>
+    </Button>
   );
 };
 

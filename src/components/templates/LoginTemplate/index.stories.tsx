@@ -1,5 +1,5 @@
 import { action } from "@storybook/addon-actions";
-import { text } from "@storybook/addon-knobs";
+import { boolean, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/react";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
