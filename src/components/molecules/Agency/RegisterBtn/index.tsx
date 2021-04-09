@@ -1,35 +1,36 @@
 import React, { useEffect } from "react";
-import {
-  FormProvider,
-  NestedValue,
-  RegisterOptions,
-  useForm,
-  useFormContext,
-} from "react-hook-form";
-import { UseFormBtn } from "../../..";
+
+import { Button, Input } from "../../..";
 import { ITailwind } from "../../../../interfaces/Tailwind";
 
 interface IRegisterBtn extends ITailwind {
   name: string;
-  registerOptions: RegisterOptions;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   label: string;
   value: string | number;
+  isActive: boolean;
 }
 
-const RegisterBtn: React.FC<IRegisterBtn> = ({ className, ...props }) => {
-  const method = useFormContext();
-
+const RegisterBtn: React.FC<IRegisterBtn> = ({
+  value,
+  className,
+  isActive,
+  ...props
+}) => {
   return (
-    <FormProvider {...method}>
-      <UseFormBtn
-        className={[
-          "sm:w-24 w-136 flex-auto  flex-grow-0  sm:flex-initial  mr-2 even:mr-0 sm:even:mr-2 sm:mb-2  sm:ml-0 py-2 outline-none text-center border border-gray-300 bg-gray-100 font-semibold text-gray-700 focus:bg-white focus:font-bold  focus:text-yellow-300 focus:border-yellow-400",
-          className,
-        ].join(" ")}
-        {...props}
-      />
-    </FormProvider>
+    <Button
+      type={"button"}
+      value={value}
+      className={[
+        `sm:w-24 w-136 flex-auto  flex-grow-0  sm:flex-initial  mr-2 even:mr-0 sm:even:mr-2 sm:mb-2  sm:ml-0 py-2 outline-none text-center border  ${
+          isActive
+            ? "bg-white font-bold text-yellow-300 border-yellow-400"
+            : "border-gray-300 bg-gray-100 font-semibold text-gray-700"
+        }`,
+        className,
+      ].join(" ")}
+      {...props}
+    />
   );
 };
 

@@ -12,7 +12,11 @@ const RegisterLabel: React.FC<IRegisterLabel> = ({ label, children }) => {
         className={"flex-initial flex-shrink-0 w-36 py-3 sm:py-0 sm:leading-42"}
         label={label}
       />
-      <div className={"flex flex-row flex-wrap justify-start items-center  "}>
+      <div
+        className={
+          "flex w-full flex-row flex-wrap justify-start items-center  "
+        }
+      >
         {children}
       </div>
     </div>

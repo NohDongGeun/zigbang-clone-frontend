@@ -1,6 +1,6 @@
+import { action } from "@storybook/addon-actions";
 import { Meta } from "@storybook/react";
 import React from "react";
-import { FormProvider, useForm } from "react-hook-form";
 import RoomInfos from "./index";
 
 export default {
@@ -9,10 +9,18 @@ export default {
 } as Meta;
 
 export const BasicRoomInfos: React.FC = () => {
-  const method = useForm();
   return (
-    <FormProvider {...method}>
-      <RoomInfos />
-    </FormProvider>
+    <RoomInfos
+      deposit={"10"}
+      rent={"1"}
+      floor={"1"}
+      buildingFloor={"6"}
+      exclusiveArea={"13"}
+      supplyArea={"13"}
+      onChange={action("onChange")}
+      onClick={action("onClick")}
+      dealType={""}
+      roomType={""}
+    />
   );
 };

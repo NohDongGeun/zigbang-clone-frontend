@@ -1,13 +1,11 @@
 import React from "react";
-import { FieldElement, Ref } from "react-hook-form";
 import { ITailwind } from "../../../interfaces/Tailwind";
-import { useFormContext, ValidationRule } from "react-hook-form";
 
 interface IInputProps extends ITailwind {
   /**
    * type 여부
    */
-  type: "checkbox" | "radio";
+  type: "text" | "checkbox" | "radio" | "button" | "number";
 
   /**
    * placeholder
@@ -27,7 +25,7 @@ interface IInputProps extends ITailwind {
   /**
    * input value
    */
-  value?: string;
+  value?: string | number | "";
 
   /**
    * input change핸들러
@@ -47,14 +45,15 @@ const Input: React.FC<IInputProps> = ({
   placeholder,
   type,
   onChange,
+  value,
   ...props
 }) => {
-  const { register } = useFormContext();
   return (
     <input
       type={type}
       placeholder={placeholder}
       onChange={onChange}
+      value={value}
       {...props}
     ></input>
   );

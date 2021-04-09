@@ -1,6 +1,3 @@
-import { fromPromise } from "@apollo/client";
-import DetailRoadview from "./molecules/Details/DetailRoadview";
-
 // atoms
 export { default as Button } from "./atoms/Button";
 export { default as Heading } from "./atoms/Heading";
@@ -24,6 +21,7 @@ export { default as RegisterInput } from "./molecules/Agency/RegisterInput";
 export { default as NotAgencyBox } from "./molecules/Agency/NotAgencyBox";
 export { default as RegisterBox } from "./molecules/Agency/RegisterBox";
 export { default as RegisterLabel } from "./molecules/Agency/RegisterLabel";
+export { default as RegisterTextArea } from "./molecules/Agency/RegisterTextArea";
 //molecules/Detail
 export { default as DetailAgent } from "./molecules/Details/DetailAgent";
 export { default as DetailBar } from "./molecules/Details/DetailBar";
@@ -53,8 +51,14 @@ export { default as Header } from "./organisms/Header";
 export { default as List } from "./organisms/List";
 export { default as Map } from "./organisms/Map";
 
+//organisms/CreateRoom
+export { default as RoomInfos } from "./organisms/CreateRoom/RoomInfos";
+export { default as RoomOptions } from "./organisms/CreateRoom/RoomOptions";
+export { default as RoomTexts } from "./organisms/CreateRoom/RoomTexts";
+
 //templates
 export { default as Main } from "./templates/Main";
 export { default as LoginTemplate } from "./templates/LoginTemplate";
 export { default as SignupTemplate } from "./templates/SignupTemplate";
 export { default as AuthTemplate } from "./templates/AuthTemplate";
+export { default as CreateRoomTemplate } from "./templates/CreateRoomTemplate";

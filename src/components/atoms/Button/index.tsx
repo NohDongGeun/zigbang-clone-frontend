@@ -26,7 +26,7 @@ export interface IButtonProps extends ITailwind {
   /**
    * button value
    */
-  value?: string;
+  value?: string | number;
 
   /**
    * Click 이벤트 처리
