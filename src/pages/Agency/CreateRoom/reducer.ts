@@ -14,6 +14,8 @@ export type CreateRoom = {
   supplyArea: string;
   content: string;
   title: string;
+  address: string;
+  location: number[];
 };
 
 type Action =
@@ -23,6 +25,7 @@ type Action =
   | { type: "SET_ISPARKING"; isParking: string }
   | { type: "SET_EXPENSES"; expenses: string }
   | { type: "SET_OPTIONS"; options: string }
+  | { type: "SET_LOCATION"; location: number[]; address: string };
 
 export const initialState: CreateRoom = {
   deposit: "",
@@ -40,6 +43,8 @@ export const initialState: CreateRoom = {
   possibleMove: "",
   content: "",
   title: "",
+  address: "",
+  location: [],
 };
 
 export const registerReducer = (state: CreateRoom, action: Action) => {
@@ -80,6 +85,13 @@ export const registerReducer = (state: CreateRoom, action: Action) => {
             ...state,
             options: state.options.filter((v) => v !== action.options),
           };
+    }
+    case "SET_LOCATION": {
+      return {
+        ...state,
+        address: action.address,
+        location: action.location,
+      };
     }
     default: {
       return state;

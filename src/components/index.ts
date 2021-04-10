@@ -10,6 +10,7 @@ export { default as DetailItem } from "./atoms/DetailItem";
 export { default as BackgroundImg } from "./atoms/BackgroundImg";
 export { default as UseFormInput } from "./atoms/UseFormInput";
 export { default as UseFormBtn } from "./atoms/UseFormBtn";
+export { default as KakaoRoadview } from "./atoms/KakaoRoadview"
 
 //molecules
 export { default as Card } from "./molecules/Card";
@@ -55,6 +56,7 @@ export { default as Map } from "./organisms/Map";
 export { default as RoomInfos } from "./organisms/CreateRoom/RoomInfos";
 export { default as RoomOptions } from "./organisms/CreateRoom/RoomOptions";
 export { default as RoomTexts } from "./organisms/CreateRoom/RoomTexts";
+export { default as RoomLocation } from "./organisms/CreateRoom/RoomLocation";
 
 //templates
 export { default as Main } from "./templates/Main";

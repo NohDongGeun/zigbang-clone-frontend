@@ -1,28 +1,32 @@
-import React from "react";
+import React, { useEffect, useMemo, useRef } from "react";
+import ReactDOM from "react-dom";
 import DaumPostcode from "react-daum-postcode";
 
 interface IRoomPostcode {
-  onComplete: () => void;
-  isActive: boolean;
+  closeWindowPortal: () => void;
 }
 
-const RoomPostcode: React.FC<IRoomPostcode> = ({ onComplete, isActive }) => {
-  return (
-    <>
-      {isActive && (
-        <div
-          className={
-            "absolute transform -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 w-full h-full sm:w-400 sm:h-455 border border-gray-300"
-          }
-        >
-          <DaumPostcode
-            style={{ width: "100%", height: "100%" }}
-            onComplete={onComplete}
-          />
-        </div>
-      )}
-    </>
-  );
+const RoomPostcode: React.FC<IRoomPostcode> = ({
+  children,
+  closeWindowPortal,
+}) => {
+  const ref = useMemo(() => document.createElement("div"), []);
+
+  useEffect(() => {
+    const externalWindow = window.open(
+      "",
+      "우편번호 서비스",
+      "width=600,height=400,left=200,top=200"
+    );
+    externalWindow?.document.body.appendChild(ref);
+    externalWindow?.addEventListener("beforeunload", () => {
+      closeWindowPortal();
+    });
+    return () => {
+      externalWindow?.close();
+    };
+  }, [ref, closeWindowPortal]);
+  return ReactDOM.createPortal(children, ref);
 };
 
 export default RoomPostcode;

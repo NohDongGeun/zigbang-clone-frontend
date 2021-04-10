@@ -11,7 +11,7 @@ export default {
 export const roomPostcode: React.FC = () => {
   return (
     <div className={"w-screen h-screen relative"}>
-      <RoomPostcode onComplete={action("onConplete")} isActive={true} />
+      {/* <RoomPostcode onComplete={action("onConplete")} isActive={true} /> */}
     </div>
   );
 };

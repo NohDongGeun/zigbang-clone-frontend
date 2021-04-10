@@ -17,7 +17,7 @@ export default {
 export const roadview: React.FC = () => {
   return (
     <div className={"w-full sm:w-400 h-screen"}>
-      <DetailRoadview lon={number("lon", 127)} lat={number("lat", 37)} />
+      <DetailRoadview lon={number("lon", 126.734086)} lat={number("lat", 37.413294)} />
     </div>
   );
 };

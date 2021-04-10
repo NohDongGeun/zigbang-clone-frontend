@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler } from "react";
-import { Header, RoomInfos, RoomOptions, RoomTexts } from "../..";
+import { Header, RoomInfos, RoomLocation, RoomOptions, RoomTexts } from "../..";
 
 interface ICreateRoomTemplate {
   dealType: string;
@@ -15,9 +15,12 @@ interface ICreateRoomTemplate {
   expenses: string[];
   options: string[];
   possibleMove: string;
+  address: string;
+  location: number[];
   currentMoveNum: number;
   currentTitleNum: number;
   currentContentNum: number;
+  onShowPortal: () => void;
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onChange: (
     e:
@@ -37,6 +40,7 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
   isParking,
   expense,
   expenses,
+  address,
   options,
   possibleMove,
   currentMoveNum,
@@ -46,7 +50,10 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
   onClick,
   dealType,
   roomType,
+  location,
   onChangeTextarea,
+  onShowPortal,
+  
 }) => {
   return (
     <div className={"h-screen w-screen flex flex-col "}>
@@ -54,6 +61,11 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
         <Header logged={true} name={"노동근"} />
       </div>
       <div className={"flex flex-col p-2 overflow-y-scroll"}>
+        <RoomLocation
+          onShowPortal={onShowPortal}
+          location={location}
+          address={address}
+        />
         <RoomInfos
           onClick={onClick}
           deposit={deposit}

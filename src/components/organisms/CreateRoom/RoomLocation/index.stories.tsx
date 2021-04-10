@@ -1,3 +1,4 @@
+import { action } from "@storybook/addon-actions";
 import { Meta } from "@storybook/react";
 import React from "react";
 import RoomLocation from "./index";
@@ -9,6 +10,10 @@ export default {
 
 export const roomLocation: React.FC = () => {
   return (
-    <RoomLocation location={[126.734086, 37.413294]} address={"울산광역시"} />
+    <RoomLocation
+      onShowPortal={action("onShowPortal")}
+      location={[126.734086, 37.413294]}
+      address={"울산광역시"}
+    />
   );
 };
