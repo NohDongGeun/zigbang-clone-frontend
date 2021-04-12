@@ -16,6 +16,7 @@ export type CreateRoom = {
   title: string;
   address: string;
   location: number[];
+  images: File[];
 };
 
 type Action =
@@ -25,7 +26,9 @@ type Action =
   | { type: "SET_ISPARKING"; isParking: string }
   | { type: "SET_EXPENSES"; expenses: string }
   | { type: "SET_OPTIONS"; options: string }
-  | { type: "SET_LOCATION"; location: number[]; address: string };
+  | { type: "SET_LOCATION"; location: number[]; address: string }
+  | { type: "SET_IMAGES"; image: File }
+  | { type: "REMOVE_IMAGES"; i: number };
 
 export const initialState: CreateRoom = {
   deposit: "",
@@ -45,6 +48,7 @@ export const initialState: CreateRoom = {
   title: "",
   address: "",
   location: [],
+  images: [],
 };
 
 export const registerReducer = (state: CreateRoom, action: Action) => {
@@ -91,6 +95,18 @@ export const registerReducer = (state: CreateRoom, action: Action) => {
         ...state,
         address: action.address,
         location: action.location,
+      };
+    }
+    case "SET_IMAGES": {
+      return {
+        ...state,
+        images: state.images.concat(action.image),
+      };
+    }
+    case "REMOVE_IMAGES": {
+      return {
+        ...state,
+        images: state.images.filter((v, index) => index !== action.i),
       };
     }
     default: {

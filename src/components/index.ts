@@ -11,6 +11,7 @@ export { default as BackgroundImg } from "./atoms/BackgroundImg";
 export { default as UseFormInput } from "./atoms/UseFormInput";
 export { default as UseFormBtn } from "./atoms/UseFormBtn";
 export { default as KakaoRoadview } from "./atoms/KakaoRoadview"
+export { default as RoomImg } from "./atoms/RoomImg"
 
 //molecules
 export { default as Card } from "./molecules/Card";
@@ -57,6 +58,7 @@ export { default as RoomInfos } from "./organisms/CreateRoom/RoomInfos";
 export { default as RoomOptions } from "./organisms/CreateRoom/RoomOptions";
 export { default as RoomTexts } from "./organisms/CreateRoom/RoomTexts";
 export { default as RoomLocation } from "./organisms/CreateRoom/RoomLocation";
+export { default as RoomImgs } from "./organisms/CreateRoom/RoomImgs"
 
 //templates
 export { default as Main } from "./templates/Main";

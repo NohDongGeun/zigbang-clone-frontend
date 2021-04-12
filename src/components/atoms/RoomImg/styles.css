@@ -1,0 +1,6 @@
+.square:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+  

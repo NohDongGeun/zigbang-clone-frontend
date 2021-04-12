@@ -18,6 +18,7 @@ const CreateRoom: React.FC = () => {
   const [currentContent, setCurrentContent] = useState<number>(0);
   //postcode portal
   const [showPortal, setShowPortal] = useState<boolean>(false);
+  const [prevUrl, setPrevUrl] = useState<any[]>([]);
 
   useEffect(() => {
     console.log(state);
@@ -114,10 +115,37 @@ const CreateRoom: React.FC = () => {
       value,
     });
   };
+  const addImages = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const {
+      target: { files },
+    } = e;
+    if (files) {
+      const reader = new FileReader();
+      const file = files[0];
+      reader.onloadend = () => {
+        dispatch({ type: "SET_IMAGES", image: files[0] });
+        setPrevUrl((prev) => [...prev, reader.result]);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const onRemove = (i: number) => {
+    dispatch({ type: "REMOVE_IMAGES", i });
+    setPrevUrl((prev) => prev.filter((e, index) => index !== i));
+  };
 
+  const onSubmit = useCallback(
+    (e) => {
+      console.log(state);
+    },
+    [state]
+  );
   return (
     <>
       <CreateRoomTemplate
+        onSubmit={onSubmit}
+        addImages={addImages}
         onShowPortal={onShowPortal}
         onClick={onClick}
         onChange={onChange}
@@ -140,6 +168,9 @@ const CreateRoom: React.FC = () => {
         possibleMove={state.possibleMove}
         address={state.address}
         location={state.location}
+        prevUrl={prevUrl}
+        onRemove={onRemove}
+        label={"완료"}
       />
       {showPortal && (
         <RoomPostcode closeWindowPortal={closeWindowPortal}>

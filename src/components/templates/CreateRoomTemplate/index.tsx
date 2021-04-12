@@ -1,5 +1,13 @@
 import React, { ChangeEventHandler } from "react";
-import { Header, RoomInfos, RoomLocation, RoomOptions, RoomTexts } from "../..";
+import {
+  Button,
+  Header,
+  RoomImgs,
+  RoomInfos,
+  RoomLocation,
+  RoomOptions,
+  RoomTexts,
+} from "../..";
 
 interface ICreateRoomTemplate {
   dealType: string;
@@ -20,6 +28,10 @@ interface ICreateRoomTemplate {
   currentMoveNum: number;
   currentTitleNum: number;
   currentContentNum: number;
+  prevUrl: string[];
+  label: string;
+  addImages: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onRemove: (i: number) => void;
   onShowPortal: () => void;
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onChange: (
@@ -28,17 +40,20 @@ interface ICreateRoomTemplate {
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => void;
   onChangeTextarea: React.ChangeEventHandler<HTMLTextAreaElement>;
+  onSubmit: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
   deposit,
   rent,
   floor,
+  label,
   buildingFloor,
   exclusiveArea,
   supplyArea,
   isParking,
   expense,
+  addImages,
   expenses,
   address,
   options,
@@ -53,7 +68,9 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
   location,
   onChangeTextarea,
   onShowPortal,
-  
+  prevUrl,
+  onRemove,
+  onSubmit,
 }) => {
   return (
     <div className={"h-screen w-screen flex flex-col "}>
@@ -78,6 +95,7 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
           dealType={dealType}
           roomType={roomType}
         />
+        <RoomImgs addImages={addImages} prevUrl={prevUrl} onRemove={onRemove} />
         <RoomOptions
           onClick={onClick}
           expense={expense}
@@ -93,6 +111,11 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
           currentTitleNum={currentTitleNum}
           currentContentNum={currentContentNum}
           onChangeTextarea={onChangeTextarea}
+        />
+        <Button
+          onClick={onSubmit}
+          className={" w-full h-92 border border-gray-400"}
+          label={label}
         />
       </div>
     </div>

@@ -4,6 +4,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     backgroundSize: {
+      auto: "auto",
+      cover: "cover",
+      contain: "contain",
       "36": "36px",
       "42": "42px",
     },
@@ -34,6 +37,12 @@ module.exports = {
       },
       lineHeight: {
         "42": "42px",
+      },
+      translate: {
+        "174": "174px",
+      },
+      padding: {
+        "100": "100%",
       },
     },
   },
