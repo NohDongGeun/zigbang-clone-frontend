@@ -1,4 +1,4 @@
-export type CreateRoom = {
+type Room = {
   dealType: string;
   roomType: string;
   deposit: string;
@@ -18,6 +18,14 @@ export type CreateRoom = {
   location: number[];
   images: File[];
 };
+type CreateRoomState = {
+  room: Room;
+  isError: boolean;
+  isLoading: boolean;
+  prevUrl: string[];
+  showPortal: boolean;
+  ErrorMessage: string;
+};
 
 type Action =
   | { type: "CHANGE_INPUT"; name: string; value: string }
@@ -27,86 +35,152 @@ type Action =
   | { type: "SET_EXPENSES"; expenses: string }
   | { type: "SET_OPTIONS"; options: string }
   | { type: "SET_LOCATION"; location: number[]; address: string }
-  | { type: "SET_IMAGES"; image: File }
-  | { type: "REMOVE_IMAGES"; i: number };
+  | { type: "SET_IMAGES"; images: File[] }
+  | { type: "REMOVE_IMAGES"; i: number }
+  | { type: "SET_PORTAL"; portal: boolean }
+  | { type: "SET_PREVURL"; prevUrl: string }
+  | { type: "SET_ERROR"; isError: boolean,message:string }
+  | { type: "SET_LOADING"; isLoading: boolean };
 
-export const initialState: CreateRoom = {
-  deposit: "",
-  rent: "",
-  floor: "",
-  buildingFloor: "",
-  expense: "",
-  exclusiveArea: "",
-  supplyArea: "",
-  dealType: "",
-  roomType: "",
-  options: [],
-  expenses: [],
-  isParking: "",
-  possibleMove: "",
-  content: "",
-  title: "",
-  address: "",
-  location: [],
-  images: [],
+export const initialState: CreateRoomState = {
+  room: {
+    deposit: "",
+    rent: "",
+    floor: "",
+    buildingFloor: "",
+    expense: "",
+    exclusiveArea: "",
+    supplyArea: "",
+    dealType: "",
+    roomType: "",
+    options: [],
+    expenses: [],
+    isParking: "",
+    possibleMove: "",
+    content: "",
+    title: "",
+    address: "",
+    location: [],
+    images: [],
+  },
+  isError: true,
+  ErrorMessage: "",
+  isLoading: false,
+  prevUrl: [],
+  showPortal: false,
 };
 
-export const registerReducer = (state: CreateRoom, action: Action) => {
+export const registerReducer = (state: CreateRoomState, action: Action) => {
   switch (action.type) {
     case "CHANGE_INPUT": {
       return {
         ...state,
-        [action.name]: action.value,
+        room: { ...state.room, [action.name]: action.value },
       };
     }
     case "SET_DEALTYPE": {
-      return action.dealType === state.dealType
+      return action.dealType === state.room.dealType
         ? state
-        : { ...state, dealType: action.dealType };
+        : { ...state, room: { ...state.room, dealType: action.dealType } };
     }
     case "SET_ROOMTYPE": {
-      return action.roomType === state.roomType
+      return action.roomType === state.room.roomType
         ? state
-        : { ...state, roomType: action.roomType };
+        : { ...state, room: { ...state.room, roomType: action.roomType } };
     }
     case "SET_ISPARKING": {
-      return action.isParking === state.isParking
+      return action.isParking === state.room.isParking
         ? state
-        : { ...state, isParking: action.isParking };
+        : { ...state, room: { ...state.room, isParking: action.isParking } };
     }
     case "SET_EXPENSES": {
-      return state.expenses.indexOf(action.expenses) === -1
-        ? { ...state, expenses: state.expenses.concat(action.expenses) }
+      return state.room.expenses.indexOf(action.expenses) === -1
+        ? {
+            ...state,
+            room: {
+              ...state.room,
+              expenses: state.room.expenses.concat(action.expenses),
+            },
+          }
         : {
             ...state,
-            expenses: state.expenses.filter((v) => v !== action.expenses),
+            room: {
+              ...state.room,
+              expenses: state.room.expenses.filter(
+                (v) => v !== action.expenses
+              ),
+            },
           };
     }
     case "SET_OPTIONS": {
-      return state.options.indexOf(action.options) === -1
-        ? { ...state, options: state.options.concat(action.options) }
+      return state.room.options.indexOf(action.options) === -1
+        ? {
+            ...state,
+            room: {
+              ...state.room,
+              options: state.room.options.concat(action.options),
+            },
+          }
         : {
             ...state,
-            options: state.options.filter((v) => v !== action.options),
+            room: {
+              ...state.room,
+              options: state.room.options.filter((v) => v !== action.options),
+            },
           };
     }
     case "SET_LOCATION": {
       return {
         ...state,
-        address: action.address,
-        location: action.location,
+        room: {
+          ...state.room,
+          address: action.address,
+          location: action.location,
+        },
       };
     }
     case "SET_IMAGES": {
       return {
         ...state,
-        images: state.images.concat(action.image),
+        room: {
+          ...state.room,
+          images: state.room.images.concat(action.images),
+        },
       };
     }
     case "REMOVE_IMAGES": {
       return {
         ...state,
-        images: state.images.filter((v, index) => index !== action.i),
+        prevUrl: state.prevUrl.filter((v, index) => index !== action.i),
+        room: {
+          ...state.room,
+          images: state.room.images.filter((v, index) => index !== action.i),
+        },
+      };
+    }
+    case "SET_PORTAL": {
+      return {
+        ...state,
+        showPortal: action.portal,
+      };
+    }
+    case "SET_PREVURL": {
+      return {
+        ...state,
+        prevUrl: state.prevUrl.concat(action.prevUrl),
+      };
+    }
+    case "SET_ERROR": {
+      return {
+        ...state,
+        isError: action.isError,
+        ErrorMessage: action.message,
+      };
+    }
+    case "SET_LOADING": {
+      return {
+        ...state,
+        isLoading: action.isLoading,
       };
     }
     default: {

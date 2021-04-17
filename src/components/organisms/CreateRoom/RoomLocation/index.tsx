@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, RegisterBox, RegisterLabel, Text } from "../../..";
 import KakaoMap from "../../../atoms/KakaoMap";
 
@@ -19,6 +19,9 @@ const RoomLocation: React.FC<IRoomLocation> = ({
   address,
   location,
 }) => {
+  useEffect(() => {
+    console.log(address);
+  }, [address]);
 
   return (
     <RegisterBox label={"위치정보"}>

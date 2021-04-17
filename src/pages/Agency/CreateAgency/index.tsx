@@ -3,7 +3,9 @@ import { FormProvider, useForm } from "react-hook-form";
 import AgencyRegisterTemplate from "../../../components/templates/AgencyProfile";
 
 const CreateAgency: React.FC = () => {
-  const method = useForm();
+  const method = useForm({
+    mode: "onChange",
+  });
   const { getValues } = method;
   const [image, setImage] = useState<File>();
   const [prevImage, setPrevImage] = useState<string>("");
@@ -32,9 +34,18 @@ const CreateAgency: React.FC = () => {
     }
   };
 
-  const onSubmit = () => {
-    const { name } = getValues();
-    console.log(name);
+  const onSubmit = async () => {
+    const { image } = getValues();
+    const actualFile = image[0];
+    const formBody = new FormData();
+    formBody.append("files", actualFile);
+    const { imagesPath: coverImg } = await (
+      await fetch("http://localhost:4000/uploads/", {
+        method: "POST",
+        body: formBody,
+      })
+    ).json();
+    console.log(coverImg);
   };
 
   return (

@@ -1,6 +1,6 @@
 import React from "react";
-import { Input, Text, UseFormInput } from "../../..";
-import { FormProvider, RegisterOptions, useFormContext } from "react-hook-form";
+import { Input, Text} from "../../..";
+
 
 interface IAuthInputProps {
   placeholder: string;
@@ -28,7 +28,7 @@ const RegisterInput: React.FC<IAuthInputProps> = ({
           "w-full h-42 px-2 text-gray-700 text-sm sm:text-base  text-start border-none outline-none focus:bg-white"
         }
         placeholder={placeholder}
-        type={"text"}
+        type={"number"}
         name={name}
         required={true}
         onChange={onChange}

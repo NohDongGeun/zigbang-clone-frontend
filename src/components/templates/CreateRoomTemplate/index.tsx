@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler } from "react";
+import React from "react";
 import {
   Button,
   Header,
@@ -7,6 +7,7 @@ import {
   RoomLocation,
   RoomOptions,
   RoomTexts,
+  ErrorMessage,
 } from "../..";
 
 interface ICreateRoomTemplate {
@@ -30,6 +31,7 @@ interface ICreateRoomTemplate {
   currentContentNum: number;
   prevUrl: string[];
   label: string;
+  message?: string;
   addImages: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onRemove: (i: number) => void;
   onShowPortal: () => void;
@@ -71,13 +73,14 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
   prevUrl,
   onRemove,
   onSubmit,
+  message,
 }) => {
   return (
-    <div className={"h-screen w-screen flex flex-col "}>
+    <div className={"w-screen flex flex-col relative"}>
       <div className={"w-full"}>
         <Header logged={true} name={"노동근"} />
       </div>
-      <div className={"flex flex-col p-2 overflow-y-scroll"}>
+      <div className={"flex flex-col p-2 overflow-y-scroll absolute"}>
         <RoomLocation
           onShowPortal={onShowPortal}
           location={location}
@@ -112,11 +115,16 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
           currentContentNum={currentContentNum}
           onChangeTextarea={onChangeTextarea}
         />
-        <Button
-          onClick={onSubmit}
-          className={" w-full h-92 border border-gray-400"}
-          label={label}
-        />
+        {message && <ErrorMessage message={message} />}
+        <section className={"w-full flex justify-center items-center"}>
+          <Button
+            onClick={onSubmit}
+            className={
+              "w-full sm:w-60 py-3 border border-yellow-600 bg-yellow-500 text-white font-bold"
+            }
+            label={label}
+          />
+        </section>
       </div>
     </div>
   );

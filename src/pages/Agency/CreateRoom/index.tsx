@@ -16,20 +16,14 @@ const CreateRoom: React.FC = () => {
   const [currentPM, setCurrentPM] = useState<number>(0);
   const [currentTitle, setCurrentTitle] = useState<number>(0);
   const [currentContent, setCurrentContent] = useState<number>(0);
-  //postcode portal
-  const [showPortal, setShowPortal] = useState<boolean>(false);
-  const [prevUrl, setPrevUrl] = useState<any[]>([]);
 
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
   //portal 창 닫을 시 showportal false
   const closeWindowPortal = () => {
-    setShowPortal(false);
+    dispatch({ type: "SET_PORTAL", portal: false });
   };
   //postcode on/off
   const onShowPortal = () => {
-    setShowPortal(!showPortal);
+    dispatch({ type: "SET_PORTAL", portal: !state.showPortal });
   };
   //postcode 주소 선택시
   const onCompletedPostcode = (data: AddressData) => {
@@ -61,15 +55,15 @@ const CreateRoom: React.FC = () => {
 
   //textarea 글자수 업데이트
   useEffect(() => {
-    setCurrentPM(state.possibleMove.length);
-  }, [state.possibleMove]);
+    setCurrentPM(state.room.possibleMove.length);
+  }, [state.room.possibleMove]);
   useEffect(() => {
-    setCurrentTitle(state.title.length);
-  }, [state.title]);
+    setCurrentTitle(state.room.title.length);
+  }, [state.room.title]);
   useEffect(() => {
-    setCurrentContent(state.content.length);
-    console.log(state.content);
-  }, [state.content]);
+    setCurrentContent(state.room.content.length);
+    console.log(state.room.content);
+  }, [state.room.content]);
 
   //버튼 클릭 시 reducer 찾아서 업데이트
   const onClick = useCallback(
@@ -115,32 +109,83 @@ const CreateRoom: React.FC = () => {
       value,
     });
   };
-  const addImages = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const checkFile = (file: File) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (reader.result) {
+        dispatch({
+          type: "SET_PREVURL",
+          prevUrl: reader.result.toString(),
+        });
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const addImages = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const {
       target: { files },
     } = e;
     if (files) {
-      const reader = new FileReader();
-      const file = files[0];
-      reader.onloadend = () => {
-        dispatch({ type: "SET_IMAGES", image: files[0] });
-        setPrevUrl((prev) => [...prev, reader.result]);
-      };
-      reader.readAsDataURL(file);
+      dispatch({ type: "SET_IMAGES", images: [...Array.from(files)] });
+      Array.from(files).map(async (e, i) => {
+        checkFile(files[i]);
+      });
     }
   };
+
+  //이미지 지우기
   const onRemove = (i: number) => {
     dispatch({ type: "REMOVE_IMAGES", i });
-    setPrevUrl((prev) => prev.filter((e, index) => index !== i));
   };
 
-  const onSubmit = useCallback(
-    (e) => {
-      console.log(state);
-    },
-    [state]
-  );
+  //Error handler
+  const errorHandler = () => {
+    if (
+      state.room.images === [] ||
+      state.room.address === "" ||
+      state.room.deposit === "" ||
+      state.room.floor === "" ||
+      state.room.buildingFloor === "" ||
+      state.room.isParking === "" ||
+      state.room.possibleMove === "" ||
+      state.room.content === "" ||
+      state.room.title === "" ||
+      currentPM > 20 ||
+      currentTitle > 32 ||
+      currentTitle < 6 ||
+      currentContent > 50
+    ) {
+      return dispatch({
+        type: "SET_ERROR",
+        isError: true,
+        message: "입력란을 다시 확인해주세요.",
+      });
+    }
+
+    return dispatch({ type: "SET_ERROR", isError: false, message: "" });
+  };
+
+  //Submit handler
+  const onSubmit = async () => {
+    errorHandler();
+    if (state.isError === false || state.isLoading === false) {
+      return;
+    }
+    dispatch({ type: "SET_LOADING", isLoading: true });
+
+    const formBody = new FormData();
+    state.room.images.map((e, i) => {
+     return formBody.append("files", state.room.images[i]);
+    });
+    const { imagesPath: coverImg } = await (
+      await fetch("http://localhost:4000/uploads/", {
+        method: "POST",
+        body: formBody,
+      })
+    ).json();
+  };
   return (
     <>
       <CreateRoomTemplate
@@ -150,29 +195,30 @@ const CreateRoom: React.FC = () => {
         onClick={onClick}
         onChange={onChange}
         onChangeTextarea={onChange}
-        dealType={state.dealType}
-        roomType={state.roomType}
-        deposit={state.deposit}
-        rent={state.rent}
-        isParking={state.isParking}
-        floor={state.floor}
-        buildingFloor={state.buildingFloor}
-        exclusiveArea={state.exclusiveArea}
-        supplyArea={state.supplyArea}
+        dealType={state.room.dealType}
+        roomType={state.room.roomType}
+        deposit={state.room.deposit}
+        rent={state.room.rent}
+        isParking={state.room.isParking}
+        floor={state.room.floor}
+        buildingFloor={state.room.buildingFloor}
+        exclusiveArea={state.room.exclusiveArea}
+        supplyArea={state.room.supplyArea}
         currentMoveNum={currentPM}
         currentTitleNum={currentTitle}
         currentContentNum={currentContent}
-        expense={state.expense}
-        expenses={state.expenses}
-        options={state.options}
-        possibleMove={state.possibleMove}
-        address={state.address}
-        location={state.location}
-        prevUrl={prevUrl}
+        expense={state.room.expense}
+        expenses={state.room.expenses}
+        options={state.room.options}
+        possibleMove={state.room.possibleMove}
+        address={state.room.address}
+        location={state.room.location}
+        prevUrl={state.prevUrl}
         onRemove={onRemove}
-        label={"완료"}
+        message={state.ErrorMessage}
+        label={state.isLoading ? "Loading..." : "완료"}
       />
-      {showPortal && (
+      {state.showPortal && (
         <RoomPostcode closeWindowPortal={closeWindowPortal}>
           <DaumPostcode
             style={{ width: "100%", height: "100%" }}

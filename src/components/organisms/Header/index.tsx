@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Img, Text } from "../..";
 import logo from "../../../assets/img/zigbang_logo.png";
 import agentLogo from "../../../assets/img/ceo_ad_img.png";
-import arrow from "../../../assets/img/arrowUp.png";
 
 interface IHeader {
   /**

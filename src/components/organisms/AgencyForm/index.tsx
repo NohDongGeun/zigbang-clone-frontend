@@ -23,7 +23,7 @@ const AgencyForm: React.FC<IAgencyForm> = ({ onSubmit, src, onChange }) => {
           <AgencyImage src={src} className={"my-6 mx-auto"} />
           <AuthInput
             registerOptions={{
-              required: { value: true, message: "이메일을 입력하세요" },
+              required: true,
             }}
             placeholder={"부동산 이름"}
             name={"name"}
@@ -31,9 +31,7 @@ const AgencyForm: React.FC<IAgencyForm> = ({ onSubmit, src, onChange }) => {
           />
           <AuthInput
             registerOptions={{
-              required: { value: true, message: "이름을 입력하세요" },
-              min: { value: 2, message: "잘못된 이름입니다." },
-              max: { value: 10, message: "잘못된 이름입니다." },
+              required: true,
             }}
             placeholder={"대표 중개사 이름"}
             name={"agent"}
@@ -41,9 +39,7 @@ const AgencyForm: React.FC<IAgencyForm> = ({ onSubmit, src, onChange }) => {
           />
           <AuthInput
             registerOptions={{
-              required: { value: true, message: "주소를 입력하세요" },
-              min: { value: 8, message: "잘못된 주소입니다" },
-              max: { value: 16, message: "잘못된 주소입니다" },
+              required: true,
             }}
             placeholder={"주소"}
             name={"address"}
@@ -57,8 +53,10 @@ const AgencyForm: React.FC<IAgencyForm> = ({ onSubmit, src, onChange }) => {
           >
             이미지 등록
             <input
+              ref={methods.register({ required: true })}
               type={"file"}
               className={"hidden"}
+              name={"image"}
               id={"agency_image"}
               onChange={onChange}
             ></input>
