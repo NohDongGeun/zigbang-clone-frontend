@@ -1,7 +1,7 @@
 import { text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/react";
 import React from "react";
-import ErrorMessage from ".";
+import ErrorMessage from "./index";
 
 export default {
   title: "Molecules/ErrorMessage",

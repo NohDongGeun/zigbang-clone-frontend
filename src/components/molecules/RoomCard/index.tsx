@@ -28,7 +28,11 @@ const RoomCard: React.FC<IRoomCard> = ({
         <Img src={src} alt={"사진"} />
       </div>
       <div className={"border border-gray-300"}>
-        <Heading Type={"h2"} label={title} />
+        <Heading
+          Type={"h2"}
+          className={"w-full text-center truncate whitespace-nowrap"}
+          label={title}
+        />
         <DetailItem
           label={"가격"}
           value={`${
@@ -43,7 +47,10 @@ const RoomCard: React.FC<IRoomCard> = ({
           className={"flex-1 border border-gray-300 p-2"}
           label={"삭제"}
         />
-        <Button className={"flex-1 border border-l-0 border-gray-300 p-2"} label={label} />
+        <Button
+          className={"flex-1 border border-l-0 border-gray-300 p-2"}
+          label={label}
+        />
       </div>
     </section>
   );

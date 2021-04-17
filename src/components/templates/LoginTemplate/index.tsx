@@ -1,14 +1,23 @@
 import React from "react";
-import { AuthForm, AuthInput, AuthLink, Heading, Img, Text } from "../..";
+import {
+  AuthForm,
+  AuthInput,
+  AuthLink,
+  ErrorMessage,
+  Heading,
+  Img,
+  Text,
+} from "../..";
 import logo from "../../../assets/img/zigbang_logo.png";
 import { FormProvider, useFormContext } from "react-hook-form";
 import { ILogin } from "../../../interfaces/Auth";
 
 interface ILoginTemplate {
   onSubmit: () => void;
+  message?: string;
 }
 
-const LoginTemplate: React.FC<ILoginTemplate> = ({ onSubmit }) => {
+const LoginTemplate: React.FC<ILoginTemplate> = ({ onSubmit, message }) => {
   const methods = useFormContext<ILogin>();
   const { handleSubmit } = methods;
   return (
@@ -18,6 +27,7 @@ const LoginTemplate: React.FC<ILoginTemplate> = ({ onSubmit }) => {
           label={"시작하기"}
           to={"/room"}
           onSubmit={handleSubmit(onSubmit)}
+          message={message}
         >
           <div
             className={"flex flex-col pt-5 pb-8 justify-center items-center"}
@@ -50,7 +60,7 @@ const LoginTemplate: React.FC<ILoginTemplate> = ({ onSubmit }) => {
               min: { value: 8, message: "잘못된 비밀번호입니다" },
               max: { value: 16, message: "잘못된 비밀번호입니다" },
               pattern: {
-                value: /^[A-Za-z0-9]{8,16}$/,
+                value: /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/,
                 message: "잘못된 비밀번호입니다",
               },
             }}

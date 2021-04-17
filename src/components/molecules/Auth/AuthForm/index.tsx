@@ -1,19 +1,21 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { Button, Img } from "../../..";
+import { Button, ErrorMessage, Img } from "../../..";
 import arrowLeft from "../../../../assets/img/arrow-left.png";
 
 interface IAuthFormProps {
   label: string;
   onSubmit: () => void;
   to: string;
+  message?: string;
 }
 
 const AuthForm: React.FC<IAuthFormProps> = ({
   children,
   label,
   onSubmit,
+  message,
   to,
 }) => {
   const { handleSubmit, formState } = useFormContext();
@@ -31,6 +33,7 @@ const AuthForm: React.FC<IAuthFormProps> = ({
         </Link>
       </div>
       <div className={"flex flex-auto flex-col w-full  px-6"}>{children}</div>
+      {message && <ErrorMessage message={message} />}
       <div
         className={`flex flex-auto justify-center items-end sm:px-6 sm:py-3`}
       >

@@ -10,7 +10,7 @@ import { FindRoomsInput, DealType, RoomType } from "./globalTypes";
 // ====================================================
 
 export interface findRooms_findRooms_rooms {
-  __typename?: "Room";
+  __typename: "Room";
   id: number;
   dealType: DealType;
   roomType: RoomType;

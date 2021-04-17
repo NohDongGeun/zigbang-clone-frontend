@@ -18,7 +18,7 @@ export const BasicRoomCard: React.FC = () => {
       roomType={text("roomType", "원룸")}
       rent={number("rent", 100)}
       deposit={number("deposit", 1000)}
-      address={text("address", "서울시 동작구 사당동 근처")}
+      address={text("address", "서울시 동작구 사당동 근처ssssss")}
     />
   );
 };

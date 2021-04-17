@@ -31,6 +31,7 @@ export const allCard: React.FC = () => {
   return (
     <article className={"flex sm:w-400 w-full justify-center items-center"}>
       <Card
+        __typename={"Room"}
         id={123}
         dealType={radios("dealType", DealType, DealType.month)}
         roomType={radios("roomType", RoomType, RoomType.oneRoom)}

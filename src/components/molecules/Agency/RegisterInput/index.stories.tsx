@@ -1,3 +1,4 @@
+import { action } from "@storybook/addon-actions";
 import { Meta } from "@storybook/react";
 import React, { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -19,8 +20,9 @@ export const PriceRegisterInput: React.FC = () => {
       <RegisterInput
         placeholder={"월세"}
         name={"rent"}
-        registerOptions={{ required: true }}
         label={"만원"}
+        value={"1000"}
+        onChange={action("onChange")}
       />
     </FormProvider>
   );

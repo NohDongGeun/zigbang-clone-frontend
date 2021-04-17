@@ -17,7 +17,7 @@ export interface roomDetail_roomDetail_room_point {
 export interface roomDetail_roomDetail_room_agency {
   __typename: "Agency";
   name: string;
-  phoneNum: string;
+  phoneNum: string | null;
   agent: string;
 }
 

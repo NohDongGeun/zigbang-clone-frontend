@@ -22,9 +22,7 @@ const DetailMap: React.FC<IDetailMap> = ({ lon, lat, address, onRoadview }) => {
           <KakaoMap
             lon={lon}
             lat={lat}
-            level={3}
             className={"w-full h-52 pointer-events-none "}
-            type={"StaticMap"}
           />
           <Button
             className={
