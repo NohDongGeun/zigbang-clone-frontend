@@ -6,7 +6,7 @@ import arrowLeft from "../../../../assets/img/arrow-left.png";
 
 interface IAuthFormProps {
   label: string;
-  onSubmit: () => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   to: string;
   message?: string;
 }

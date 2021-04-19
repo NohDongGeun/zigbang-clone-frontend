@@ -1,6 +1,12 @@
-import { ApolloClient, InMemoryCache, makeVar } from "@apollo/client";
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+  makeVar,
+} from "@apollo/client";
 import { Filter, initialState } from "./components/organisms/Filter/reducer";
 import { LOCALSTORAGE_TOKEN } from "./constants/constants";
+import { setContext } from "@apollo/client/link/context";
 
 interface ILocation {
   coordinates: number[];
@@ -14,9 +20,21 @@ export const locationVar = makeVar<ILocation>({
   coordinates: [37.554722, 126.970833],
   dist: [37.58471042042775, 127.1847711145695],
 });
+const httpLink = createHttpLink({
+  uri: "http://localhost:4000/graphql",
+});
+
+const authLink = setContext((_, { headers }) => {
+  return {
+    headers: {
+      ...headers,
+      "u-jwt": authTokenVar() || "",
+    },
+  };
+});
 
 export const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache({
     typePolicies: {
       Query: {

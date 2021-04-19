@@ -7,7 +7,11 @@ interface IAuthBoxProps {
   registerOptions: RegisterOptions;
 }
 
-const AuthBox: React.FC<IAuthBoxProps> = ({ name, registerOptions,children }) => {
+const AuthBox: React.FC<IAuthBoxProps> = ({
+  name,
+  registerOptions,
+  children,
+}) => {
   return (
     <div className={"flex flex-col justify-center items-center mt-4"}>
       <UseFormInput
@@ -20,7 +24,7 @@ const AuthBox: React.FC<IAuthBoxProps> = ({ name, registerOptions,children }) =>
         required={true}
       ></UseFormInput>
       <div className={"flex w-full justify-end items-center mt-6"}>
-        
+        {children}
       </div>
     </div>
   );

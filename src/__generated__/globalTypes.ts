@@ -19,6 +19,26 @@ export enum RoomType {
   twoRoom = "twoRoom",
 }
 
+export enum Verify {
+  checking = "checking",
+  no = "no",
+  verified = "verified",
+}
+
+export interface CreateAccountInput {
+  email: string;
+  name: string;
+  password: string;
+}
+
+export interface CreateVerifyInput {
+  phone: string;
+}
+
+export interface FindIdPhoneInput {
+  phone: string;
+}
+
 export interface FindLocationInput {
   dealType: string;
   dist: number[];
@@ -47,8 +67,16 @@ export interface LoginInput {
   password: string;
 }
 
+export interface PasswordEmailInput {
+  email: string;
+}
+
 export interface RoomDetailInput {
   roomId: number;
+}
+
+export interface VerifyUserInput {
+  code: string;
 }
 
 //==============================================================

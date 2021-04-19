@@ -9,4 +9,13 @@ export interface ISignup {
   email: string;
   password: string;
   passwordVerify: string;
+  name: string;
+}
+
+export interface IAuth {
+  phone: string;
+}
+
+export interface IAuthNext {
+  code: string;
 }

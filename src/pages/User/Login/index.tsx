@@ -22,12 +22,13 @@ const LOGIN_MUTATION = gql`
 `;
 
 const Login: React.FC = () => {
+  //에러 메세지
   const [message, setMessage] = useState<string>("");
   const method = useForm<ILogin>({
     mode: "onChange",
   });
   const history = useHistory();
-  const { getValues, errors, formState } = method;
+  const { getValues } = method;
 
   const onCompleted = (data: loginMutation) => {
     const {
@@ -48,8 +49,8 @@ const Login: React.FC = () => {
     loginMutationVariables
   >(LOGIN_MUTATION, { onCompleted });
 
+  // submit handler
   const onSubmit = () => {
-    //todo:apollo login mutation with getvalues()
     const { email, password } = getValues();
     loginMutation({
       variables: {

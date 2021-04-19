@@ -6,11 +6,13 @@ import { ISignup } from "../../../interfaces/Auth";
 interface ISignupTemplate {
   onSubmit: () => void;
   isFindEmail?: boolean;
+  message?: string;
 }
 
 const SignupTemplate: React.FC<ISignupTemplate> = ({
   onSubmit,
   isFindEmail,
+  message,
 }) => {
   const methods = useFormContext<ISignup>();
   const { handleSubmit, watch } = methods;
@@ -22,6 +24,7 @@ const SignupTemplate: React.FC<ISignupTemplate> = ({
           label={"다음"}
           to={"/login"}
           onSubmit={handleSubmit(onSubmit)}
+          message={message}
         >
           <div
             className={"flex flex-col  pt-5 pb-8 justify-center items-center"}
@@ -73,11 +76,11 @@ const SignupTemplate: React.FC<ISignupTemplate> = ({
                   min: { value: 8, message: "잘못된 비밀번호입니다" },
                   max: { value: 16, message: "잘못된 비밀번호입니다" },
                   pattern: {
-                    value: /^[A-Za-z0-9]{8,16}$/,
+                    value: /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/,
                     message: "잘못된 비밀번호입니다",
                   },
                 }}
-                placeholder={"영문,숫자 포함 8자 이상"}
+                placeholder={"영문,숫자,특수문자 포함 8자 이상"}
                 name={"password"}
                 type={"password"}
               />
