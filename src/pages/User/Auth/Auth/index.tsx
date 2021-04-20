@@ -70,6 +70,7 @@ const Auth: React.FC = () => {
         message={message}
         registerOptions={{
           required: true,
+          pattern:/^(\d{10,11}|\d{3}-\d{3,4}-\d{4})$/
         }}
       />
     </FormProvider>

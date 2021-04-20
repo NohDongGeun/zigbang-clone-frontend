@@ -76,11 +76,17 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
   message,
 }) => {
   return (
-    <div className={"w-screen flex flex-col relative"}>
+    <div className={"w-full flex flex-col"}>
       <div className={"w-full"}>
-        <Header logged={true} name={"노동근"} />
+        <Header
+          logged={true}
+          name={"노동근"}
+          showNav={false}
+          handleSideNav={console.log}
+          isAgent={false}
+        />
       </div>
-      <div className={"flex flex-col p-2 overflow-y-scroll absolute"}>
+      <div className={"flex flex-col p-2 mt-64 md:mt-80"}>
         <RoomLocation
           onShowPortal={onShowPortal}
           location={location}

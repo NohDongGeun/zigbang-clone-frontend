@@ -5,14 +5,14 @@ const AuthLink = () => {
   return (
     <div className={"flex flex-initial flex-row py-2"}>
       <Button
-        to={"/my/findId"}
+        to={"/find/id"}
         className={
           " flex flex-1 border-r  text-xs text-gray-500 justify-center items-center"
         }
         label={"아이디 찾기"}
       />
       <Button
-        to={"/my/findPassword"}
+        to={"/find/password"}
         className={
           " flex flex-1 border-r  text-xs text-gray-500 justify-center items-center"
         }

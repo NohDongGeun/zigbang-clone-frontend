@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Img, Text } from "../..";
+import { Button, Img, MobileNav, Text } from "../..";
 import logo from "../../../assets/img/zigbang_logo.png";
 import agentLogo from "../../../assets/img/ceo_ad_img.png";
+import { AGENCY_NAV, USER_NAV } from "../../../constants/nav";
+import menu from "../../../assets/img/menu.png";
 
 interface IHeader {
   /**
@@ -14,63 +16,121 @@ interface IHeader {
    * user name
    */
   name: string;
+
+  isAgent: boolean;
+
+  showNav: boolean;
+
+  handleSideNav: () => void;
 }
 
-const Header: React.FC<IHeader> = ({ logged, name }) => {
+const Header: React.FC<IHeader> = ({
+  logged,
+  name,
+  isAgent,
+  showNav,
+  handleSideNav,
+}) => {
   return (
-    <nav className={"w-screen flex border border-gray-300"}>
-      <ul className={"flex flex-row items-center flex-1"}>
-        <li className={"flex-initial p-3 "}>
-          <Link className={"w-full"} to={"/"}>
-            <Img className={"w-28 h-12"} src={logo} alt={"홈으로 가기"} />
-          </Link>
-        </li>
-        <li className={"flex-initial  p-5 "}>
-          <Link to={"/"}>
-            <Text
-              className={"text-lg font-bold hover:text-yellow-600"}
-              label={"방 찾기"}
-            />
-          </Link>
-        </li>
-        {logged && (
-          <li className={"flex-initial p-5"}>
-            <Link to={"/"}>
-              <Text
-                className={"text-lg font-bold hover:text-yellow-600"}
-                label={"찜한 매물"}
+    <div className={"flex flex-row w-full overflow-hidden"}>
+      <nav className={"w-full flex flex-row border-b border-gray-300 fixed z-10 bg-white "}>
+        <ul className={"flex flex-1 justify-start items-center"}>
+          <li className={"p-2 md:p-3 w-36 flex-initial"}>
+            <Button to={isAgent ? "/room" : "/room"}>
+              <Img
+                className={"w-20 h-12 md:w-full md:h-full"}
+                src={logo}
+                alt={"홈으로 가기"}
               />
-            </Link>
+            </Button>
           </li>
-        )}
-      </ul>
-      <ul className={"flex flex-row flex-1 items-center justify-end"}>
-        <li
-          className={
-            " flex-initial p-2 justify-end border bg-gray-300 rounded-md "
-          }
-        >
-          {logged ? (
-            <Link to={"/"} className={""}>
-              <Text label={name} className={"flex justify-end text-sm "} />
-            </Link>
-          ) : (
-            <Link to={"/"}>
-              <Text label={"로그인/회원가입"} className={"flex justify-end"} />
-            </Link>
+          {isAgent
+            ? AGENCY_NAV.map((e, i) => {
+                return (
+                  <li
+                    className={
+                      "p-3 sm:w-32 md:w-36 flex-initial hidden md:flex justify-center"
+                    }
+                  >
+                    <Button
+                      className={
+                        "font-bold text-lg text-gray-700 hover:text-yellow-400 "
+                      }
+                      to={e.url}
+                      label={e.name}
+                      key={i}
+                    />
+                  </li>
+                );
+              })
+            : USER_NAV.map((e, i) => {
+                return (
+                  <li
+                    className={
+                      "p-3  sm:w-32 md:w-36 flex-initial hidden md:flex justify-center"
+                    }
+                  >
+                    <Button
+                      className={
+                        "font-bold text-lg text-gray-700 hover:text-yellow-400"
+                      }
+                      to={e.url}
+                      label={e.name}
+                      key={i}
+                    />
+                  </li>
+                );
+              })}
+        </ul>
+        <ul className={"flex flex-1 justify-end items-center"}>
+          <li className={"md:hidden flex flex-initial p-2 md:px-3"}>
+            <Button onClick={handleSideNav}>
+              <Img
+                className={"w-10 md:w-12 h-10 md:h-12"}
+                src={menu}
+                alt={"메뉴"}
+              />
+            </Button>
+          </li>
+          <li className={"hidden md:flex flex-initial mr-2"}>
+            {logged ? (
+              <Button
+                className={
+                  "sm:px-1 sm:py-1 md:px-2 md:py-2 border border-gray-300 sm:text-xs md:text-sm font-semibold text-gray-500 rounded-md hover:text-yellow-400 hover:border-yellow-400"
+                }
+                label={name}
+              />
+            ) : (
+              <Button to={"/login"} label={"로그인 및 회원가입"} />
+            )}
+          </li>
+          {!isAgent && (
+            <li
+              className={
+                "hidden md:flex w-40 flex-initial h-full px-3 hover:bg-gray-200"
+              }
+            >
+              <Button to={"/room"} className={"h-full flex items-center"}>
+                <Img
+                  className={"w-full h-14 "}
+                  src={agentLogo}
+                  alt={"중개사 페이지로 가기"}
+                />
+              </Button>
+            </li>
           )}
-        </li>
-        <li className={"flex-initial p-3"}>
-          <Link to={"/"} className={"flex justify-end"}>
-            <Img
-              className={"w-32 h-12"}
-              src={agentLogo}
-              alt={"중개사무소 바로가기"}
-            />
-          </Link>
-        </li>
-      </ul>
-    </nav>
+        </ul>
+      </nav>
+      <div className={"relative hidden"}>
+        <MobileNav
+          handleSideNav={handleSideNav}
+          logged={logged}
+          name={name}
+          isAgency={isAgent}
+          showNav={showNav}
+        />
+      </div>
+    </div>
   );
 };
 

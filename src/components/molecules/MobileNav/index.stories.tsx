@@ -2,21 +2,21 @@ import { action } from "@storybook/addon-actions";
 import { boolean, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/react";
 import React from "react";
-import Header from ".";
+import MobileNav from ".";
 
 export default {
-  title: "Organisms/Header",
-  components: Header,
+  title: "Molecules/MobileNav",
+  component: MobileNav,
 } as Meta;
 
-export const header: React.FC = () => {
+export const BasicMobileNav: React.FC = () => {
   return (
-    <Header
-      isAgent={boolean("isAgent", false)}
-      logged={boolean("logged", true)}
+    <MobileNav
+      logged={boolean("logged", false)}
       name={text("name", "로그인 및 회원가입")}
+      isAgency={boolean("isAgency", false)}
       handleSideNav={action("handleSideNav")}
-      showNav={boolean("showNav", false)}
+      showNav={boolean("showNav", true)}
     />
   );
 };

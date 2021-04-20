@@ -66,7 +66,10 @@ const FindId: React.FC = () => {
         heading1={"가입 시 등록한 휴대폰으로"}
         heading2={"이메일이 전송됩니다."}
         label={"완료"}
-        registerOptions={{ required: true }}
+        registerOptions={{
+          required: true,
+          pattern: /^(\d{10,11}|\d{3}-\d{3,4}-\d{4})$/,
+        }}
         name={"phone"}
         to={"/login"}
       />

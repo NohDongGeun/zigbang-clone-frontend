@@ -50,7 +50,7 @@ const AuthNext: React.FC = () => {
       setMessage(error);
     }
   };
-  const [phoneMutation, {loading }] = useMutation<
+  const [phoneMutation, { loading }] = useMutation<
     phoneMutation,
     phoneMutationVariables
   >(PHONE_MUTATION, { onCompleted: onCompletedVerify });
@@ -84,6 +84,7 @@ const AuthNext: React.FC = () => {
             name={"code"}
             registerOptions={{
               required: true,
+              pattern: /^[0-9]/g,
             }}
           />
         </FormProvider>
