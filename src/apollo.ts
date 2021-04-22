@@ -17,8 +17,13 @@ export const isLoggedInVar = makeVar(Boolean(token));
 export const authTokenVar = makeVar(token);
 export const filterVar = makeVar<Filter>(initialState);
 export const locationVar = makeVar<ILocation>({
-  coordinates: [37.554722, 126.970833],
-  dist: [37.58471042042775, 127.1847711145695],
+  coordinates: [],
+  dist: [
+    126.64836296876082,
+    37.6514408966912,
+    127.05983236354253,
+    37.55232806718287,
+  ],
 });
 const httpLink = createHttpLink({
   uri: "http://localhost:4000/graphql",

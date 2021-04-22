@@ -190,10 +190,12 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({ id, history }) => {
           >
             <div className={"absolute h-full transform  translate-y-0"}>
               {roadview ? (
-                <DetailRoadview
-                  lat={room.point.coordinates[1]}
-                  lon={room.point.coordinates[0]}
-                ></DetailRoadview>
+                <div className={"w-full sm:w-400 h-full"}>
+                  <DetailRoadview
+                    lat={room.point.coordinates[1]}
+                    lon={room.point.coordinates[0]}
+                  ></DetailRoadview>
+                </div>
               ) : (
                 <>
                   <DetailHeader

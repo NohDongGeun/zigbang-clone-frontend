@@ -22,7 +22,7 @@ const Card: React.FC<ICardProps> = ({
         to={`/room/${id}`}
         className={"flex flex-row py-3 px-4 w-full h-36 hover:bg-gray-200"}
       >
-        <div className={" w-5/12 flex"}>
+        <div className={"w-5/12 flex"}>
           <Img src={image} alt={text} />
         </div>
         <div

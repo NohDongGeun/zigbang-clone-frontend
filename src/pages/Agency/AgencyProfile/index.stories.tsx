@@ -1,12 +1,12 @@
 import { Meta } from "@storybook/react";
 import React from "react";
-import Detail from ".";
+import AgencyProfile from ".";
 
 export default {
-  title: "Pages/Detail",
-  component: Detail,
+  title: "Pages/AgencyProfile",
+  component: AgencyProfile,
 } as Meta;
 
 export const BasicDetail: React.FC = () => {
-  return <Detail />;
+  return <AgencyProfile />;
 };

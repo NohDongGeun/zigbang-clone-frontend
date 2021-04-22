@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import AgencyRegisterTemplate from "../../../components/templates/AgencyProfile";
 
-const Detail: React.FC = () => {
+const AgencyProfile: React.FC = () => {
   const method = useForm();
   useEffect(() => {
     const { setValue } = method;
@@ -25,4 +25,4 @@ const Detail: React.FC = () => {
   );
 };
 
-export default Detail;
+export default AgencyProfile;

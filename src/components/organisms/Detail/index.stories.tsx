@@ -14,7 +14,7 @@ export const detail: React.FC = () => {
   return (
     <ApolloWrapper>
       <div className={"w-full sm:w-400 flex flex-col h-screen"}>
-        <Detail id={number("id", 155)} />
+        <Detail id={number("id", 221)} />
       </div>
     </ApolloWrapper>
   );

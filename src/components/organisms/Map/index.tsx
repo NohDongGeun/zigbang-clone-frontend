@@ -30,9 +30,14 @@ const Map: React.FC<IMap> = ({ point }) => {
       window.kakao.maps.event.addListener(map, "idle", function () {
         const center = map.getCenter();
         const getNorthEast = map.getBounds().getNorthEast();
-        const dist = [getNorthEast.Ma, getNorthEast.La];
+        const getSouthWest = map.getBounds().getSouthWest();
+        const dist = [
+          getSouthWest.La,
+          getNorthEast.Ma,
+          getNorthEast.La,
+          getSouthWest.Ma,
+        ];
         const coordinates = [center.Ma, center.La];
-        console.log(dist);
         locationVar({ coordinates, dist });
       });
     });
@@ -109,7 +114,7 @@ const Map: React.FC<IMap> = ({ point }) => {
   }, [point, map]);
 
   return (
-    <article className={"w-full sm:w-800 h-full relative"}>
+    <article className={"w-full md:w-800 h-full relative"}>
       <Filter />
       <div ref={container} className={"w-full h-full"}></div>
     </article>

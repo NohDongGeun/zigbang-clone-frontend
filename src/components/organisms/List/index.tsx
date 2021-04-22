@@ -42,7 +42,7 @@ interface IList {
    * 지역목록의 방 갯수
    */
   count: number;
-}
+} 
 
 const List: React.FC<IList> = ({ count }) => {
   const [unit, setUnit] = useState<boolean>(false);
@@ -68,11 +68,13 @@ const List: React.FC<IList> = ({ count }) => {
   >(ROOMS_MUTATION, { onCompleted });
 
   const roomsMutation = useCallback(() => {
-    findRooms({
-      variables: {
-        findRoomsInput: { page: page.current, ...filter, ...location },
-      },
-    });
+    if (!loading) {
+      findRooms({
+        variables: {
+          findRoomsInput: { page: page.current, ...filter, ...location },
+        },
+      });
+    }
   }, [filter, location]);
 
   useEffect(() => {
@@ -85,12 +87,10 @@ const List: React.FC<IList> = ({ count }) => {
 
   useEffect(() => {
     // scroll event listener 등록
-
     const handleScroll = () => {
       if (scroll.current === null) {
         return;
       }
-
       const scrollHeight = scroll.current.scrollHeight;
       const scrollTop = scroll.current.scrollTop;
       const clientHeight = scroll.current.clientHeight;
@@ -117,7 +117,7 @@ const List: React.FC<IList> = ({ count }) => {
   };
 
   return (
-    <article className={"w-full sm:w-400 flex flex-col h-full justify-start"}>
+    <article className={"w-full md:w-400 flex flex-col h-full justify-start"}>
       <div className={"w-full "}>
         <ListHeader
           isDetail={false}
