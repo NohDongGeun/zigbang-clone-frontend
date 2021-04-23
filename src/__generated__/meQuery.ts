@@ -12,7 +12,9 @@ import { Verify } from "./globalTypes";
 export interface meQuery_me {
   __typename: "User";
   id: number;
+  email: string;
   name: string;
+  phone: string | null;
   verified: Verify;
 }
 

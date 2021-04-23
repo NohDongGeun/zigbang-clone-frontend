@@ -35,6 +35,12 @@ export interface CreateVerifyInput {
   phone: string;
 }
 
+export interface EditProfileInput {
+  name?: string | null;
+  password?: string | null;
+  newPassword?: string | null;
+}
+
 export interface FindIdPhoneInput {
   phone: string;
 }

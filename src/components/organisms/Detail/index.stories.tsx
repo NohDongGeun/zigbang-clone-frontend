@@ -2,7 +2,7 @@ import { number } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/react";
 import React from "react";
 import Detail, { IRoom } from ".";
-import ApolloWrapper from "../../../ApolloWrapper";
+import ApolloWrapper from "../../../utils/ApolloWrapper";
 import test_people from "../../../assets/img/test_people.png";
 
 export default {

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./styles/styles.css";
-import ApolloWrapper from "./ApolloWrapper";
+import ApolloWrapper from "./utils/ApolloWrapper";
 
 ReactDOM.render(
   <React.StrictMode>

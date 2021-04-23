@@ -18,12 +18,12 @@ const LoggedOutRouter = () => {
       <Switch>
         {COMMON_ROUTER.map((route, i) => {
           return (
-            <Route path={route.path} key={i}>
+            <Route exact={true} path={route.path} key={i}>
               {route.component}
             </Route>
           );
         })}
-        <Route path="/login">
+        <Route exact={true} path="/login">
           <Login />
         </Route>
         <Route path="/signup">

@@ -18,7 +18,8 @@ export { default as Card } from "./molecules/Card";
 export { default as ListHeader } from "./molecules/ListHeader";
 export { default as Empty } from "./molecules/Empty";
 export { default as ErrorMessage } from "./molecules/ErrorMessage";
-export { default as MobileNav } from "./molecules/MobileNav"
+export { default as MobileNav } from "./molecules/MobileNav";
+export { default as ProfileBox } from "./molecules/ProfileBox";
 //molecules/Agency
 export { default as RegisterBtn } from "./molecules/Agency/RegisterBtn";
 export { default as RegisterInput } from "./molecules/Agency/RegisterInput";
@@ -55,7 +56,6 @@ export { default as Header } from "./organisms/Header";
 export { default as List } from "./organisms/List";
 export { default as Map } from "./organisms/Map";
 
-
 //organisms/CreateRoom
 export { default as RoomInfos } from "./organisms/CreateRoom/RoomInfos";
 export { default as RoomOptions } from "./organisms/CreateRoom/RoomOptions";
@@ -69,3 +69,5 @@ export { default as LoginTemplate } from "./templates/LoginTemplate";
 export { default as SignupTemplate } from "./templates/SignupTemplate";
 export { default as AuthTemplate } from "./templates/AuthTemplate";
 export { default as CreateRoomTemplate } from "./templates/CreateRoomTemplate";
+export { default as UserProfileTemplate } from "./templates/UserProfileTemplate";
+export { default as ModifyTemplate } from "./templates/ModifyTemplate";

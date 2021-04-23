@@ -2,7 +2,7 @@ import { ApolloProvider } from "@apollo/client";
 import { action } from "@storybook/addon-actions";
 import { Meta } from "@storybook/react";
 import React from "react";
-import ApolloWrapper from "../../../ApolloWrapper";
+import ApolloWrapper from "../../../utils/ApolloWrapper";
 import { findRooms_findRooms_rooms } from "../../../__generated__/findRooms";
 import List from "./";
 

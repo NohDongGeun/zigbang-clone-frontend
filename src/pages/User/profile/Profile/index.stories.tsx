@@ -1,6 +1,7 @@
 import { Meta } from "@storybook/react";
 import React from "react";
 import Profile from ".";
+import ApolloWrapper from "../../../../utils/ApolloWrapper";
 
 export default {
   title: "Pages/Profile",
@@ -8,5 +9,9 @@ export default {
 } as Meta;
 
 export const UserProfile: React.FC = () => {
-  return <Profile />;
+  return (
+    <ApolloWrapper>
+      <Profile />;
+    </ApolloWrapper>
+  );
 };

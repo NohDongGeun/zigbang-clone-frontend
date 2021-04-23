@@ -5,7 +5,7 @@ interface IInputProps extends ITailwind {
   /**
    * type 여부
    */
-  type: "text" | "checkbox" | "radio" | "button" | "number";
+  type: "text" | "checkbox" | "radio" | "button" | "number" | "password";
 
   /**
    * placeholder
