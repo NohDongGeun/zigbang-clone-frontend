@@ -21,7 +21,7 @@ const ModifyPassword: React.FC = () => {
     } = data;
     if (ok) {
       alert("변경되었습니다");
-      history.push("/my/profile");
+      history.goBack();
     }
     if (error) {
       setMessage(error);

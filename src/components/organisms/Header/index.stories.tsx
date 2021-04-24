@@ -3,6 +3,7 @@ import { boolean, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/react";
 import React from "react";
 import Header from ".";
+import ApolloWrapper from "../../../utils/ApolloWrapper";
 
 export default {
   title: "Organisms/Header",
@@ -11,12 +12,14 @@ export default {
 
 export const header: React.FC = () => {
   return (
-    <Header
-      isAgent={boolean("isAgent", false)}
-      logged={boolean("logged", true)}
-      name={text("name", "로그인 및 회원가입")}
-      handleSideNav={action("handleSideNav")}
-      showNav={boolean("showNav", false)}
-    />
+    <ApolloWrapper>
+      <Header
+        isAgent={boolean("isAgent", false)}
+        logged={boolean("logged", true)}
+        name={text("name", "로그인 및 회원가입")}
+        handleSideNav={action("handleSideNav")}
+        showNav={boolean("showNav", false)}
+      />
+    </ApolloWrapper>
   );
 };

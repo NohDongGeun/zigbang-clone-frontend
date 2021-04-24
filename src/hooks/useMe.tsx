@@ -14,14 +14,18 @@ export const ME_QUERY = gql`
 `;
 
 export const useMe = () => {
-  return useQuery<meQuery>(ME_QUERY);
+  return useQuery<meQuery>(ME_QUERY, {
+    fetchPolicy: "network-only",
+  });
 };
 
 export const useMeLazy = () => {
-  const [meQuery, { data,loading }] = useLazyQuery<meQuery>(ME_QUERY);
+  const [meQuery, { data, loading }] = useLazyQuery<meQuery>(ME_QUERY, {
+    fetchPolicy: "network-only",
+  });
   return {
     meQuery,
     data,
-    loading
+    loading,
   };
 };

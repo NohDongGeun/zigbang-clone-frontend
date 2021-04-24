@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { Card, Empty } from "../..";
+import { Card, Empty, Loading } from "../..";
 import ListHeader from "../../molecules/ListHeader";
 import { ICardProps } from "../../../interfaces/Card";
 import { gql, useMutation, useReactiveVar } from "@apollo/client";
@@ -42,7 +42,7 @@ interface IList {
    * 지역목록의 방 갯수
    */
   count: number;
-} 
+}
 
 const List: React.FC<IList> = ({ count }) => {
   const [unit, setUnit] = useState<boolean>(false);
@@ -125,26 +125,30 @@ const List: React.FC<IList> = ({ count }) => {
           handleUnit={handleUnit}
         />
       </div>
-      <div
-        ref={scroll}
-        className={
-          "flex flex-col flex-grow-0 h-620 overflow-y-auto  bg-gray-300 relative"
-        }
-      >
+      {loading ? (
+        <Loading />
+      ) : (
         <div
+          ref={scroll}
           className={
-            "absolute h-full flex flex-col transform  translate-y-0 w-full"
+            "flex flex-col flex-grow-0 h-620 overflow-y-auto  bg-gray-300 relative"
           }
         >
-          {rooms && count !== 0 ? (
-            rooms.map((room, i) => {
-              return <Card unitChange={unit} {...room} key={i} />;
-            })
-          ) : (
-            <Empty />
-          )}
+          <div
+            className={
+              "absolute h-full flex flex-col transform  translate-y-0 w-full"
+            }
+          >
+            {rooms && count !== 0 ? (
+              rooms.map((room, i) => {
+                return <Card unitChange={unit} {...room} key={i} />;
+              })
+            ) : (
+              <Empty />
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </article>
   );
 };

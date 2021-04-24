@@ -12,6 +12,7 @@ export { default as UseFormInput } from "./atoms/UseFormInput";
 export { default as UseFormBtn } from "./atoms/UseFormBtn";
 export { default as KakaoRoadview } from "./atoms/KakaoRoadview";
 export { default as RoomImg } from "./atoms/RoomImg";
+export { default as Loading } from "./atoms/Loading";
 
 //molecules
 export { default as Card } from "./molecules/Card";
@@ -20,6 +21,8 @@ export { default as Empty } from "./molecules/Empty";
 export { default as ErrorMessage } from "./molecules/ErrorMessage";
 export { default as MobileNav } from "./molecules/MobileNav";
 export { default as ProfileBox } from "./molecules/ProfileBox";
+export { default as UserNav } from "./molecules/UserNav";
+
 //molecules/Agency
 export { default as RegisterBtn } from "./molecules/Agency/RegisterBtn";
 export { default as RegisterInput } from "./molecules/Agency/RegisterInput";

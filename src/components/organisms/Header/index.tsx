@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Button, Img, MobileNav, Text } from "../..";
+import React, { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { Button, Img, MobileNav, Text, UserNav } from "../..";
 import logo from "../../../assets/img/zigbang_logo.png";
 import agentLogo from "../../../assets/img/ceo_ad_img.png";
 import { AGENCY_NAV, USER_NAV } from "../../../constants/nav";
 import menu from "../../../assets/img/menu.png";
+import { useMe } from "../../../hooks/useMe";
+import { authTokenVar, isLoggedInVar } from "../../../apollo";
 
 interface IHeader {
   /**
@@ -31,9 +33,30 @@ const Header: React.FC<IHeader> = ({
   showNav,
   handleSideNav,
 }) => {
+  const { data } = useMe();
+  const history = useHistory();
+  const [subNav, setSubNav] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log(`header data:  ${data}`);
+  }, [data]);
+
+  const handleSubnav = () => {
+    setSubNav((prev) => !prev);
+  };
+  const handleLogout = () => {
+    localStorage.clear();
+    authTokenVar("");
+    isLoggedInVar(false);
+    history.push("/room/");
+  };
   return (
     <div className={"flex flex-row w-full overflow-hidden"}>
-      <nav className={"w-full flex flex-row border-b border-gray-300 fixed z-10 bg-white "}>
+      <nav
+        className={
+          "w-full flex flex-row border-b border-gray-300 fixed z-10 bg-white "
+        }
+      >
         <ul className={"flex flex-1 justify-start items-center"}>
           <li className={"p-2 md:p-3 w-36 flex-initial"}>
             <Button to={isAgent ? "/room" : "/room"}>
@@ -92,16 +115,28 @@ const Header: React.FC<IHeader> = ({
               />
             </Button>
           </li>
-          <li className={"hidden md:flex flex-initial mr-2"}>
-            {logged ? (
+          <li className={"hidden md:flex md:flex-col flex-initial mr-2"}>
+            {data ? (
+              <>
+                <Button
+                  className={
+                    "sm:px-1 sm:py-1 md:px-2 md:py-2 border border-gray-300 sm:text-xs md:text-sm font-semibold text-gray-500 rounded-md hover:text-yellow-400 hover:border-yellow-400 "
+                  }
+                  label={`${data.me.name}`}
+                  onClick={handleSubnav}
+                />
+                <div className={`relative ${subNav ? "flex" : "hidden"}`}>
+                  <UserNav logOut={handleLogout} />
+                </div>
+              </>
+            ) : (
               <Button
                 className={
-                  "sm:px-1 sm:py-1 md:px-2 md:py-2 border border-gray-300 sm:text-xs md:text-sm font-semibold text-gray-500 rounded-md hover:text-yellow-400 hover:border-yellow-400"
+                  "sm:px-1 sm:py-1 md:px-2 md:py-2 border border-gray-300 sm:text-xs md:text-sm font-semibold text-gray-500 rounded-md hover:text-yellow-400 hover:border-yellow-400 "
                 }
-                label={name}
+                to={"/login"}
+                label={"로그인 및 회원가입"}
               />
-            ) : (
-              <Button to={"/login"} label={"로그인 및 회원가입"} />
             )}
           </li>
           {!isAgent && (

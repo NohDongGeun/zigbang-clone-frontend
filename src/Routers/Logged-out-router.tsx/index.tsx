@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  RouteComponentProps,
+  Switch,
+} from "react-router-dom";
 import { useMe } from "../../hooks/useMe";
 import Room from "../../pages/Room";
 import FindId from "../../pages/User/Find/FindId";
@@ -16,14 +21,14 @@ const LoggedOutRouter = () => {
   return (
     <Router>
       <Switch>
-        {COMMON_ROUTER.map((route, i) => {
+        {COMMON_ROUTER.map((route) => {
           return (
-            <Route exact={true} path={route.path} key={i}>
+            <Route exact path={route.path}>
               {route.component}
             </Route>
           );
         })}
-        <Route exact={true} path="/login">
+        <Route path="/login">
           <Login />
         </Route>
         <Route path="/signup">
