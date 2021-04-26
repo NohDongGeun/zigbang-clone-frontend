@@ -8,5 +8,5 @@ export default {
 } as Meta;
 
 export const agencyRegister: React.FC = () => {
-  return <AgencyMainTemplate name={"asd"} logged={true} />;
+  return <AgencyMainTemplate />;
 };

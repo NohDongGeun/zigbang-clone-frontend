@@ -5,6 +5,8 @@ import {
   RouteComponentProps,
   Switch,
 } from "react-router-dom";
+import { Loading } from "../../components";
+import HeaderAndSidebar from "../../components/templates/HeaderTemplate";
 import { useMe } from "../../hooks/useMe";
 import Room from "../../pages/Room";
 import FindId from "../../pages/User/Find/FindId";
@@ -20,6 +22,7 @@ export const COMMON_ROUTER = [
 const LoggedOutRouter = () => {
   return (
     <Router>
+      <HeaderAndSidebar />
       <Switch>
         {COMMON_ROUTER.map((route) => {
           return (

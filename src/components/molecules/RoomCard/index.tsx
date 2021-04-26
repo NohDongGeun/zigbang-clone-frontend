@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button, DetailItem, Heading, Img, Text } from "../..";
 
 interface IRoomCard {
@@ -12,46 +13,33 @@ interface IRoomCard {
   roomType: string;
 }
 
-const RoomCard: React.FC<IRoomCard> = ({
-  src,
-  label,
-  title,
-  address,
-  rent,
-  deposit,
-  dealType,
-  roomType,
-}) => {
+const RoomCard: React.FC = ({}) => {
   return (
-    <section className={"flex flex-col w-80 sm:w-80"}>
-      <div className={"w-full h-40 border border-gray-300"}>
-        <Img src={src} alt={"사진"} />
-      </div>
-      <div className={"border border-gray-300"}>
-        <Heading
-          Type={"h2"}
-          className={"w-full text-center truncate whitespace-nowrap"}
-          label={title}
-        />
-        <DetailItem
-          label={"가격"}
-          value={`${
-            dealType === "월세" ? `월세 ${deposit}/${rent}` : `전세 ${deposit}`
-          }`}
-        />
-        <DetailItem label={"구조"} value={roomType} />
-        <DetailItem label={"주소"} value={address} />
-      </div>
-      <div className={"flex flex-row "}>
-        <Button
-          className={"flex-1 border border-gray-300 p-2"}
-          label={"삭제"}
-        />
-        <Button
-          className={"flex-1 border border-l-0 border-gray-300 p-2"}
-          label={label}
-        />
-      </div>
+    <section className={"flex flex-col h-96 w-72 sm:w-440 group "}>
+      <Link to={"/room/"}>
+        <div className={"flex-1 group-hover:opacity-75"}>
+          <Img
+            className={"h-full w-full"}
+            src={
+              "https://ic.zigbang.com/ic/items/26271602/1.jpg?w=400&h=300&q=70&a=1"
+            }
+            alt={"사진"}
+          />
+        </div>
+        <div className={"flex-1 flex flex-col justify-start items-start py-2"}>
+          <Text
+            className={"text-gray-500 text-sm font-semibold"}
+            label={"원룸"}
+          />
+          <Text
+            className={"text-gray-900 text-xl font-bold my-1"}
+            label={"전세 7000"}
+          />
+          <Text className={"text-gray-700"} label={"4층,24평,관리비6만 "} />
+          <Text className={"text-gray-700"} label={"동작구 사당동 "} />
+          <Text className={"text-gray-700"} label={"깔끔한 원룸"} />
+        </div>
+      </Link>
     </section>
   );
 };

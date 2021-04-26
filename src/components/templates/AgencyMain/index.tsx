@@ -2,24 +2,14 @@ import React from "react";
 import { Header } from "../..";
 import NotAgencyBox from "../../molecules/Agency/NotAgencyBox";
 
-interface IAgencyRegister {
-  name: string;
-  logged: boolean;
-}
-
-const AgencyMainTemplate: React.FC<IAgencyRegister> = ({ logged, name }) => {
+const AgencyMainTemplate: React.FC = () => {
   return (
-    <div className={"h-screen w-screen flex flex-col "}>
-      <div className={"w-full"}>
-        <Header
-          logged={logged}
-          name={name}
-          showNav={false}
-          handleSideNav={console.log}
-          isAgent={true}
-        />
-      </div>
-      <div className={"flex h-full justify-center items-center"}>
+    <div
+      className={
+        "w-full h-600 bg-white flex flex-col md:flex-row  mt-64 md:mt-80"
+      }
+    >
+      <div className={"flex w-full h-full justify-center items-center"}>
         <NotAgencyBox />
       </div>
     </div>

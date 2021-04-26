@@ -3,6 +3,14 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    inset: {
+      "0": 0,
+      "-400": "-400px",
+    },
+    backgroundColor: (theme) => ({
+      ...theme("colors"),
+      primary: "#7A57D1",
+    }),
     backgroundSize: {
       auto: "auto",
       cover: "cover",
@@ -19,10 +27,16 @@ module.exports = {
         "760": "calc(100% - 76px)",
         "680": "calc(100% - 68px)",
         "800": "calc(100% - 400px);",
+        "440": "calc(100% - 20px)",
+        "768": "768px",
+        "1024": "1024px",
+        "1260": "1260px",
+        "1280": "1280px",
       },
       minWidth: {
         "14": "56px",
         "16": "64px",
+        "320": "320px",
       },
       height: {
         "42": "42px",
@@ -36,6 +50,7 @@ module.exports = {
         "455": "455px",
         "620": "calc(100% - 62px)",
         "700": "calc(100% - 40px)",
+        "600": "calc(100vh - 80px)",
       },
       lineHeight: {
         "42": "42px",
@@ -48,7 +63,7 @@ module.exports = {
       },
       margin: {
         "64": "64px",
-        "80": "78.58px",
+        "80": "80px",
       },
     },
   },

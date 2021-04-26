@@ -20,14 +20,12 @@ const MobileNav: React.FC<IMobileNav> = ({
 }) => {
   return (
     <aside
-      className={`flex h-screen flex-col border border-gray-300 sm:w-56 md:w-80 bg-white z-10 absolute rounded-l-md shadow-sm transform ${
+      className={`bg-primary flex h-screen flex-col border border-gray-300 sm:w-56 md:w-80  z-10 absolute rounded-l-md shadow-sm transform ${
         showNav ? "-translate-x-full" : "translate-x-full"
       } `}
     >
       <div
-        className={
-          "flex-col w-full  px-3 border-b border-gray-300 flex justify-center items-center"
-        }
+        className={"flex-col w-full  px-3  flex justify-center items-center"}
       >
         <Button className={"w-full h-64 md:h-88"} onClick={handleSideNav}>
           <Img className={"w-8 h-8"} src={arrow} alt={"슬라이드 닫기"} />
@@ -35,14 +33,14 @@ const MobileNav: React.FC<IMobileNav> = ({
         {logged ? (
           <Text
             className={
-              "font-semibold mb-3 text-gray-600 hover:text-yellow-400 hover:border-yellow-400 rounded-md border p-2 border-gray-300"
+              "font-semibold mb-3 text-white hover:text-yellow-400 hover:border-yellow-400 rounded-md border p-2 border-gray-300"
             }
             label={name}
           />
         ) : (
           <Button
             className={
-              "font-semibold mb-3 text-gray-600 hover:text-yellow-400 hover:border-yellow-400 rounded-md border p-2 border-gray-300"
+              "font-semibold mb-3 text-white hover:text-yellow-400 hover:border-yellow-400 rounded-md border p-2 border-gray-300"
             }
             to={"/login"}
             label={"로그인 및 회원가입"}
@@ -56,13 +54,13 @@ const MobileNav: React.FC<IMobileNav> = ({
                 return (
                   <li
                     className={
-                      "p-3 border-b border-gray-300 flex justify-center items-center"
+                      "p-3  flex justify-center items-center"
                     }
                     key={i}
                   >
                     <Button
                       className={
-                        "text-semibold font-semibold text-gray-600 hover:text-yellow-400 "
+                        "text-semibold font-semibold text- hover:text-yellow-400 "
                       }
                       to={e.url}
                       label={e.name}

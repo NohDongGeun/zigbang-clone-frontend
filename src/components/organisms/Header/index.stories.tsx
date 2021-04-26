@@ -13,13 +13,7 @@ export default {
 export const header: React.FC = () => {
   return (
     <ApolloWrapper>
-      <Header
-        isAgent={boolean("isAgent", false)}
-        logged={boolean("logged", true)}
-        name={text("name", "로그인 및 회원가입")}
-        handleSideNav={action("handleSideNav")}
-        showNav={boolean("showNav", false)}
-      />
+      <Header />
     </ApolloWrapper>
   );
 };

@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useLocation,
+} from "react-router-dom";
 import Auth from "../../pages/User/Auth/Auth";
 import AuthNext from "../../pages/User/Auth/AuthNext";
 import Profile from "../../pages/User/profile/Profile";
@@ -11,7 +16,8 @@ import { COMMON_ROUTER } from "../Logged-out-router.tsx";
 import ModifyName from "../../pages/User/profile/Modify/ModifyName";
 import ModifyPassword from "../../pages/User/profile/Modify/ModifyPassword";
 import { useMe } from "../../hooks/useMe";
-import {  Loading } from "../../components";
+import { Loading } from "../../components";
+import HeaderAndSidebar from "../../components/templates/HeaderTemplate";
 
 const USER_ROUTER = [
   { path: "/my/auth/verify", component: <Auth /> },
@@ -30,11 +36,13 @@ const AGENCY_ROUTER = [
 
 const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
+
   if (!data || loading || error) {
     return <Loading />;
   }
   return (
     <Router>
+      <HeaderAndSidebar />
       <Switch>
         {COMMON_ROUTER.map((route) => {
           return (
@@ -51,7 +59,11 @@ const LoggedInRouter = () => {
           );
         })}
         {AGENCY_ROUTER.map((route) => {
-          return <Route path={route.path}>{route.component}</Route>;
+          return (
+            <Route exact path={route.path}>
+              {route.component}
+            </Route>
+          );
         })}
         <Route>
           <div>sdasd</div>

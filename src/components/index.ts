@@ -1,3 +1,5 @@
+import { fromPromise } from "@apollo/client";
+
 // atoms
 export { default as Button } from "./atoms/Button";
 export { default as Heading } from "./atoms/Heading";
@@ -22,6 +24,7 @@ export { default as ErrorMessage } from "./molecules/ErrorMessage";
 export { default as MobileNav } from "./molecules/MobileNav";
 export { default as ProfileBox } from "./molecules/ProfileBox";
 export { default as UserNav } from "./molecules/UserNav";
+export { default as RoomCard } from "./molecules/RoomCard";
 
 //molecules/Agency
 export { default as RegisterBtn } from "./molecules/Agency/RegisterBtn";
