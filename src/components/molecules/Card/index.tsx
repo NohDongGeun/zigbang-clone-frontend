@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Img, Heading, Text } from "../..";
 import { ICardProps } from "../../../interfaces/Card";
+import "./styles.css";
 
 const Card: React.FC<ICardProps> = ({
   dealType,
@@ -17,16 +18,21 @@ const Card: React.FC<ICardProps> = ({
   unitChange = true,
 }) => {
   return (
-    <section className={"flex-grow-0 flex-shrink-0 w-full bg-white"}>
+    <section className={"flex bg-white"}>
       <Link
         to={`/room/${id}`}
-        className={"flex flex-row py-3 px-4 w-full h-36 hover:bg-gray-200"}
+        className={"flex flex-row px-4 sm:px-2 md:px-4 w-full hover:bg-gray-200 "}
       >
-        <div className={"w-5/12 flex"}>
-          <Img src={image} alt={text} />
+        <div className={"flex w-36 sm:w-2/5 square relative"}>
+          <div
+            className={
+              "absolute w-full h-full bg-contain  bg-no-repeat bg-center"
+            }
+            style={{ backgroundImage: `url(${image})` }}
+          ></div>
         </div>
         <div
-          className={"w-7/12  flex flex-col justify-center items-start px-3"}
+          className={"flex flex-col   sm:w-3/5 justify-center items-start px-3"}
         >
           <Heading
             label={
@@ -34,8 +40,8 @@ const Card: React.FC<ICardProps> = ({
                 ? `월세 ${deposit}/${rent}`
                 : `전세 ${deposit}`
             }
-            className={"font-bold sm:text-xl text-lg"}
-            Type={"h1"}
+            className={"font-bold lg:text-xl text-base"}
+            Type={"h2"}
           />
           <Text
             label={roomType}

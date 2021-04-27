@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  RouteComponentProps,
-  Switch,
-} from "react-router-dom";
-import { Loading } from "../../components";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HeaderAndSidebar from "../../components/templates/HeaderTemplate";
-import { useMe } from "../../hooks/useMe";
+
 import Room from "../../pages/Room";
 import FindId from "../../pages/User/Find/FindId";
 import FindPassword from "../../pages/User/Find/FindPassword";

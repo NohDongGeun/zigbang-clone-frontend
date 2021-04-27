@@ -1,5 +1,6 @@
+import { useReactiveVar } from "@apollo/client";
 import React, { useEffect, useRef, useState } from "react";
-import { locationVar } from "../../../apollo";
+import { locationVar, searchLocationVar } from "../../../apollo";
 import { locationMutation_filteredLocation_locations } from "../../../__generated__/locationMutation";
 import Filter from "../Filter";
 
@@ -17,10 +18,11 @@ interface IMap {
 const Map: React.FC<IMap> = ({ point }) => {
   const container = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<any>(null);
+  const search = useReactiveVar(searchLocationVar);
 
   useEffect(() => {
     window.kakao.maps.load(() => {
-      const center = new window.kakao.maps.LatLng(37.554722, 126.970833);
+      const center = new window.kakao.maps.LatLng(search[0], search[1]);
       const options = {
         center,
         level: 8,
@@ -56,6 +58,7 @@ const Map: React.FC<IMap> = ({ point }) => {
           ),
         })
     );
+
     const clusterer = new window.kakao.maps.MarkerClusterer({
       map: map,
       averageCenter: true,
@@ -66,7 +69,7 @@ const Map: React.FC<IMap> = ({ point }) => {
         {
           width: "50px",
           height: "50px",
-          background: "#4D33FF",
+          background: "#1257A1",
           color: "white",
           textAlign: "center",
           fontWeight: "bold",
@@ -74,12 +77,12 @@ const Map: React.FC<IMap> = ({ point }) => {
           opacity: ".8",
           borderRadius: "30px",
           lineHeight: "51px",
-          border: "1px solid #4D33FF",
+          border: "1px solid #1257A1",
         },
         {
           width: "70px",
           height: "70px",
-          background: "#6C33FF",
+          background: "#1257A1",
           color: "white",
           textAlign: "center",
           fontWeight: "bold",
@@ -87,12 +90,12 @@ const Map: React.FC<IMap> = ({ point }) => {
           opacity: ".8",
           borderRadius: "40px",
           lineHeight: "71px",
-          border: "1px solid #6C33FF",
+          border: "1px solid #1257A1",
         },
         {
           width: "90px",
           height: "90px",
-          background: "#6C33FF",
+          background: "#1257A1",
           color: "white",
           textAlign: "center",
           fontWeight: "bold",
@@ -100,7 +103,7 @@ const Map: React.FC<IMap> = ({ point }) => {
           opacity: ".8",
           borderRadius: "60px",
           lineHeight: "91px",
-          border: "1px solid#6C33FF",
+          border: "1px solid #1257A1",
         },
       ],
     });
@@ -113,8 +116,20 @@ const Map: React.FC<IMap> = ({ point }) => {
     };
   }, [point, map]);
 
+  useEffect(() => {
+    console.log(search);
+    if (map != null) {
+      //지도 중심좌표 등록
+      const moveLatLon = new window.kakao.maps.LatLng(search[0], search[1]);
+      //지도 레벨 변경
+      map.setLevel(3);
+      // 지도 중심 이동
+      map.setCenter(moveLatLon);
+    }
+  }, [search]);
+
   return (
-    <article className={"w-full md:w-800 h-full relative"}>
+    <article className={"w-full sm:w-700  md:w-800 h-full relative"}>
       <Filter />
       <div ref={container} className={"w-full h-full"}></div>
     </article>

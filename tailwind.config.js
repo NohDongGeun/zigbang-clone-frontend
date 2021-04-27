@@ -1,3 +1,5 @@
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   important: "#root",
   purge: [],
@@ -7,9 +9,26 @@ module.exports = {
       "0": 0,
       "-400": "-400px",
     },
+    colors: {
+      blue: {
+        dark: "#5485BB",
+      },
+      transparent: "transparent",
+      current: "currentColor",
+      black: colors.black,
+      white: colors.white,
+      gray: colors.trueGray,
+      indigo: colors.indigo,
+      red: colors.rose,
+      yellow: colors.amber,
+    },
+    boxShadow: {
+      "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+      "3xl": "7px 13px 12px -14px rgba(0,0,0,0.57)",
+    },
     backgroundColor: (theme) => ({
       ...theme("colors"),
-      primary: "#7A57D1",
+      primary: "#F0F3F9",
     }),
     backgroundSize: {
       auto: "auto",
@@ -23,9 +42,11 @@ module.exports = {
       width: {
         "136": "calc(50% - 4px)",
         "200": "200px",
+        "340": "340px",
         "400": "400px",
         "760": "calc(100% - 76px)",
         "680": "calc(100% - 68px)",
+        "700": "calc(100% - 340px)",
         "800": "calc(100% - 400px);",
         "440": "calc(100% - 20px)",
         "768": "768px",
@@ -40,14 +61,18 @@ module.exports = {
       },
       height: {
         "42": "42px",
+        "45": "45px",
         "64": "64px",
         "88": "80px",
         "92": "92px",
+        "110": "110px",
         "111": "calc(100% - 111px)",
         "184": "184px",
         "094": "calc(100% - 94px)",
+        "366": "calc(50% - 40px)",
         "400": "calc(100% - 40px)",
         "455": "455px",
+        "630": "calc(100% - 60px)",
         "620": "calc(100% - 62px)",
         "700": "calc(100% - 40px)",
         "600": "calc(100vh - 80px)",

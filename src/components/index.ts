@@ -21,9 +21,7 @@ export { default as Card } from "./molecules/Card";
 export { default as ListHeader } from "./molecules/ListHeader";
 export { default as Empty } from "./molecules/Empty";
 export { default as ErrorMessage } from "./molecules/ErrorMessage";
-export { default as MobileNav } from "./molecules/MobileNav";
 export { default as ProfileBox } from "./molecules/ProfileBox";
-export { default as UserNav } from "./molecules/UserNav";
 export { default as RoomCard } from "./molecules/RoomCard";
 
 //molecules/Agency

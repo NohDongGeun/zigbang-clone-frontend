@@ -170,7 +170,9 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({ id, history }) => {
     <>
       {room !== null && (
         <article
-          className={"w-full sm:w-400 flex flex-col h-full justify-start"}
+          className={
+            "w-full sm:w-340 md:w-400  flex flex-col h-full justify-start"
+          }
         >
           <div className={"w-full"}>
             <ListHeader
@@ -188,9 +190,9 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({ id, history }) => {
               "flex flex-col flex-grow-0 h-620 overflow-y-auto overflow-x-hidden  bg-gray-300 relative justify-center items-center"
             }
           >
-            <div className={"absolute h-full transform  translate-y-0"}>
+            <div className={"absolute w-full h-full transform  translate-y-0"}>
               {roadview ? (
-                <div className={"w-full sm:w-400 h-full"}>
+                <div className={"w-full md:w-400 h-full"}>
                   <DetailRoadview
                     lat={room.point.coordinates[1]}
                     lon={room.point.coordinates[0]}

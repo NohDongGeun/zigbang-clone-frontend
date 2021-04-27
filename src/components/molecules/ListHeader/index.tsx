@@ -23,7 +23,7 @@ const ListHeader: React.FC<IListHeader> = ({
 }) => {
   return (
     <section
-      className={"w-full flex flex-row p-4 border-b border-gray-300 bg-white"}
+      className={"w-full flex flex-row p-4 bg-white"}
     >
       <div className={"flex flex-auto  flex-row justify-start items-center"}>
         {isDetail && src && alt && (

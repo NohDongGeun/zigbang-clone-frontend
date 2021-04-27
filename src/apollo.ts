@@ -13,10 +13,12 @@ interface ILocation {
   dist: number[];
 }
 const token = localStorage.getItem(LOCALSTORAGE_TOKEN);
+export const searchLocationVar = makeVar(["37.554722", "126.970833"]);
 export const isLoggedInVar = makeVar(Boolean(token));
 export const authTokenVar = makeVar(token);
 export const sidebarVar = makeVar<boolean>(false);
 export const filterVar = makeVar<Filter>(initialState);
+export const isFilterVar = makeVar<boolean>(false);
 export const locationVar = makeVar<ILocation>({
   coordinates: [],
   dist: [
@@ -68,6 +70,16 @@ export const client = new ApolloClient({
           sidebar: {
             read() {
               return sidebarVar();
+            },
+          },
+          searchLocation: {
+            read() {
+              return searchLocationVar();
+            },
+          },
+          isFilter: {
+            read() {
+              return isFilterVar();
             },
           },
         },

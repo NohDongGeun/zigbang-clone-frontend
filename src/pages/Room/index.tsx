@@ -30,6 +30,7 @@ interface IRoomParams {
 const Room: React.FC = () => {
   const filter = useReactiveVar(filterVar);
   const { id } = useParams<IRoomParams>();
+
   const location = useReactiveVar(locationVar);
   const [count, setCount] = useState<number>(0);
   const [coordinates, setCoordinates] = useState<

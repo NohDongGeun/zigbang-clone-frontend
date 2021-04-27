@@ -117,7 +117,11 @@ const List: React.FC<IList> = ({ count }) => {
   };
 
   return (
-    <article className={"w-full md:w-400 flex flex-col h-full justify-start bg-white"}>
+    <article
+      className={
+        "md:w-400 sm:w-340 flex flex-col h-full justify-start bg-white"
+      }
+    >
       <div className={"w-full "}>
         <ListHeader
           isDetail={false}
@@ -131,7 +135,7 @@ const List: React.FC<IList> = ({ count }) => {
         <div
           ref={scroll}
           className={
-            "flex flex-col flex-grow-0 h-620 overflow-y-auto  bg-gray-300 relative"
+            "flex flex-col flex-grow-0 h-620 overflow-y-auto  bg-primary relative"
           }
         >
           <div

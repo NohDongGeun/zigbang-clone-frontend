@@ -4,7 +4,6 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useReactiveVar } from "@apollo/client";
 import { sidebarVar } from "../../../apollo";
-import onClickOutside from "react-onclickoutside";
 import { useOutsideClick } from "../../../hooks/useOutsideClick";
 
 const Sidebar = () => {
@@ -73,7 +72,7 @@ const Sidebar = () => {
           <li className={"flex"}>
             <Button
               className={
-                "flex-1  py-3 text-white font-semibold hover:opacity-80"
+                "flex-1  py-3 text-white font-semibold hover:opacity-70"
               }
               label={"중개사 페이지로 이동"}
               to={"/room"}

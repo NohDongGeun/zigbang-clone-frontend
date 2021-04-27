@@ -46,7 +46,7 @@ const DetailHeader: React.FC<IDetailHeaderProps> = ({
   expense,
 }) => {
   return (
-    <section className={"flex flex-col bg-white mb-3"}>
+    <section className={"flex flex-col w-full bg-white mb-3"}>
       <div className={"w-full h-72 flex"}>
         <Img src={image} alt={text} />
       </div>

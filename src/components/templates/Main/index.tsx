@@ -3,6 +3,7 @@ import { withRouter } from "react-router";
 import { Detail, Header, List, Map } from "../..";
 import { ICardProps } from "../../../interfaces/Card";
 import { locationMutation_filteredLocation_locations } from "../../../__generated__/locationMutation";
+import Search from "../../organisms/Search";
 
 interface IMain {
   logged: boolean;
@@ -16,11 +17,10 @@ interface IMain {
 const Main: React.FC<IMain> = ({ logged, name, point, params, count }) => {
   return (
     <div
-      className={
-        "w-full h-600 bg-gray-900 flex flex-col md:flex-row  mt-64 md:mt-80"
-      }
+      className={"w-full h-600 bg-gray-900 flex flex-col sm:flex-row  mt-80"}
     >
       <Map point={point} />
+
       {params ? <Detail id={+params} /> : <List count={count} />}
     </div>
   );
