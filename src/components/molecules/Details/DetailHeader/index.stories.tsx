@@ -34,9 +34,9 @@ export const detailHeader: React.FC = () => {
         rent={50}
         unitChange={boolean("unitChange", false)}
         dealType={radios("dealType", DealType, DealType.deposit)}
-        image={
-          "https://ic.zigbang.com/ic/items/26271602/1.jpg?w=400&h=300&q=70&a=1"
-        }
+        images={[
+          "https://ic.zigbang.com/ic/items/26271602/1.jpg?w=400&h=300&q=70&a=1",
+        ]}
       />
     </article>
   );

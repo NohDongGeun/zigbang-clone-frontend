@@ -20,7 +20,7 @@ export interface findRooms_findRooms_rooms {
   exclusiveArea: number;
   address: string;
   floor: number;
-  image: string;
+  images: string[];
 }
 
 export interface findRooms_findRooms {

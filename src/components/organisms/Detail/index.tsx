@@ -40,9 +40,8 @@ interface IRoomDetail {
   /** 등록번호 */
   id: number;
 
-  /** 방 이미지 소스 */
-  image: string;
-  /** 나머지 이미지 소스더미*/
+ 
+  /**이미지 소스더미*/
   images?: string[];
 
   /** 소개글 */
@@ -119,7 +118,6 @@ export const ROOM_QUERY = gql`
         buildingFloor
         address
         text
-        image
         dealType
         rent
         deposit
@@ -187,7 +185,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({ id, history }) => {
           </div>
           <div
             className={
-              "flex flex-col flex-grow-0 h-620 overflow-y-auto overflow-x-hidden  bg-gray-300 relative justify-center items-center"
+              "flex flex-col flex-grow-0 h-620 overflow-y-auto overflow-x-hidden  bg-primary relative justify-center items-center"
             }
           >
             <div className={"absolute w-full h-full transform  translate-y-0"}>
@@ -205,7 +203,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({ id, history }) => {
                     dealType={room.dealType === "month" ? "월세" : "전세"}
                     deposit={room.deposit}
                     rent={room.rent}
-                    image={room.image}
+                    images={room.images}
                     text={room.text}
                     structure={room.structure}
                     id={room.id}

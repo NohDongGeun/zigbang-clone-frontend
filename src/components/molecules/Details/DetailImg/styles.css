@@ -1,0 +1,19 @@
+.carousel .control-next.control-arrow:before {
+  content: "";
+  border: solid #fff;
+  border-width: 0 7px 7px 0;
+  display: inline-block;
+  padding: 10px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.carousel .control-prev.control-arrow:before {
+  content: "";
+  border: solid #fff;
+  border-width: 0 7px 7px 0;
+  display: inline-block;
+  padding: 10px;
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}

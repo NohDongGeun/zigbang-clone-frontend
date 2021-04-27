@@ -31,7 +31,7 @@ export const ROOMS_MUTATION = gql`
         exclusiveArea
         address
         floor
-        image
+        images
       }
     }
   }
@@ -145,7 +145,14 @@ const List: React.FC<IList> = ({ count }) => {
           >
             {rooms && count !== 0 ? (
               rooms.map((room, i) => {
-                return <Card unitChange={unit} {...room} key={i} />;
+                return (
+                  <Card
+                    unitChange={unit}
+                    image={room.images[0]}
+                    {...room}
+                    key={i}
+                  />
+                );
               })
             ) : (
               <Empty />

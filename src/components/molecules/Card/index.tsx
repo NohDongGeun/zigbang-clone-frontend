@@ -21,7 +21,9 @@ const Card: React.FC<ICardProps> = ({
     <section className={"flex bg-white"}>
       <Link
         to={`/room/${id}`}
-        className={"flex flex-row px-4 sm:px-2 md:px-4 w-full hover:bg-gray-200 "}
+        className={
+          "flex flex-row px-4 sm:px-2 md:px-4 w-full hover:bg-gray-200 "
+        }
       >
         <div className={"flex w-36 sm:w-2/5 square relative"}>
           <div

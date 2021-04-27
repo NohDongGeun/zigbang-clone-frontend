@@ -29,6 +29,7 @@ module.exports = {
     backgroundColor: (theme) => ({
       ...theme("colors"),
       primary: "#F0F3F9",
+      opacity: "rgba(0, 0, 0, 0.5)",
     }),
     backgroundSize: {
       auto: "auto",

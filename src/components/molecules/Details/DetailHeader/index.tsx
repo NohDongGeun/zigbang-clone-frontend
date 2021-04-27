@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Img, Text } from "../../..";
+import { DetailImg, Heading, Img, Text } from "../../..";
 
 interface IDetailHeaderProps {
   /** 방 거래유형 */
@@ -18,7 +18,7 @@ interface IDetailHeaderProps {
   id: number;
 
   /** 방 이미지 소스 */
-  image: string;
+  images: string[];
 
   /** 소개글 */
   text: string;
@@ -37,7 +37,7 @@ const DetailHeader: React.FC<IDetailHeaderProps> = ({
   dealType,
   deposit,
   rent,
-  image,
+  images,
   text,
   structure,
   id,
@@ -47,9 +47,7 @@ const DetailHeader: React.FC<IDetailHeaderProps> = ({
 }) => {
   return (
     <section className={"flex flex-col w-full bg-white mb-3"}>
-      <div className={"w-full h-72 flex"}>
-        <Img src={image} alt={text} />
-      </div>
+      <DetailImg images={images} />
       <div className={"flex flex-col px-2 py-3 border-b border-gray-300"}>
         <Heading
           label={
@@ -65,7 +63,7 @@ const DetailHeader: React.FC<IDetailHeaderProps> = ({
           className={"text-gray-400 text-sm sm:text-base"}
         />
       </div>
-      <div className={"flex flex-row px-2 py-3 border-b border-gray-300"}>
+      <div className={"flex flex-row px-2 py-3 border-b border-gray-300 "}>
         <div
           className={
             "flex flex-col flex-auto sm:flex-1 justify-center items-start"

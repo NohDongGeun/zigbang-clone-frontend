@@ -35,7 +35,6 @@ export interface roomDetail_roomDetail_room {
   buildingFloor: number;
   address: string;
   text: string;
-  image: string;
   dealType: DealType;
   rent: number;
   deposit: number;

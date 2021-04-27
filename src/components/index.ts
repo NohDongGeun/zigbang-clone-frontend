@@ -32,6 +32,7 @@ export { default as RegisterBox } from "./molecules/Agency/RegisterBox";
 export { default as RegisterLabel } from "./molecules/Agency/RegisterLabel";
 export { default as RegisterTextArea } from "./molecules/Agency/RegisterTextArea";
 //molecules/Detail
+export { default as DetailImg } from "./molecules/Details/DetailImg";
 export { default as DetailAgent } from "./molecules/Details/DetailAgent";
 export { default as DetailBar } from "./molecules/Details/DetailBar";
 export { default as DetailHeader } from "./molecules/Details/DetailHeader";
