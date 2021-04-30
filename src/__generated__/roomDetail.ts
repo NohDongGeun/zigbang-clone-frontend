@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { RoomDetailInput, DealType } from "./globalTypes";
+import { RoomDetailInput, RoomType, DealType } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: roomDetail
@@ -16,6 +16,7 @@ export interface roomDetail_roomDetail_room_point {
 
 export interface roomDetail_roomDetail_room_agency {
   __typename: "Agency";
+  id: number;
   name: string;
   phoneNum: string | null;
   agent: string;
@@ -23,6 +24,7 @@ export interface roomDetail_roomDetail_room_agency {
 
 export interface roomDetail_roomDetail_room {
   __typename: "Room";
+  roomType: RoomType;
   id: number;
   isParking: boolean;
   point: roomDetail_roomDetail_room_point;

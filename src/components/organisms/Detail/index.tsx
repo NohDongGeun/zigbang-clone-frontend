@@ -19,6 +19,7 @@ import {
   ListHeader,
   DetailRoadview,
   Loading,
+  Button,
 } from "../..";
 import { IDetailOption } from "../../../interfaces/Option";
 import { roomDetail } from "../../../__generated__/roomDetail";
@@ -35,6 +36,10 @@ import {
   delete_zzim_mutation,
   delete_zzim_mutationVariables,
 } from "../../../__generated__/delete_zzim_mutation";
+import {
+  send_sms_mutationVariables,
+  send_sms_mutation,
+} from "../../../__generated__/send_sms_mutation";
 
 interface Agency {
   img: string;
@@ -113,8 +118,6 @@ interface IDetail {
   userId?: number;
 }
 
-//param을 받으면 param으로 방을 검색해서 방을 받는다
-//param으로 방이 error이면 error 표시 해주자
 export const ROOM_QUERY = gql`
   query roomDetail($roomDetailInput: RoomDetailInput!) {
     roomDetail(input: $roomDetailInput) {
@@ -122,6 +125,7 @@ export const ROOM_QUERY = gql`
       error
       like
       room {
+        roomType
         id
         isParking
         point {
@@ -141,6 +145,7 @@ export const ROOM_QUERY = gql`
         deposit
         images
         agency {
+          id
           name
           phoneNum
           agent
@@ -162,6 +167,15 @@ export const ZZIM_MUTATION = gql`
 export const DELETE_ZZIM_MUTATION = gql`
   mutation delete_zzim_mutation($createZzimInput: CreateZzimInput!) {
     deleteZzim(input: $createZzimInput) {
+      ok
+      error
+    }
+  }
+`;
+
+export const SEND_SMS_MUTATION = gql`
+  mutation send_sms_mutation($sendSmsInput: SendSmsInput!) {
+    sendSmsAgency(input: $sendSmsInput) {
       ok
       error
     }
@@ -242,6 +256,38 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
       { query: FIND_ZZIM_QUERY },
     ],
   });
+
+  const onCompletedSms = (data: send_sms_mutation) => {
+    const {
+      sendSmsAgency: { ok, error },
+    } = data;
+
+    if (ok) {
+      alert("중개사에게 메세지를 보냈습니다.");
+    }
+    if (error) {
+      alert(error);
+    }
+  };
+
+  const [send_sms_mutation] = useMutation<
+    send_sms_mutation,
+    send_sms_mutationVariables
+  >(SEND_SMS_MUTATION, { onCompleted: onCompletedSms });
+
+  const handleSms = () => {
+    if (!isLoggedIn) return alert("로그인 후 이용해주세요.");
+    if (data?.roomDetail.room?.id) {
+      send_sms_mutation({
+        variables: {
+          sendSmsInput: {
+            roomId: data.roomDetail.room.id,
+            agencyId: data.roomDetail.room.agency.id,
+          },
+        },
+      });
+    }
+  };
 
   //data 변경시 room setter
   useEffect(() => {
@@ -340,7 +386,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
                       rent={room.rent}
                       images={room.images}
                       text={room.text}
-                      structure={room.structure}
+                      structure={room.roomType}
                       id={room.id}
                       exclusiveArea={room.exclusiveArea}
                       expense={room.expense}
@@ -351,7 +397,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
                       posibleMove={room.posibleMove}
                       exclusiveArea={room.exclusiveArea}
                       expense={room.expense}
-                      structure={room.structure}
+                      structure={room.roomType}
                       completionDate={room.completionDate}
                       floor={room.floor}
                       buildingFloor={room.buildingFloor}
@@ -384,6 +430,13 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
               </div>
             </div>
           )}
+          <Button
+            onClick={handleSms}
+            className={
+              "border border-gray-300 text-lg py-4 bg-blue-dark text-white font-bold"
+            }
+            label={"문의하기"}
+          />
         </article>
       )}
     </>

@@ -1,6 +1,7 @@
 import React from "react";
 import DetailBar from "../DetailBar";
 import { Heading, Img, Text } from "../../..";
+import test_people from "../../../../assets/img/test_people.png";
 
 interface IDetailAgent {
   name: string;
@@ -15,7 +16,7 @@ const DetailAgent: React.FC<IDetailAgent> = ({ name, img, phone }) => {
         className={"flex flex-grow-0 flex-shrink-0 p-3 min-w-14 sm:min-w-16"}
       >
         <Img
-          src={img}
+          src={test_people}
           alt={name}
           className={"sm:w-16 sm:h-16 w-14 h-14 rounded-full"}
         />

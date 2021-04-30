@@ -97,7 +97,17 @@ const DetailHeader: React.FC<IDetailHeaderProps> = ({
         >
           <Text label={"구조"} className={"sm:text-sm text-xs"} />
           <Text
-            label={structure}
+            label={
+              structure === "oneRoom"
+                ? "원룸"
+                : structure === "twoRoom"
+                ? "투룸"
+                : structure === "threeRoom"
+                ? "쓰리룸"
+                : structure === "threeRoomPlus"
+                ? "포룸이싱"
+                : "원룸"
+            }
             className={"font-bold sm:text-xl text-base text-blue-800"}
           />
         </div>

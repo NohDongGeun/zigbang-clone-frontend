@@ -39,14 +39,12 @@ export const searchReducer = (state: Search, action: Action) => {
     case "SET_REGION": {
       return {
         ...state,
-        loading: true,
         region: action.region,
       };
     }
     case "SET_SUBWAY": {
       return {
         ...state,
-        loading: true,
         subway: action.subway,
       };
     }

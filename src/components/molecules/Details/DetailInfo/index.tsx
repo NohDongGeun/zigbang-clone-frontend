@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DetailItem } from "../../..";
 import DetailBar from "../DetailBar";
 
@@ -50,13 +50,29 @@ const DetailInfo: React.FC<IDetailInfo> = ({
   address,
   unitChange,
 }) => {
+  useEffect(() => {
+    console.log(structure);
+  }, [structure]);
   return (
     <DetailBar label={"매물 정보"}>
       <DetailItem label={"주차"} value={isParking ? "가능" : "불가능"} />
       <DetailItem label={"엘리베이터"} value={isElevator ? "있음" : "없음"} />
       <DetailItem label={"입주가능일"} value={posibleMove} />
       <DetailItem label={"관리비"} value={`${expense}만원`} />
-      <DetailItem label={"구조"} value={structure} />
+      <DetailItem
+        label={"구조"}
+        value={
+          structure === "oneRoom"
+            ? "원룸"
+            : structure === "twoRoom"
+            ? "투룸"
+            : structure === "threeRoom"
+            ? "쓰리룸"
+            : structure === "threeRoomPlus"
+            ? "포룸이싱"
+            : "원룸"
+        }
+      />
       <DetailItem
         label={"면적(전용)"}
         value={

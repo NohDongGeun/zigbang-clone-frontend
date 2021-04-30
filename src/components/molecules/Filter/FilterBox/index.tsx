@@ -34,7 +34,7 @@ const FilterBox: React.FC<IFilterBox> = ({
       />
       {value && (
         <Heading
-          className={" text-xl text-yellow-500 font-bold pt-2"}
+          className={" text-xl text-blue-dark font-bold pt-2"}
           Type={"h2"}
           label={value}
         />

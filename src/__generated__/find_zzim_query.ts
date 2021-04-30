@@ -10,7 +10,7 @@ import { DealType, RoomType } from "./globalTypes";
 // ====================================================
 
 export interface find_zzim_query_findZzimRooms_rooms_point {
-  __typename?: "geometryTypes";
+  __typename: "geometryTypes";
   coordinates: number[];
 }
 

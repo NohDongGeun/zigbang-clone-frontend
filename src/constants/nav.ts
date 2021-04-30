@@ -9,7 +9,7 @@ import { GrUserManager } from "react-icons/gr";
 
 export const USER_NAV = [
   { name: "방 찾기", url: "/room", Component: RiHomeLine },
-  { name: "찜한 매물", url: "/room", Component: RiHomeHeartLine },
+  { name: "찜한 매물", url: "/my/rooms", Component: RiHomeHeartLine },
   { name: "내 정보", url: "/my/profile", Component: FiUser },
   { name: "중개사 페이지로 이동", url: "/agency", Component: RiTaskLine },
 ];

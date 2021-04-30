@@ -112,7 +112,7 @@ const Filter: React.FC = () => {
                 <Button
                   className={`${
                     e === state.dealType &&
-                    "bg-gray-900 border-gray-900 font-extrabold text-white"
+                    "bg-blue-dark  font-extrabold text-white"
                   } border border-gray-300 flex-auto ml-2 py-2 rounded-md `}
                   label={e}
                   key={i}
@@ -151,7 +151,7 @@ const Filter: React.FC = () => {
                 <Button
                   className={` ${
                     e === state.roomType &&
-                    "bg-gray-900 border-gray-900 font-extrabold text-white"
+                    "bg-blue-dark  font-extrabold text-white"
                   } w-1/2 py-2  border-gray-300 `}
                   label={e}
                   key={i}
@@ -174,7 +174,7 @@ const Filter: React.FC = () => {
                 <Button
                   className={` ${
                     e === state.floorType &&
-                    "bg-gray-900 border-gray-900 font-extrabold text-white"
+                    "bg-blue-dark  font-extrabold text-white"
                   } border border-gray-300 flex-1 ml-2 py-2 rounded-md `}
                   label={e}
                   key={i}

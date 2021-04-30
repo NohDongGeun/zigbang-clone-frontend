@@ -29,13 +29,13 @@ const FilterRange: React.FC<IFilterRange> = ({ labels, onChange }) => {
         }}
         step={5.55}
         allowCross={false}
-        tipProps={{ placement: "top" }}
+        tipProps={{ placement: 'none' }}
         onChange={onChange}
         dotStyle={{ display: "none" }}
-        railStyle={{ backgroundColor: "rgb(187, 187, 187)" }}
+        railStyle={{ backgroundColor: "#5485BB" }}
         trackStyle={[
-          { backgroundColor: "rgb(68, 68, 68)" },
-          { backgroundColor: "rgb(68, 68, 68)" },
+          { backgroundColor: "#E5E5E5" },
+          { backgroundColor: "#E5E5E5" },
         ]}
         handleStyle={[
           {

@@ -58,8 +58,8 @@ const RoomCard: React.FC<IRooms> = ({
             className={"text-gray-900 text-xl font-bold my-1"}
             label={
               dealType === "month"
-                ? `전세 ${deposit}`
-                : `월세 ${deposit}/${rent}`
+                ? `월세 ${deposit}/${rent}`
+                : `전세 ${deposit}`
             }
           />
           <Text
@@ -67,7 +67,9 @@ const RoomCard: React.FC<IRooms> = ({
             label={`${floor}층, ${exclusiveArea}㎡ ,관리비 ${expense}만원 `}
           />
           <Text
-            className={"text-gray-600 truncate w-full whitespace-nowrap text-left"}
+            className={
+              "text-gray-600 truncate w-full whitespace-nowrap text-left"
+            }
             label={text}
           />
         </div>

@@ -86,6 +86,11 @@ export interface RoomDetailInput {
   userId?: number | null;
 }
 
+export interface SendSmsInput {
+  agencyId: number;
+  roomId: number;
+}
+
 export interface VerifyUserInput {
   code: string;
 }

@@ -27,54 +27,65 @@ const Search: React.FC = () => {
   //   console.log(state);
   // }, [state]);
 
-  useEffect(() => {}, [state.keyword]);
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
 
   useEffect(() => {
     if (state.keyword.length < 1 || state.loading) return;
-    handleSearchPlace(state.keyword);
-    // const timer = setTimeout(() => handleSearchPlace(state.keyword), 1000);
-    // return () => {
-    //   clearTimeout(timer);
-    // };
+    const timer = setTimeout(() => handleSearchPlace(state.keyword), 1000);
+    return () => {
+      clearTimeout(timer);
+    };
   }, [state.keyword]);
 
-  const handleSearchPlace = async (value: string) => {
+  const handleSearchPlace = (value: string) => {
     const isSubway = value.charAt(value.length - 1);
     try {
+      dispatch({ type: "SET_LOADING", loading: true });
+      console.log("시작");
       if (isSubway === "역") {
         const subways = handleSubwaySearch(value);
+        dispatch({ type: "SET_LOADING", loading: false });
         return;
       }
-      await handleGeocoder(value);
-      await handleSubwaySearch(value);
+      const logic = () => {
+        return new Promise((resolve, reject) => {
+          const test1 = handleGeocoder(value);
+          const test2 = handleSubwaySearch(value);
+          resolve({ test1, test2 });
+        });
+      };
+      logic().then(() => dispatch({ type: "SET_LOADING", loading: false }));
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleGeocoder = async (value: string) => {
+  const handleGeocoder = (value: string) => {
     const geocoder = new window.kakao.maps.services.Geocoder();
-    await geocoder.addressSearch(value, function (result: any, status: any) {
+    const regionw = geocoder.addressSearch(value, function (
+      result: any,
+      status: any
+    ) {
       // 정상적으로 검색이 완료됐으면
-      if (status === window.kakao.maps.services.Status.OK) {
-        const regions = result.reduce(
-          (acc: IKeyword[], cur: any, i: number) => {
-            acc.push({ name: cur.address_name, location: [cur.y, cur.x] });
-            return acc;
-          },
-          []
-        );
-        
-        return dispatch({ type: "SET_REGION", region: regions });
+      if (status !== window.kakao.maps.services.Status.OK) {
+        return;
       }
+      const regions = result.reduce((acc: IKeyword[], cur: any, i: number) => {
+        acc.push({ name: cur.address_name, location: [cur.y, cur.x] });
+        return acc;
+      }, []);
+      dispatch({ type: "SET_REGION", region: regions });
     });
   };
 
-  const handleSubwaySearch = async (value: string) => {
+  const handleSubwaySearch = (value: string) => {
     const ps = new window.kakao.maps.services.Places();
-    await ps.keywordSearch(value, subwaySearchCB, {
+    const subways = ps.keywordSearch(value, subwaySearchCB, {
       category_group_code: "SW8",
     });
+    return subways;
   };
 
   const subwaySearchCB = (data: any) => {
@@ -82,28 +93,24 @@ const Search: React.FC = () => {
       acc.push({ name: cur.place_name, location: [cur.y, cur.x] });
       return acc;
     }, []);
-    return dispatch({ type: "SET_SUBWAY", subway: subways });
+    dispatch({ type: "SET_SUBWAY", subway: subways });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  
     const {
       target: { value },
     } = e;
     return dispatch({ type: "SET_KEYWORD", keyword: value });
   };
 
-  const handleButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const { value } = e.target as HTMLButtonElement;
-    const afterValue = value.split(",");
-
-    searchLocationVar([afterValue[0], afterValue[1]]);
+  const handleButton = (point: string[]) => {
+    searchLocationVar([point[0], point[1]]);
     dispatch({ type: "SET_RESET" });
   };
 
   const handleKeyDown = () => {
-    // if (state.keyword.length < 1 || state.loading) return;
-    // handleSearchPlace(state.keyword);
+    if (state.keyword.length < 1 || state.loading) return;
+    handleSearchPlace(state.keyword);
   };
 
   return (
@@ -137,18 +144,20 @@ const Search: React.FC = () => {
             {state.subway?.map((e, i) => {
               return (
                 <SearchItem
-                  handleItem={handleButton}
+                  handleItem={() => handleButton(e.location)}
                   name={e.name}
                   value={e.location}
                   key={i}
                   Icon={MdDirectionsSubway}
+                  coordinates={e.location}
                 />
               );
             })}
             {state.region?.map((e, i) => {
               return (
                 <SearchItem
-                  handleItem={handleButton}
+                  coordinates={e.location}
+                  handleItem={() => handleButton(e.location)}
                   name={e.name}
                   value={e.location}
                   key={i}
