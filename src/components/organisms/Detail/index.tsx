@@ -30,7 +30,7 @@ import {
   zzim_mutationVariables,
 } from "../../../__generated__/zzim_mutation";
 import { isLoggedInVar } from "../../../apollo";
-import { ME_QUERY, useMe } from "../../../hooks/useMe";
+import { FIND_ZZIM_QUERY } from "../../../pages/User/Zzim";
 import {
   delete_zzim_mutation,
   delete_zzim_mutationVariables,
@@ -211,6 +211,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
             },
           },
         },
+        { query: FIND_ZZIM_QUERY },
       ],
     }
   );
@@ -238,6 +239,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
           },
         },
       },
+      { query: FIND_ZZIM_QUERY },
     ],
   });
 

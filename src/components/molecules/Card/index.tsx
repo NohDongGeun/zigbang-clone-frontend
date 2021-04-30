@@ -46,7 +46,17 @@ const Card: React.FC<ICardProps> = ({
             Type={"h2"}
           />
           <Text
-            label={roomType}
+            label={
+              roomType === "oneRoom"
+                ? "원룸"
+                : roomType === "twoRoom"
+                ? "투룸"
+                : roomType === "threeRoom"
+                ? "쓰리룸"
+                : roomType === "threeRoomPlus"
+                ? "포룸이싱"
+                : "원룸"
+            }
             className={"font-bold text-sm text-gray-500"}
           />
           <Text
