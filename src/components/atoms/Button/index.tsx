@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { sidebarVar } from "../../../apollo";
 import { ITailwind } from "../../../interfaces/Tailwind";
 
 export interface IButtonProps extends ITailwind {
@@ -26,7 +27,7 @@ export interface IButtonProps extends ITailwind {
   /**
    * button value
    */
-  value?: string | number;
+  value?: string | number | string[];
 
   /**
    * Click 이벤트 처리
@@ -56,7 +57,7 @@ const Button: React.FC<IButtonProps> = ({
   return (
     <>
       {to ? (
-        <Link to={to} className={className}>
+        <Link to={to} className={className} onClick={() => sidebarVar(false)}>
           {label}
           {children}
         </Link>

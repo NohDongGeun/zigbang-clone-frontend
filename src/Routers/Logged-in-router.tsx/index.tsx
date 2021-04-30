@@ -18,8 +18,10 @@ import ModifyPassword from "../../pages/User/profile/Modify/ModifyPassword";
 import { useMe } from "../../hooks/useMe";
 import { Loading } from "../../components";
 import HeaderAndSidebar from "../../components/templates/HeaderTemplate";
+import Zzim from "../../pages/User/Zzim";
 
 const USER_ROUTER = [
+  { path: "/my/rooms", component: <Zzim /> },
   { path: "/my/auth/verify", component: <Auth /> },
   { path: "/my/auth/code", component: <AuthNext /> },
   { path: "/my/profile/", component: <Profile /> },
@@ -27,11 +29,11 @@ const USER_ROUTER = [
   { path: "/my/profile/modify_password", component: <ModifyPassword /> },
 ];
 
-const AGENCY_ROUTER = [
+export const AGENCY_ROUTER = [
   { path: "/agency", component: <Agency /> },
   { path: "/agency/create-room", component: <CreateRoom /> },
   { path: "/agency/profile/:id", component: <AgencyProfile /> },
-  { path: "/agency/room/:id", component: <RoomDetail /> },
+  { path: "/agency/profile/:id", component: <RoomDetail /> },
 ];
 
 const LoggedInRouter = () => {

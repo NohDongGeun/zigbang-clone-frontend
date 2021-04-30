@@ -16,7 +16,7 @@ const HeaderAndSidebar = () => {
         "/my/profile/modify_name" ||
         "/my/profile/modify_password" ||
         "/signup" ||
-        "/my/search_email" ||
+        "my/search_email" ||
         "/my/search_password") && (
         <>
           <Header />

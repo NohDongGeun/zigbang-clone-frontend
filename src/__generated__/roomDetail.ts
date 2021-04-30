@@ -46,6 +46,7 @@ export interface roomDetail_roomDetail {
   __typename: "RoomDetailOutput";
   ok: boolean;
   error: string | null;
+  like: boolean | null;
   room: roomDetail_roomDetail_room | null;
 }
 

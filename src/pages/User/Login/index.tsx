@@ -10,16 +10,10 @@ import {
   loginMutation,
   loginMutationVariables,
 } from "../../../__generated__/loginMutation";
+import { LOGIN_MUTATION } from "../../../hooks/useLogin";
 
-const LOGIN_MUTATION = gql`
-  mutation loginMutation($loginInput: LoginInput!) {
-    login(input: $loginInput) {
-      ok
-      error
-      token
-    }
-  }
-`;
+
+
 
 const Login: React.FC = () => {
   //에러 메세지

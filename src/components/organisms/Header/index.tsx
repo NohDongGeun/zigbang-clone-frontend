@@ -23,7 +23,7 @@ const Header: React.FC = () => {
     <div className={"flex flex-row w-screen overflow-x-hidden relative"}>
       <nav
         className={
-          "bg-primary w-screen px-1 sm:px-5 py-3 flex flex-row  h-20 fixed  z-10"
+          "bg-light w-screen px-1 sm:px-5 py-3 flex flex-row  h-20 fixed  z-10"
         }
       >
         <ul className={"flex-auto  flex justify-around items-center "}>

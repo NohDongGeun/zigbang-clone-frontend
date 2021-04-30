@@ -1,14 +1,55 @@
-import React, { useRef, useState } from "react";
-import { Button, Img } from "../..";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useRef } from "react";
+import {
+  Button,
+  Img,
+  SidebarAgencyNav,
+  SidebarBox,
+  SidebarUserNav,
+  SideLoginForm,
+  Text,
+} from "../..";
+import logoBox from "../../../assets/img/logobox.jpg";
 import { useReactiveVar } from "@apollo/client";
-import { sidebarVar } from "../../../apollo";
+import { authTokenVar, isLoggedInVar, sidebarVar } from "../../../apollo";
 import { useOutsideClick } from "../../../hooks/useOutsideClick";
+import { IoMdClose } from "react-icons/io";
+import { FormProvider, useForm } from "react-hook-form";
+import { useLogin } from "../../../hooks/useLogin";
+import { useMe } from "../../../hooks/useMe";
+import { useHistory, useLocation } from "react-router";
 
 const Sidebar = () => {
+  const { data } = useMe();
+  const location = useLocation();
+  const history = useHistory();
   const onSidebar = useReactiveVar(sidebarVar);
   const ref = useRef<HTMLDivElement>(null);
+  const method = useForm<{ email: string; password: string }>({
+    mode: "onChange",
+  });
+  const { email } = method.getValues();
+  const { password } = method.getValues();
+  const { loginMutation, error, loading } = useLogin(email, password);
+
+  const onSubmit = () => {
+    if (!loading) {
+      loginMutation({
+        variables: {
+          loginInput: {
+            email,
+            password,
+          },
+        },
+      });
+    }
+  };
+  const handleLogout = () => {
+    localStorage.clear();
+    authTokenVar("");
+    isLoggedInVar(false);
+    sidebarVar(false);
+    history.push("/room/");
+  };
 
   const handleSidebar = () => {
     sidebarVar(!onSidebar);
@@ -18,76 +59,40 @@ const Sidebar = () => {
   return (
     <aside
       ref={ref}
-      className={`fixed h-screen w-400 bg-primary flex flex-col z-50 rounded-l-2xl transform ease-out duration-500 ${
+      className={`fixed h-screen w-400 bg-light flex flex-col z-50  transform ease-out duration-500 ${
         onSidebar ? "top-0 right-0" : "-right-400"
       }`}
     >
-      <div
-        className={
-          "flex justify-between items-center border-b border-white h-20 px-3"
-        }
-      >
-        <Button
-          className={"text-white font-bold text-base hover:opacity-80"}
-          label={"로그인 및 회원가입"}
-        />
-        <Button onClick={handleSidebar}>
-          <FontAwesomeIcon
-            className={"hover:opacity-80"}
-            icon={faTimes}
-            color={"#fff"}
-            size={"2x"}
-          />
-        </Button>
-      </div>
-      <nav className={"p-5 flex flex-col "}>
-        <ul className={"flex-1"}>
-          <li className={"flex"}>
+      <SidebarBox
+        handleSidebar={handleSidebar}
+        name={data?.me.name}
+        email={data?.me.email}
+      />
+      {!data?.me.id ? (
+        <FormProvider {...method}>
+          <SideLoginForm onSubmit={onSubmit} error={error} loading={loading} />
+        </FormProvider>
+      ) : (
+        <>
+          {location.pathname === "/agency" ||
+          location.pathname === "/agency/create-room" ||
+          location.pathname === "/agency/profile/:id" ||
+          location.pathname === "/agency/profile/:id" ? (
+            <SidebarAgencyNav />
+          ) : (
+            <SidebarUserNav />
+          )}
+          <div className={"flex flex-1 justify-center items-end"}>
             <Button
+              onClick={handleLogout}
               className={
-                "flex-1  py-3 text-white font-semibold hover:opacity-80"
+                "border border-gray-300 p-5 w-full font-bold text-gray-500 hover:bg-gray-200"
               }
-              label={"방 찾기"}
-              to={"/room"}
+              label={"로그아웃"}
             />
-          </li>
-          <li className={"flex"}>
-            <Button
-              className={
-                "flex-1  py-3 text-white font-semibold hover:opacity-80"
-              }
-              label={"찜한 목록"}
-              to={"/room"}
-            />
-          </li>
-          <li className={"flex"}>
-            <Button
-              className={
-                "flex-1  py-3 text-white font-semibold hover:opacity-80"
-              }
-              label={"내 정보"}
-              to={"/room"}
-            />
-          </li>
-          <li className={"flex"}>
-            <Button
-              className={
-                "flex-1  py-3 text-white font-semibold hover:opacity-70"
-              }
-              label={"중개사 페이지로 이동"}
-              to={"/room"}
-            />
-          </li>
-        </ul>
-      </nav>
-      <div className={"flex-1 flex justify-center items-end"}>
-        <Button
-          className={
-            "py-5 border-t border-gray-300 w-full hover:opacity-80 text-white font-semibold"
-          }
-          label={"로그아웃"}
-        />
-      </div>
+          </div>
+        </>
+      )}
     </aside>
   );
 };

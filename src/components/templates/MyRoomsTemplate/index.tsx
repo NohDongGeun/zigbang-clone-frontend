@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Heading, RoomCard, Text } from "../..";
+import {  Heading, RoomCard, Text } from "../..";
 
 const MyRoomTemplate: React.FC = () => {
   return (

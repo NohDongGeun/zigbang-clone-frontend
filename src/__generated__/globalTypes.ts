@@ -35,6 +35,10 @@ export interface CreateVerifyInput {
   phone: string;
 }
 
+export interface CreateZzimInput {
+  roomId: number;
+}
+
 export interface EditProfileInput {
   name?: string | null;
   password?: string | null;
@@ -79,6 +83,7 @@ export interface PasswordEmailInput {
 
 export interface RoomDetailInput {
   roomId: number;
+  userId?: number | null;
 }
 
 export interface VerifyUserInput {

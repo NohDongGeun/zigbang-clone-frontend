@@ -29,6 +29,8 @@ module.exports = {
     backgroundColor: (theme) => ({
       ...theme("colors"),
       primary: "#F0F3F9",
+      light: "#F8F8F9",
+      eroom: "#7AA0C9",
       opacity: "rgba(0, 0, 0, 0.5)",
     }),
     backgroundSize: {

@@ -26,11 +26,13 @@ export const Location_Mutation = gql`
 interface IRoomParams {
   id?: string;
 }
+interface IRoom {
+  userId?: number;
+}
 
-const Room: React.FC = () => {
+const Room: React.FC<IRoom> = ({ userId }) => {
   const filter = useReactiveVar(filterVar);
   const { id } = useParams<IRoomParams>();
-
   const location = useReactiveVar(locationVar);
   const [count, setCount] = useState<number>(0);
   const [coordinates, setCoordinates] = useState<
