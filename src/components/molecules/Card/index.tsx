@@ -9,7 +9,7 @@ const Card: React.FC<ICardProps> = ({
   roomType,
   rent,
   deposit,
-  text,
+  title,
   exclusiveArea,
   address,
   floor,
@@ -72,7 +72,7 @@ const Card: React.FC<ICardProps> = ({
             className={"font-medium text-sm text-gray-700"}
           />
           <Text
-            label={text}
+            label={title}
             className={
               "font-semibold text-sm text-gray-500 truncate whitespace-nowrap w-full"
             }

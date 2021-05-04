@@ -16,7 +16,7 @@ export interface findRooms_findRooms_rooms {
   roomType: RoomType;
   rent: number;
   deposit: number;
-  text: string;
+  title: string;
   exclusiveArea: number;
   address: string;
   floor: number;

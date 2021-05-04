@@ -4,7 +4,8 @@ import { useMe } from "../../../hooks/useMe";
 
 const Agency: React.FC = () => {
   const { data } = useMe();
-  return <AgencyMainTemplate isAgency={true} />;
+  // return <AgencyMainTemplate isAgency={true} />;
+  return <div></div>;
 };
 
 export default Agency;

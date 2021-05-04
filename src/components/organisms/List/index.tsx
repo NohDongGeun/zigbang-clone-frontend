@@ -27,7 +27,7 @@ export const ROOMS_MUTATION = gql`
         roomType
         rent
         deposit
-        text
+        title
         exclusiveArea
         address
         floor

@@ -18,7 +18,7 @@ export const FIND_ZZIM_QUERY = gql`
         floor
         exclusiveArea
         expense
-        text
+        title
         images
         rent
         deposit

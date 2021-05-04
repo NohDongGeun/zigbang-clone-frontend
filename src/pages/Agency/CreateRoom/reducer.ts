@@ -39,7 +39,7 @@ type Action =
   | { type: "REMOVE_IMAGES"; i: number }
   | { type: "SET_PORTAL"; portal: boolean }
   | { type: "SET_PREVURL"; prevUrl: string }
-  | { type: "SET_ERROR"; isError: boolean,message:string }
+  | { type: "SET_ERROR"; isError: boolean; message: string }
   | { type: "SET_LOADING"; isLoading: boolean };
 
 export const initialState: CreateRoomState = {
@@ -63,7 +63,7 @@ export const initialState: CreateRoomState = {
     location: [],
     images: [],
   },
-  isError: true,
+  isError: false,
   ErrorMessage: "",
   isLoading: false,
   prevUrl: [],

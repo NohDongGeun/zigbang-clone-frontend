@@ -27,7 +27,7 @@ const ROOMTYPE = [
   { value: "oneRoom", name: "원룸" },
   { value: "twoRoom", name: "투룸" },
   { value: "threeRoom", name: "쓰리룸" },
-  { value: "fourRoom", name: "포룸이상" },
+  { value: "threeRoomPlus", name: "포룸이상" },
 ];
 
 const RoomInfos: React.FC<IRoomInfo> = ({

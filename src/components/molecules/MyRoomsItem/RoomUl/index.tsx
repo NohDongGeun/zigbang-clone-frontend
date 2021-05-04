@@ -15,7 +15,7 @@ const RoomUl: React.FC<IRoomUl> = ({ rooms, handleCard }) => {
             id={e.id}
             point={e.point}
             images={e.images}
-            text={e.text}
+            title={e.title}
             rent={e.rent}
             deposit={e.deposit}
             dealType={e.dealType}

@@ -9,15 +9,14 @@ import {
   Text,
 } from "../../..";
 const ISPARKING = [
-  { value: "가능", name: "가능" },
-  { value: "불가능", name: "불가능" },
+  { value: "true", name: "가능" },
+  { value: "false", name: "불가능" },
 ];
 const EXPENSES = [
-  { value: "1", name: "전기세" },
-  { value: "2", name: "가스" },
-  { value: "3", name: "수도" },
-  { value: "4", name: "인터넷" },
-  { value: "5", name: "TV" },
+  { value: "1", name: "가스" },
+  { value: "2", name: "수도" },
+  { value: "3", name: "인터넷" },
+  { value: "4", name: "티비" },
 ];
 const OPTIONS = [
   { value: "1", name: "에어컨" },

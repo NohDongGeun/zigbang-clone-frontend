@@ -22,7 +22,7 @@ export interface find_zzim_query_findZzimRooms_rooms {
   floor: number;
   exclusiveArea: number;
   expense: number;
-  text: string;
+  title: string;
   images: string[];
   rent: number;
   deposit: number;

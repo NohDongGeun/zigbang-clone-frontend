@@ -6,7 +6,7 @@ import { find_zzim_query_findZzimRooms_rooms_point } from "../../../__generated_
 export interface IRoomCard {
   id: number;
   images: string[];
-  text: string;
+  title: string;
   rent?: number;
   deposit: number;
   dealType: string;
@@ -22,7 +22,7 @@ interface IRooms extends IRoomCard {
 const RoomCard: React.FC<IRooms> = ({
   images,
   expense,
-  text,
+  title,
   rent,
   deposit,
   dealType,
@@ -70,7 +70,7 @@ const RoomCard: React.FC<IRooms> = ({
             className={
               "text-gray-600 truncate w-full whitespace-nowrap text-left"
             }
-            label={text}
+            label={title}
           />
         </div>
       </Button>

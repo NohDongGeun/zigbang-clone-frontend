@@ -1,8 +1,32 @@
+import { gql, useMutation } from "@apollo/client";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import DaumPostcode, { AddressData } from "react-daum-postcode";
+import { useHistory } from "react-router";
 import { CreateRoomTemplate } from "../../../components";
 import RoomPostcode from "../../../components/organisms/CreateRoom/RoomPostcode";
+import {
+  create_room_mutation,
+  create_room_mutationVariables,
+} from "../../../__generated__/create_room_mutation";
+import { DealType, RoomType } from "../../../__generated__/globalTypes";
 import { initialState, registerReducer } from "./reducer";
+
+export const CREATE_ROOM_MUTATION = gql`
+  mutation create_room_mutation(
+    $inputLocation: CreateLocationInput!
+    $inputOpEx: OptionsExpensesInput!
+    $input: CreateRoomInput!
+  ) {
+    createRoom(
+      inputLocation: $inputLocation
+      inputOpEx: $inputOpEx
+      input: $input
+    ) {
+      ok
+      error
+    }
+  }
+`;
 
 declare global {
   interface Window {
@@ -12,10 +36,29 @@ declare global {
 
 const CreateRoom: React.FC = () => {
   const [state, dispatch] = useReducer(registerReducer, initialState);
+  const history = useHistory();
+  const [message, setMessage] = useState<string>("");
   //textarea 글자수
   const [currentPM, setCurrentPM] = useState<number>(0);
   const [currentTitle, setCurrentTitle] = useState<number>(0);
   const [currentContent, setCurrentContent] = useState<number>(0);
+
+  const onCompleted = (data: create_room_mutation) => {
+    const {
+      createRoom: { ok, error },
+    } = data;
+    if (ok) {
+      dispatch({ type: "SET_LOADING", isLoading: false });
+      history.push("/agency");
+    }
+    if (error) {
+      setMessage("잘못된 입력입니다.");
+    }
+  };
+  const [create_room_mutation] = useMutation<
+    create_room_mutation,
+    create_room_mutationVariables
+  >(CREATE_ROOM_MUTATION, { onCompleted });
 
   //portal 창 닫을 시 showportal false
   const closeWindowPortal = () => {
@@ -109,6 +152,7 @@ const CreateRoom: React.FC = () => {
       value,
     });
   };
+  //이미지 체크
   const checkFile = (file: File) => {
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -121,7 +165,7 @@ const CreateRoom: React.FC = () => {
     };
     reader.readAsDataURL(file);
   };
-
+  //등록한 이미지 미리보기
   const addImages = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     const {
@@ -170,21 +214,54 @@ const CreateRoom: React.FC = () => {
   //Submit handler
   const onSubmit = async () => {
     errorHandler();
-    if (state.isError === false || state.isLoading === false) {
+    if (state.isError === true || state.isLoading === true) {
       return;
     }
     dispatch({ type: "SET_LOADING", isLoading: true });
 
     const formBody = new FormData();
     state.room.images.map((e, i) => {
-     return formBody.append("files", state.room.images[i]);
+      return formBody.append("files", state.room.images[i]);
     });
+    //이미지 s3에 업로드 후 url 받아오기
     const { imagesPath: coverImg } = await (
       await fetch("http://localhost:4000/uploads/", {
         method: "POST",
         body: formBody,
       })
     ).json();
+    const expenses = state.room.expenses.map((e) => +e);
+    const options = state.room.options.map((e) => +e);
+
+    create_room_mutation({
+      variables: {
+        input: {
+          isParking: state.room.isParking === "true",
+          rent: +state.room.rent,
+          deposit: +state.room.deposit,
+          posibleMove: state.room.possibleMove,
+          supplyArea: +state.room.supplyArea,
+          exclusiveArea: +state.room.exclusiveArea,
+          floor: +state.room.floor,
+          buildingFloor: +state.room.buildingFloor,
+          address: state.room.address,
+          title: state.room.title,
+          content: state.room.content,
+          images: coverImg,
+          expense: +state.room.expense,
+          roomType: state.room.roomType as RoomType,
+          dealType: state.room.dealType as DealType,
+        },
+        inputLocation: {
+          lat: +state.room.location[0],
+          lon: +state.room.location[1],
+        },
+        inputOpEx: {
+          expensesIds: expenses,
+          optionsIds: options,
+        },
+      },
+    });
   };
   return (
     <>

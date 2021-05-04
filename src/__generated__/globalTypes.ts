@@ -31,6 +31,29 @@ export interface CreateAccountInput {
   password: string;
 }
 
+export interface CreateLocationInput {
+  lat: number;
+  lon: number;
+}
+
+export interface CreateRoomInput {
+  isParking: boolean;
+  rent: number;
+  deposit: number;
+  posibleMove: string;
+  supplyArea: number;
+  exclusiveArea: number;
+  floor: number;
+  buildingFloor: number;
+  address: string;
+  title: string;
+  content: string;
+  images: string[];
+  expense: number;
+  roomType: RoomType;
+  dealType: DealType;
+}
+
 export interface CreateVerifyInput {
   phone: string;
 }
@@ -75,6 +98,11 @@ export interface FindRoomsInput {
 export interface LoginInput {
   email: string;
   password: string;
+}
+
+export interface OptionsExpensesInput {
+  optionsIds?: number[] | null;
+  expensesIds?: number[] | null;
 }
 
 export interface PasswordEmailInput {

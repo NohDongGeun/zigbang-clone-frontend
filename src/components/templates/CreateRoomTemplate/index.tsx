@@ -119,6 +119,7 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
         {message && <ErrorMessage message={message} />}
         <section className={"w-full flex justify-center items-center"}>
           <Button
+            type={"submit"}
             onClick={onSubmit}
             className={
               "w-full sm:w-60 py-3 border border-yellow-600 bg-yellow-500 text-white font-bold"

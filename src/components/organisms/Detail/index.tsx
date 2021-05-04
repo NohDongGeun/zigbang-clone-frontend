@@ -131,18 +131,17 @@ export const ROOM_QUERY = gql`
         point {
           coordinates
         }
-        isElevator
         posibleMove
         exclusiveArea
         expense
-        completionDate
         floor
         buildingFloor
         address
-        text
+        title
         dealType
         rent
         deposit
+        content
         images
         agency {
           id

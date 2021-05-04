@@ -28,18 +28,17 @@ export interface roomDetail_roomDetail_room {
   id: number;
   isParking: boolean;
   point: roomDetail_roomDetail_room_point;
-  isElevator: boolean;
   posibleMove: string;
   exclusiveArea: number;
   expense: number;
-  completionDate: string;
   floor: number;
   buildingFloor: number;
   address: string;
-  text: string;
+  title: string;
   dealType: DealType;
   rent: number;
   deposit: number;
+  content: string;
   images: string[];
   agency: roomDetail_roomDetail_room_agency;
 }
