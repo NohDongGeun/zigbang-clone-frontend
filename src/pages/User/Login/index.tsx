@@ -12,9 +12,6 @@ import {
 } from "../../../__generated__/loginMutation";
 import { LOGIN_MUTATION } from "../../../hooks/useLogin";
 
-
-
-
 const Login: React.FC = () => {
   //에러 메세지
   const [message, setMessage] = useState<string>("");
@@ -61,4 +58,5 @@ const Login: React.FC = () => {
     </FormProvider>
   );
 };
+
 export default Login;

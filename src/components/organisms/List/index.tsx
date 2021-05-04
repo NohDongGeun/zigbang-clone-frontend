@@ -47,9 +47,11 @@ interface IList {
 const List: React.FC<IList> = ({ count }) => {
   const [unit, setUnit] = useState<boolean>(false);
   const page = useRef<number>(1);
+  const roomCount = useRef<number>(0);
   const location = useReactiveVar(locationVar);
   const filter = useReactiveVar(filterVar);
   const scroll = useRef<HTMLDivElement>(null);
+  const scrollLocation = useRef<number>(0);
   const [rooms, setRooms] = useState<findRooms_findRooms_rooms[]>([]);
   const onCompleted = (data: findRooms) => {
     const {
@@ -57,7 +59,7 @@ const List: React.FC<IList> = ({ count }) => {
     } = data;
 
     if (rooms) {
-      return setRooms((prev) => [...prev, ...rooms]);
+      setRooms((prev) => [...prev, ...rooms]);
     }
     return;
   };
@@ -67,7 +69,7 @@ const List: React.FC<IList> = ({ count }) => {
     findRoomsVariables
   >(ROOMS_MUTATION, { onCompleted });
 
-  const roomsMutation = useCallback(() => {
+  const roomsMutation = () => {
     if (!loading) {
       findRooms({
         variables: {
@@ -75,13 +77,12 @@ const List: React.FC<IList> = ({ count }) => {
         },
       });
     }
-  }, [filter, location]);
-
+  };
   useEffect(() => {
     setRooms([]);
     page.current = 1;
     roomsMutation();
-  }, [roomsMutation]);
+  }, [filter, location]);
 
   // 스크롤 이벤트 핸들러
 
@@ -94,13 +95,16 @@ const List: React.FC<IList> = ({ count }) => {
       const scrollHeight = scroll.current.scrollHeight;
       const scrollTop = scroll.current.scrollTop;
       const clientHeight = scroll.current.clientHeight;
-      console.log(scrollHeight, scrollTop, clientHeight);
-      if (scrollTop + clientHeight === scrollHeight) {
-        return;
-      }
-      if (scrollTop + clientHeight > scrollHeight - 0.5) {
-        page.current = page.current + 1;
-        roomsMutation();
+
+      if (
+        scrollTop + clientHeight === scrollHeight ||
+        scrollTop + clientHeight > scrollHeight - 0.5
+      ) {
+        if (roomCount.current !== count) {
+          page.current = page.current + 1;
+          scrollLocation.current = clientHeight;
+          roomsMutation();
+        }
       }
     };
 
@@ -109,7 +113,7 @@ const List: React.FC<IList> = ({ count }) => {
       // scroll event listener 해제
       scroll.current?.removeEventListener("scroll", handleScroll, false);
     };
-  }, [scroll, roomsMutation]);
+  });
 
   //단위 handler
   const handleUnit = () => {
@@ -129,37 +133,34 @@ const List: React.FC<IList> = ({ count }) => {
           handleUnit={handleUnit}
         />
       </div>
-      {loading ? (
-        <Loading />
-      ) : (
+
+      <div
+        ref={scroll}
+        className={
+          "flex flex-col flex-grow-0 h-620 overflow-y-auto  bg-primary relative"
+        }
+      >
         <div
-          ref={scroll}
           className={
-            "flex flex-col flex-grow-0 h-620 overflow-y-auto  bg-primary relative"
+            "absolute h-full flex flex-col transform  translate-y-0 w-full"
           }
         >
-          <div
-            className={
-              "absolute h-full flex flex-col transform  translate-y-0 w-full"
-            }
-          >
-            {rooms && count !== 0 ? (
-              rooms.map((room, i) => {
-                return (
-                  <Card
-                    unitChange={unit}
-                    image={room.images[0]}
-                    {...room}
-                    key={i}
-                  />
-                );
-              })
-            ) : (
-              <Empty />
-            )}
-          </div>
+          {rooms && count !== 0 ? (
+            rooms.map((room, i) => {
+              return (
+                <Card
+                  unitChange={unit}
+                  image={room.images[0]}
+                  {...room}
+                  key={i}
+                />
+              );
+            })
+          ) : (
+            <Empty />
+          )}
         </div>
-      )}
+      </div>
     </article>
   );
 };

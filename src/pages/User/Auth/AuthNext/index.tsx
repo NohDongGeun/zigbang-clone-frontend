@@ -80,7 +80,7 @@ const AuthNext: React.FC = () => {
             heading1={`${data.findPhone.phone}으로 전송된`}
             heading2={"4자리 숫자를 입력해주세요."}
             label={"완료"}
-            to={"/Auth"}
+            to={"/my/auth/code"}
             name={"code"}
             registerOptions={{
               required: true,

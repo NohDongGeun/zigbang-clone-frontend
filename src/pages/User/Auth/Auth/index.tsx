@@ -65,7 +65,7 @@ const Auth: React.FC = () => {
         heading1={"휴대폰 번호를 입력하시면"}
         heading2={"문의 시 더욱 편리하게 연결됩니다."}
         label={"다음"}
-        to={"/login"}
+        to={"/my/auth/verify"}
         name={"phone"}
         message={message}
         registerOptions={{

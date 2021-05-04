@@ -46,6 +46,7 @@ const LoggedInRouter = () => {
     <Router>
       <HeaderAndSidebar />
       <Switch>
+        
         {COMMON_ROUTER.map((route) => {
           return (
             <Route exact path={route.path}>

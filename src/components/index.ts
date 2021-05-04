@@ -30,6 +30,12 @@ export { default as SidebarBox } from "./molecules/SidebarItems/SidebarBox";
 export { default as SearchItem } from "./molecules/SearchItem";
 export { default as NoSearch } from "./molecules/NoSearch";
 export { default as SearchBox } from "./molecules/SearchBox";
+
+//molecules/MyRoomsItem
+export { default as RoomText } from "./molecules/MyRoomsItem/RoomText";
+export { default as RoomHeading } from "./molecules/MyRoomsItem/RoomHeading";
+export { default as RoomUl } from "./molecules/MyRoomsItem/RoomUl";
+
 //molecules/Agency
 export { default as RegisterBtn } from "./molecules/Agency/RegisterBtn";
 export { default as RegisterInput } from "./molecules/Agency/RegisterInput";
