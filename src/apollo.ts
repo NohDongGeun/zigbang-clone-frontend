@@ -22,10 +22,10 @@ export const isFilterVar = makeVar<boolean>(false);
 export const locationVar = makeVar<ILocation>({
   coordinates: [],
   dist: [
-    126.64836296876082,
-    37.6514408966912,
-    127.05983236354253,
-    37.55232806718287,
+    126.76523535610764,
+    37.64123292105048,
+    127.17657189757475,
+    37.46814028220264,
   ],
 });
 const httpLink = createHttpLink({

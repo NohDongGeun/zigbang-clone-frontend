@@ -43,6 +43,7 @@ const Room: React.FC<IRoom> = ({ userId }) => {
     const {
       filteredLocation: { locations },
     } = data;
+    console.log(data);
     if (locations) {
       setCount(locations.length);
       setCoordinates(locations);
@@ -60,8 +61,8 @@ const Room: React.FC<IRoom> = ({ userId }) => {
         findLocationInput: { ...filter, ...location },
       },
     });
-    console.log(data);
-  }, [filter, location]);
+    console.log(location, filter);
+  }, [filter, location,]);
 
   return (
     <div>

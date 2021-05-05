@@ -21,11 +21,11 @@ const DetailExpenses: React.FC<IDetailExpenses> = ({
 }) => {
   return (
     <DetailBar label={"관리비 포함 항목"} subLabel={`관리비 : ${expense}만원`}>
-      <div className={"flex flex-1 flex-row flex-wrap"}>
+      <div className={"flex flex-1 flex-row flex-wrap mt-2"}>
         {expenseOptions ? (
           expenseOptions.map((expense, i) => {
             return (
-              <BackgroundImg label={expense.label} src={expense.src} key={i} />
+              <BackgroundImg label={expense.name} src={expense.img} key={i} />
             );
           })
         ) : (

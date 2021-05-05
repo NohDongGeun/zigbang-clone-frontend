@@ -167,7 +167,6 @@ const CreateRoom: React.FC = () => {
   };
   //등록한 이미지 미리보기
   const addImages = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
     const {
       target: { files },
     } = e;
@@ -253,8 +252,8 @@ const CreateRoom: React.FC = () => {
           dealType: state.room.dealType as DealType,
         },
         inputLocation: {
-          lat: +state.room.location[0],
-          lon: +state.room.location[1],
+          lat: +state.room.location[1],
+          lon: +state.room.location[0],
         },
         inputOpEx: {
           expensesIds: expenses,

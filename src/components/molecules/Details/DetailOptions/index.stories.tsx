@@ -11,24 +11,24 @@ export default {
 
 const options = [
   {
-    label: "에어컨",
-    src: "https://s.zigbang.com/zuix/ic_aircon_dim_cutline.png",
+    name: "에어컨",
+    img: "https://s.zigbang.com/zuix/ic_aircon_dim_cutline.png",
   },
   {
-    label: "에어컨",
-    src: "https://s.zigbang.com/zuix/ic_aircon_dim_cutline.png",
+    name: "에어컨",
+    img: "https://s.zigbang.com/zuix/ic_aircon_dim_cutline.png",
   },
   {
-    label: "에어컨",
-    src: "https://s.zigbang.com/zuix/ic_aircon_dim_cutline.png",
+    name: "에어컨",
+    img: "https://s.zigbang.com/zuix/ic_aircon_dim_cutline.png",
   },
   {
-    label: "에어컨",
-    src: "https://s.zigbang.com/zuix/ic_aircon_dim_cutline.png",
+    name: "에어컨",
+    img: "https://s.zigbang.com/zuix/ic_aircon_dim_cutline.png",
   },
   {
-    label: "에어컨",
-    src: "https://s.zigbang.com/zuix/ic_aircon_dim_cutline.png",
+    name: "에어컨",
+    img: "https://s.zigbang.com/zuix/ic_aircon_dim_cutline.png",
   },
 ];
 

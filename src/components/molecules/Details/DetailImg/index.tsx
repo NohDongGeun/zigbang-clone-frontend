@@ -4,7 +4,6 @@ import "./styles.css";
 import { Carousel } from "react-responsive-carousel";
 import { Img } from "../../..";
 
-
 interface IDetailImg {
   images: string[];
 }
@@ -23,7 +22,7 @@ const DetailImg: React.FC<IDetailImg> = ({ images }) => {
   }, []);
 
   return (
-    <div className={` w-full flex relative`}>
+    <div className={`w-full flex relative`}>
       <Carousel
         centerMode={540 < size && 640 > size ? true : false}
         autoPlay={true}
@@ -35,8 +34,13 @@ const DetailImg: React.FC<IDetailImg> = ({ images }) => {
       >
         {images.map((e, i) => {
           return (
-            <div className={"h-60 sm:h-full"}>
-              <Img src={e} alt={"방 이미지"} key={i} />
+            <div className={"h-60 w-full sm:h-72"}>
+              <Img
+                src={e}
+                alt={"방 이미지"}
+                key={i}
+                className={"object-cover w-full h-full"}
+              />
             </div>
           );
         })}

@@ -22,6 +22,18 @@ export interface roomDetail_roomDetail_room_agency {
   agent: string;
 }
 
+export interface roomDetail_roomDetail_room_expenses {
+  __typename: "Expenses";
+  name: string;
+  img: string | null;
+}
+
+export interface roomDetail_roomDetail_room_options {
+  __typename: "Options";
+  name: string;
+  img: string | null;
+}
+
 export interface roomDetail_roomDetail_room {
   __typename: "Room";
   roomType: RoomType;
@@ -41,6 +53,8 @@ export interface roomDetail_roomDetail_room {
   content: string;
   images: string[];
   agency: roomDetail_roomDetail_room_agency;
+  expenses: roomDetail_roomDetail_room_expenses[] | null;
+  options: roomDetail_roomDetail_room_options[] | null;
 }
 
 export interface roomDetail_roomDetail {

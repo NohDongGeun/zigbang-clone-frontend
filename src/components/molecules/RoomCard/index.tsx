@@ -34,12 +34,16 @@ const RoomCard: React.FC<IRooms> = ({
   id,
 }) => {
   return (
-    <section className={"flex flex-col h-96 w-72 sm:w-440 group  "}>
+    <section className={"flex flex-col w-72 sm:w-440 group  "}>
       <Button onClick={() => handleCard(point.coordinates, id)}>
-        <div className={"flex-1 group-hover:opacity-75"}>
-          <Img className={"h-full w-full"} src={images[0]} alt={"사진"} />
+        <div className={"w-full h-52 group-hover:opacity-75 "}>
+          <Img
+            className={"object-cover h-full w-full"}
+            src={images[0]}
+            alt={"사진"}
+          />
         </div>
-        <div className={"flex-1 flex flex-col justify-start items-start py-2"}>
+        <div className={"flex-1  flex flex-col justify-start items-start py-2"}>
           <Text
             className={"text-gray-500 text-sm font-semibold"}
             label={

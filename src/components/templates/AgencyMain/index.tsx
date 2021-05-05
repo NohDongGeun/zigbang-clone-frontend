@@ -18,11 +18,13 @@ const AgencyMainTemplate: React.FC<IAgencyMainTemplate> = ({
   handleCard,
 }) => {
   return (
-    <div className={"w-full h-600 flex flex-col md:flex-row  mt-64 md:mt-80"}>
+    <div className={"w-full h-600 flex flex-col md:flex-col  mt-64 md:mt-80"}>
       {isAgency ? (
         <>
           <div
-            className={"xl:w-1280 lg:w-1024 md:w-768 mx-auto  h-full   p-3  "}
+            className={
+              "xl:w-1280 lg:w-1024 md:w-768 mx-auto  h-full p-3  text-center sm:text-left"
+            }
           >
             <RoomHeading label={"광고 중 매물"} />
             <RoomText

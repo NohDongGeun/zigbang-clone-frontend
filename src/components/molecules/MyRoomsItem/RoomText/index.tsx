@@ -10,7 +10,7 @@ const RoomText: React.FC<IRoomText> = ({ count, label }) => {
   return (
     <div
       className={
-        "border-t border-gray-300 flex flex-row justify-start items-center"
+        "border-t border-gray-300 flex flex-row sm:justify-start justify-center items-center"
       }
     >
       <Text className={"py-2"} label={`총 `} />

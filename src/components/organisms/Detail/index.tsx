@@ -149,6 +149,14 @@ export const ROOM_QUERY = gql`
           phoneNum
           agent
         }
+        expenses {
+          name
+          img
+        }
+        options {
+          name
+          img
+        }
       }
     }
   }
@@ -191,6 +199,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
   const [room, setRoom] = useState<any>(null);
   const [heart, setHeart] = useState<boolean>(false);
   const [roadview, setRoadview] = useState<boolean>(false);
+
   const { loading, data, error } = useQuery<roomDetail>(ROOM_QUERY, {
     variables: {
       roomDetailInput: {
@@ -199,6 +208,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
       },
     },
   });
+
   const onCompletedZzim = (data: zzim_mutation) => {
     const {
       createZzim: { ok, error },
@@ -406,9 +416,9 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
                     <DetailOptions options={room.options} />
                     <DetailExpenses
                       expense={room.expense}
-                      expenseOptions={room.expenseOptions}
+                      expenseOptions={room.expenses}
                     />
-                    <DetailText label={"상세 설명"} wysiwyg={room.wysiwyg} />
+                    <DetailText label={"상세 설명"} wysiwyg={room.content} />
                     <DetailMap
                       address={room.address}
                       lat={room.point.coordinates[1]}

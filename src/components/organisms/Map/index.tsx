@@ -39,6 +39,12 @@ const Map: React.FC<IMap> = ({ point }) => {
           getNorthEast.La,
           getSouthWest.Ma,
         ];
+        console.log(
+          getSouthWest.La,
+          getNorthEast.Ma,
+          getNorthEast.La,
+          getSouthWest.Ma
+        );
         const coordinates = [center.Ma, center.La];
         locationVar({ coordinates, dist });
       });
@@ -117,7 +123,6 @@ const Map: React.FC<IMap> = ({ point }) => {
   }, [point, map]);
 
   useEffect(() => {
-    console.log(search);
     if (map != null) {
       //지도 중심좌표 등록
       const moveLatLon = new window.kakao.maps.LatLng(search[0], search[1]);
