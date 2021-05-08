@@ -49,6 +49,7 @@ export interface CreateRoomInput {
   title: string;
   content: string;
   images: string[];
+  s3Code: number;
   expense: number;
   roomType: RoomType;
   dealType: DealType;

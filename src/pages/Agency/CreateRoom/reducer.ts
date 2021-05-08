@@ -1,4 +1,4 @@
-type Room = {
+export type Room = {
   dealType: string;
   roomType: string;
   deposit: string;
@@ -7,8 +7,8 @@ type Room = {
   buildingFloor: string;
   isParking: string;
   expense: string;
-  expenses: string[];
-  options: string[];
+  expenses?: string[];
+  options?: string[];
   possibleMove: string;
   exclusiveArea: string;
   supplyArea: string;
@@ -18,17 +18,34 @@ type Room = {
   location: number[];
   images: File[];
 };
-type CreateRoomState = {
+
+export type RoomErrors = {
+  rentError: boolean;
+  depositError: boolean;
+  floorError: boolean;
+  buildingFloorError: boolean;
+  exclusiveAreaError: boolean;
+  supplyAreaError: boolean;
+  expenseError: boolean;
+};
+export type CreateRoomState = {
   room: Room;
-  isError: boolean;
   isLoading: boolean;
   prevUrl: string[];
   showPortal: boolean;
   ErrorMessage: string;
+  isChange: boolean;
+  errors: RoomErrors;
 };
 
-type Action =
-  | { type: "CHANGE_INPUT"; name: string; value: string }
+export type Action =
+  | {
+      type: "CHANGE_INPUT";
+      name: string;
+      value: string;
+      errorName: string;
+      isError: boolean;
+    }
   | { type: "SET_DEALTYPE"; dealType: string }
   | { type: "SET_ROOMTYPE"; roomType: string }
   | { type: "SET_ISPARKING"; isParking: string }
@@ -38,9 +55,11 @@ type Action =
   | { type: "SET_IMAGES"; images: File[] }
   | { type: "REMOVE_IMAGES"; i: number }
   | { type: "SET_PORTAL"; portal: boolean }
-  | { type: "SET_PREVURL"; prevUrl: string }
-  | { type: "SET_ERROR"; isError: boolean; message: string }
-  | { type: "SET_LOADING"; isLoading: boolean };
+  | { type: "SET_PREVURL"; prevUrl: string | string[] }
+  | { type: "SET_ERRORMESSAGE"; message: string }
+  | { type: "SET_LOADING"; isLoading: boolean }
+  | { type: "SET_INITIAL"; room: Room; prevUrl: string | string[] }
+  | { type: "SET_ISCHANGE"; isChange: boolean };
 
 export const initialState: CreateRoomState = {
   room: {
@@ -63,11 +82,20 @@ export const initialState: CreateRoomState = {
     location: [],
     images: [],
   },
-  isError: false,
   ErrorMessage: "",
   isLoading: false,
   prevUrl: [],
   showPortal: false,
+  isChange: false,
+  errors: {
+    rentError: false,
+    depositError: false,
+    floorError: false,
+    buildingFloorError: false,
+    exclusiveAreaError: false,
+    supplyAreaError: false,
+    expenseError: false,
+  },
 };
 
 export const registerReducer = (state: CreateRoomState, action: Action) => {
@@ -76,6 +104,7 @@ export const registerReducer = (state: CreateRoomState, action: Action) => {
       return {
         ...state,
         room: { ...state.room, [action.name]: action.value },
+        errors: { ...state.errors, [action.errorName]: action.isError },
       };
     }
     case "SET_DEALTYPE": {
@@ -94,7 +123,7 @@ export const registerReducer = (state: CreateRoomState, action: Action) => {
         : { ...state, room: { ...state.room, isParking: action.isParking } };
     }
     case "SET_EXPENSES": {
-      return state.room.expenses.indexOf(action.expenses) === -1
+      return state.room.expenses?.indexOf(action.expenses) === -1
         ? {
             ...state,
             room: {
@@ -106,14 +135,14 @@ export const registerReducer = (state: CreateRoomState, action: Action) => {
             ...state,
             room: {
               ...state.room,
-              expenses: state.room.expenses.filter(
+              expenses: state.room.expenses?.filter(
                 (v) => v !== action.expenses
               ),
             },
           };
     }
     case "SET_OPTIONS": {
-      return state.room.options.indexOf(action.options) === -1
+      return state.room.options?.indexOf(action.options) === -1
         ? {
             ...state,
             room: {
@@ -125,7 +154,7 @@ export const registerReducer = (state: CreateRoomState, action: Action) => {
             ...state,
             room: {
               ...state.room,
-              options: state.room.options.filter((v) => v !== action.options),
+              options: state.room.options?.filter((v) => v !== action.options),
             },
           };
     }
@@ -170,10 +199,9 @@ export const registerReducer = (state: CreateRoomState, action: Action) => {
         prevUrl: state.prevUrl.concat(action.prevUrl),
       };
     }
-    case "SET_ERROR": {
+    case "SET_ERRORMESSAGE": {
       return {
         ...state,
-        isError: action.isError,
         ErrorMessage: action.message,
       };
     }
@@ -181,6 +209,19 @@ export const registerReducer = (state: CreateRoomState, action: Action) => {
       return {
         ...state,
         isLoading: action.isLoading,
+      };
+    }
+    case "SET_INITIAL": {
+      return {
+        ...state,
+        prevUrl: state.prevUrl.concat(action.prevUrl),
+        room: action.room,
+      };
+    }
+    case "SET_ISCHANGE": {
+      return {
+        ...state,
+        isChange: action.isChange,
       };
     }
     default: {

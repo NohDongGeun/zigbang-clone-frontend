@@ -1,4 +1,5 @@
-import React, { ChangeEventHandler } from "react";
+import React, { ChangeEventHandler, useEffect } from "react";
+import { FormProvider, RegisterOptions, useFormContext } from "react-hook-form";
 import { Text } from "../../..";
 
 interface IRegisterTextArea {
@@ -8,6 +9,7 @@ interface IRegisterTextArea {
   size: "big" | "basic";
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   name: string;
+  value: string;
 }
 
 const RegisterTextArea: React.FC<IRegisterTextArea> = ({
@@ -17,6 +19,7 @@ const RegisterTextArea: React.FC<IRegisterTextArea> = ({
   onChange,
   size,
   name,
+  value,
 }) => {
   return (
     <div
@@ -33,6 +36,7 @@ const RegisterTextArea: React.FC<IRegisterTextArea> = ({
         }
         placeholder={placeholder}
         onChange={onChange}
+        value={value}
       ></textarea>
       <Text
         className={"flex justify-end items-end text-xs text-gray-400 "}

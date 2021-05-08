@@ -7,10 +7,9 @@ interface IUseFormInputProps extends ITailwind {
   placeholder?: string;
   required?: boolean;
   registerOptions: RegisterOptions;
-  type: "text" | "email" | "password" | "checkbox" | "button";
+  type: "text" | "email" | "password" | "checkbox" | "button" | "number";
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  
 }
 
 const UseFormInput: React.FC<IUseFormInputProps> = ({
@@ -18,12 +17,7 @@ const UseFormInput: React.FC<IUseFormInputProps> = ({
   ...props
 }) => {
   const { register } = useFormContext();
-  return (
-    <input
-      ref={register(registerOptions)}
-      {...props}
-    ></input>
-  );
+  return <input ref={register(registerOptions)} {...props}></input>;
 };
 
 export default React.memo(UseFormInput);

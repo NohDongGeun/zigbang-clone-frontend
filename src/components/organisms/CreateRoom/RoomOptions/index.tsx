@@ -43,6 +43,7 @@ interface IRoomOptions {
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeTextarea: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  expenseError: boolean;
 }
 const RoomOptions: React.FC<IRoomOptions> = ({
   expense,
@@ -54,10 +55,8 @@ const RoomOptions: React.FC<IRoomOptions> = ({
   onChange,
   onChangeTextarea,
   isParking,
+  expenseError,
 }) => {
-  useEffect(() => {
-    console.log(expenses);
-  }, [expenses]);
   return (
     <RegisterBox label={"추가 정보"}>
       <RegisterLabel label={"주차"}>
@@ -82,6 +81,7 @@ const RoomOptions: React.FC<IRoomOptions> = ({
           label={"만원"}
           value={expense}
           onChange={onChange}
+          isError={expenseError}
         />
         <div className={"flex w-136 h-42 mb-2 justify-start  items-center"}>
           <Input type={"checkbox"} className={"mr-1 w-4 h-4"} />
@@ -126,6 +126,7 @@ const RoomOptions: React.FC<IRoomOptions> = ({
           size={"basic"}
           onChange={onChangeTextarea}
           name={"possibleMove"}
+          value={possibleMove}
         />
       </RegisterLabel>
     </RegisterBox>

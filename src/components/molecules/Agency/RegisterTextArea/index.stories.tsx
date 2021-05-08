@@ -17,6 +17,7 @@ export const registerTextArea: React.FC = () => {
       placeholder={"예)즉시입주,날짜협의,8월 28일 이후"}
       onChange={action("onChange")}
       name={"as"}
+      value={"asd"}
     />
   );
 };

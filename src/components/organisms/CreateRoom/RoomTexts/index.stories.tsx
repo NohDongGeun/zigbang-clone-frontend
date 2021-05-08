@@ -14,6 +14,8 @@ export const roomTexts: React.FC = () => {
       onChangeTextarea={action("onChangeTextarea")}
       currentContentNum={2}
       currentTitleNum={3}
+      title={"title"}
+      content={"content"}
     />
   );
 };

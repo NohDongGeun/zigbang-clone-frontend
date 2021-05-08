@@ -5,12 +5,16 @@ interface IRoomText {
   currentTitleNum: number;
   currentContentNum: number;
   onChangeTextarea: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  title: string;
+  content: string;
 }
 
 const RoomTexts: React.FC<IRoomText> = ({
   currentTitleNum,
   currentContentNum,
   onChangeTextarea,
+  title,
+  content,
 }) => {
   return (
     <RegisterBox label={"설명"}>
@@ -22,6 +26,7 @@ const RoomTexts: React.FC<IRoomText> = ({
           size={"basic"}
           onChange={onChangeTextarea}
           name={"title"}
+          value={title}
         />
       </RegisterLabel>
       <RegisterLabel label={"상세설명"}>
@@ -32,6 +37,7 @@ const RoomTexts: React.FC<IRoomText> = ({
           size={"big"}
           onChange={onChangeTextarea}
           name={"content"}
+          value={content}
         />
       </RegisterLabel>
     </RegisterBox>

@@ -1,4 +1,5 @@
 import React from "react";
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import {
   Button,
   Header,
@@ -10,7 +11,7 @@ import {
   ErrorMessage,
 } from "../..";
 
-interface ICreateRoomTemplate {
+export interface ICreateRoomTemplate {
   dealType: string;
   roomType: string;
   deposit: string;
@@ -21,8 +22,8 @@ interface ICreateRoomTemplate {
   isParking: string;
   supplyArea: string;
   expense: string;
-  expenses: string[];
-  options: string[];
+  expenses?: string[];
+  options?: string[];
   possibleMove: string;
   address: string;
   location: number[];
@@ -32,6 +33,8 @@ interface ICreateRoomTemplate {
   prevUrl: string[];
   label: string;
   message?: string;
+  title: string;
+  content: string;
   addImages: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onRemove: (i: number) => void;
   onShowPortal: () => void;
@@ -43,6 +46,13 @@ interface ICreateRoomTemplate {
   ) => void;
   onChangeTextarea: React.ChangeEventHandler<HTMLTextAreaElement>;
   onSubmit: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  rentError: boolean;
+  depositError: boolean;
+  floorError: boolean;
+  buildingFloorError: boolean;
+  exclusiveAreaError: boolean;
+  supplyAreaError: boolean;
+  expenseError: boolean;
 }
 
 const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
@@ -74,14 +84,19 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
   onRemove,
   onSubmit,
   message,
+  title,
+  content,
+  rentError,
+  depositError,
+  floorError,
+  buildingFloorError,
+  exclusiveAreaError,
+  supplyAreaError,
+  expenseError,
 }) => {
   return (
-    <div
-      className={
-        "w-full h-600 bg-white flex flex-col md:flex-row  mt-64 md:mt-80 "
-      }
-    >
-      <div className={"flex flex-col p-2  bg-white"}>
+    <div className={"w-full h-600 bg-white flex flex-col md:flex-row  mt-80 "}>
+      <div className={"flex flex-col p-2  bg-white m-auto"}>
         <RoomLocation
           onShowPortal={onShowPortal}
           location={location}
@@ -98,23 +113,32 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
           onChange={onChange}
           dealType={dealType}
           roomType={roomType}
+          rentError={rentError}
+          depositError={depositError}
+          floorError={floorError}
+          buildingFloorError={buildingFloorError}
+          exclusiveAreaError={exclusiveAreaError}
+          supplyAreaError={supplyAreaError}
         />
         <RoomImgs addImages={addImages} prevUrl={prevUrl} onRemove={onRemove} />
         <RoomOptions
           onClick={onClick}
           expense={expense}
-          expenses={expenses}
-          options={options}
+          expenses={expenses ? expenses : []}
+          options={options ? options : []}
           possibleMove={possibleMove}
           currentMoveNum={currentMoveNum}
           onChange={onChange}
           onChangeTextarea={onChangeTextarea}
           isParking={isParking}
+          expenseError={expenseError}
         />
         <RoomTexts
           currentTitleNum={currentTitleNum}
           currentContentNum={currentContentNum}
           onChangeTextarea={onChangeTextarea}
+          title={title}
+          content={content}
         />
         {message && <ErrorMessage message={message} />}
         <section className={"w-full flex justify-center items-center"}>

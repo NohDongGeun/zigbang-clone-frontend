@@ -32,6 +32,7 @@ const USER_ROUTER = [
 export const AGENCY_ROUTER = [
   { path: "/agency", component: <Agency /> },
   { path: "/agency/create-room", component: <CreateRoom /> },
+  { path: "/agency/room/:id", component: <RoomDetail /> },
   { path: "/agency/profile/:id", component: <AgencyProfile /> },
   { path: "/agency/profile/:id", component: <RoomDetail /> },
 ];
@@ -46,7 +47,6 @@ const LoggedInRouter = () => {
     <Router>
       <HeaderAndSidebar />
       <Switch>
-        
         {COMMON_ROUTER.map((route) => {
           return (
             <Route exact path={route.path}>

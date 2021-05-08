@@ -1,5 +1,5 @@
 import { action } from "@storybook/addon-actions";
-import { text } from "@storybook/addon-knobs";
+import { boolean, text } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/react";
 import React from "react";
 import CreateRoomTemplate from "./index";
@@ -39,6 +39,15 @@ export const createRoomTemplate: React.FC = () => {
       onSubmit={action("onSubmit")}
       label={text("label", "완료")}
       addImages={action("addImages")}
+      title={"title"}
+      content={"content"}
+      rentError={boolean("rentError", false)}
+      depositError={boolean("depositError", false)}
+      floorError={boolean("floorError", false)}
+      buildingFloorError={boolean("buildingFloorError", false)}
+      exclusiveAreaError={boolean("exclusiveAreaError", false)}
+      supplyAreaError={boolean("supplyAreaError", false)}
+      expenseError={boolean("expenseError", false)}
     />
   );
 };

@@ -6,9 +6,6 @@ import Sidebar from "../../organisms/Sidebar";
 const HeaderAndSidebar = () => {
   const location = useLocation();
 
-  useEffect(() => {
-    console.log(location);
-  }, [location]);
   return (
     <>
       {(location.pathname !== "/my/auth/verify" ||

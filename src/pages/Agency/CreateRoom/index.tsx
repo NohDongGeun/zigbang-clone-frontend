@@ -1,15 +1,20 @@
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import React, { useCallback, useEffect, useReducer, useState } from "react";
 import DaumPostcode, { AddressData } from "react-daum-postcode";
-import { useHistory } from "react-router";
-import { CreateRoomTemplate } from "../../../components";
+import { FormProvider, useForm } from "react-hook-form";
+import { useHistory, useParams } from "react-router";
+import { CreateRoomTemplate, Loading } from "../../../components";
 import RoomPostcode from "../../../components/organisms/CreateRoom/RoomPostcode";
+import { createRoomValidate, validateInput } from "./validate";
 import {
   create_room_mutation,
   create_room_mutationVariables,
 } from "../../../__generated__/create_room_mutation";
 import { DealType, RoomType } from "../../../__generated__/globalTypes";
+import { room_detail_guery } from "../../../__generated__/room_detail_guery";
 import { initialState, registerReducer } from "./reducer";
+import withRoomHoc from "../withRoom";
+import useCreateRoom from "../../../hooks/useCreateRoom";
 
 export const CREATE_ROOM_MUTATION = gql`
   mutation create_room_mutation(
@@ -34,14 +39,26 @@ declare global {
   }
 }
 
+interface IRoomDetailParams {
+  id?: string;
+}
+
 const CreateRoom: React.FC = () => {
   const [state, dispatch] = useReducer(registerReducer, initialState);
-  const history = useHistory();
+  // const history = useHistory();
   const [message, setMessage] = useState<string>("");
-  //textarea 글자수
-  const [currentPM, setCurrentPM] = useState<number>(0);
-  const [currentTitle, setCurrentTitle] = useState<number>(0);
-  const [currentContent, setCurrentContent] = useState<number>(0);
+  const {
+    onShowPortal,
+    onCompletedPostcode,
+    onClick,
+    onChange,
+    addImages,
+    onRemove,
+    currentPM,
+    currentTitle,
+    currentContent,
+    history,
+  } = useCreateRoom({ state, dispatch });
 
   const onCompleted = (data: create_room_mutation) => {
     const {
@@ -60,208 +77,66 @@ const CreateRoom: React.FC = () => {
     create_room_mutationVariables
   >(CREATE_ROOM_MUTATION, { onCompleted });
 
-  //portal 창 닫을 시 showportal false
-  const closeWindowPortal = () => {
-    dispatch({ type: "SET_PORTAL", portal: false });
-  };
-  //postcode on/off
-  const onShowPortal = () => {
-    dispatch({ type: "SET_PORTAL", portal: !state.showPortal });
-  };
-  //postcode 주소 선택시
-  const onCompletedPostcode = (data: AddressData) => {
-    //카카오 주소 ->좌표 서비스
-    const geocoder = new window.kakao.maps.services.Geocoder();
-    geocoder.addressSearch(data.address, function (result: any, status: any) {
-      //주소로 좌표변환 성공시
-      if (status === window.kakao.maps.services.Status.OK) {
-        dispatch({
-          type: "SET_LOCATION",
-          location: [+result[0].x, +result[0].y],
-          address: data.address,
-        });
-      }
-    });
-  };
-
-  //주소검색 portal 업데이트
-  useEffect(() => {
-    window.addEventListener("beforeunload", () => {
-      closeWindowPortal();
-    });
-    return () => {
-      window.removeEventListener("beforeunload", () => {
-        closeWindowPortal();
-      });
-    };
-  }, []);
-
-  //textarea 글자수 업데이트
-  useEffect(() => {
-    setCurrentPM(state.room.possibleMove.length);
-  }, [state.room.possibleMove]);
-  useEffect(() => {
-    setCurrentTitle(state.room.title.length);
-  }, [state.room.title]);
-  useEffect(() => {
-    setCurrentContent(state.room.content.length);
-    console.log(state.room.content);
-  }, [state.room.content]);
-
-  //버튼 클릭 시 reducer 찾아서 업데이트
-  const onClick = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      const { name, value } = e.target as HTMLButtonElement;
-      switch (name) {
-        case "dealType": {
-          dispatch({ type: "SET_DEALTYPE", dealType: value });
-          break;
-        }
-        case "roomType": {
-          dispatch({ type: "SET_ROOMTYPE", roomType: value });
-          break;
-        }
-        case "isParking": {
-          dispatch({ type: "SET_ISPARKING", isParking: value });
-          break;
-        }
-        case "expenses": {
-          dispatch({ type: "SET_EXPENSES", expenses: value });
-          break;
-        }
-        case "options": {
-          dispatch({ type: "SET_OPTIONS", options: value });
-          break;
-        }
-      }
-    },
-    []
-  );
-  // input,textarea change handler
-  const onChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    const {
-      target: { value, name },
-    } = e;
-    dispatch({
-      type: "CHANGE_INPUT",
-      name,
-      value,
-    });
-  };
-  //이미지 체크
-  const checkFile = (file: File) => {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (reader.result) {
-        dispatch({
-          type: "SET_PREVURL",
-          prevUrl: reader.result.toString(),
-        });
-      }
-    };
-    reader.readAsDataURL(file);
-  };
-  //등록한 이미지 미리보기
-  const addImages = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {
-      target: { files },
-    } = e;
-    if (files) {
-      dispatch({ type: "SET_IMAGES", images: [...Array.from(files)] });
-      Array.from(files).map(async (e, i) => {
-        checkFile(files[i]);
-      });
-    }
-  };
-
-  //이미지 지우기
-  const onRemove = (i: number) => {
-    dispatch({ type: "REMOVE_IMAGES", i });
-  };
-
-  //Error handler
-  const errorHandler = () => {
-    if (
-      state.room.images === [] ||
-      state.room.address === "" ||
-      state.room.deposit === "" ||
-      state.room.floor === "" ||
-      state.room.buildingFloor === "" ||
-      state.room.isParking === "" ||
-      state.room.possibleMove === "" ||
-      state.room.content === "" ||
-      state.room.title === "" ||
-      currentPM > 20 ||
-      currentTitle > 32 ||
-      currentTitle < 6 ||
-      currentContent > 50
-    ) {
-      return dispatch({
-        type: "SET_ERROR",
-        isError: true,
-        message: "입력란을 다시 확인해주세요.",
-      });
-    }
-
-    return dispatch({ type: "SET_ERROR", isError: false, message: "" });
-  };
-
   //Submit handler
-  const onSubmit = async () => {
-    errorHandler();
-    if (state.isError === true || state.isLoading === true) {
-      return;
-    }
-    dispatch({ type: "SET_LOADING", isLoading: true });
+  const onSubmit = useCallback(
+    async (e) => {
+      e.preventDefault();
+      const test = createRoomValidate(state.room, state.errors, state.prevUrl);
+      if (test?.error === true || test?.message !== "") {
+        return dispatch({ type: "SET_ERRORMESSAGE", message: test.message });
+      }
+      dispatch({ type: "SET_ERRORMESSAGE", message: "" });
+      dispatch({ type: "SET_LOADING", isLoading: true });
 
-    const formBody = new FormData();
-    state.room.images.map((e, i) => {
-      return formBody.append("files", state.room.images[i]);
-    });
-    //이미지 s3에 업로드 후 url 받아오기
-    const { imagesPath: coverImg } = await (
-      await fetch("http://localhost:4000/uploads/", {
-        method: "POST",
-        body: formBody,
-      })
-    ).json();
-    const expenses = state.room.expenses.map((e) => +e);
-    const options = state.room.options.map((e) => +e);
+      const formBody = new FormData();
+      formBody.append("id", "1343");
+      state.room.images.map((e, i) => {
+        return formBody.append("files", state.room.images[i]);
+      });
+      //이미지 s3에 업로드 후 url 받아오기
+      const { imagesPath: coverImg } = await (
+        await fetch("http://localhost:4000/uploads/", {
+          method: "POST",
+          body: formBody,
+        })
+      ).json();
+      const expenses = state.room.expenses?.map((e) => +e);
+      const options = state.room.options?.map((e) => +e);
 
-    create_room_mutation({
-      variables: {
-        input: {
-          isParking: state.room.isParking === "true",
-          rent: +state.room.rent,
-          deposit: +state.room.deposit,
-          posibleMove: state.room.possibleMove,
-          supplyArea: +state.room.supplyArea,
-          exclusiveArea: +state.room.exclusiveArea,
-          floor: +state.room.floor,
-          buildingFloor: +state.room.buildingFloor,
-          address: state.room.address,
-          title: state.room.title,
-          content: state.room.content,
-          images: coverImg,
-          expense: +state.room.expense,
-          roomType: state.room.roomType as RoomType,
-          dealType: state.room.dealType as DealType,
+      create_room_mutation({
+        variables: {
+          input: {
+            isParking: state.room.isParking === "true",
+            rent: +state.room.rent,
+            deposit: +state.room.deposit,
+            posibleMove: state.room.possibleMove,
+            supplyArea: +state.room.supplyArea,
+            exclusiveArea: +state.room.exclusiveArea,
+            floor: +state.room.floor,
+            buildingFloor: +state.room.buildingFloor,
+            address: state.room.address,
+            title: state.room.title,
+            content: state.room.content,
+            images: coverImg,
+            expense: +state.room.expense,
+            roomType: state.room.roomType as RoomType,
+            dealType: state.room.dealType as DealType,
+            s3Code: 23123,
+          },
+          inputLocation: {
+            lat: +state.room.location[1],
+            lon: +state.room.location[0],
+          },
+          inputOpEx: {
+            expensesIds: expenses,
+            optionsIds: options,
+          },
         },
-        inputLocation: {
-          lat: +state.room.location[1],
-          lon: +state.room.location[0],
-        },
-        inputOpEx: {
-          expensesIds: expenses,
-          optionsIds: options,
-        },
-      },
-    });
-  };
+      });
+    },
+    [state]
+  );
+
   return (
     <>
       <CreateRoomTemplate
@@ -291,11 +166,20 @@ const CreateRoom: React.FC = () => {
         location={state.room.location}
         prevUrl={state.prevUrl}
         onRemove={onRemove}
+        title={state.room.title}
+        content={state.room.content}
         message={state.ErrorMessage}
         label={state.isLoading ? "Loading..." : "완료"}
+        rentError={state.errors.rentError}
+        depositError={state.errors.depositError}
+        floorError={state.errors.floorError}
+        buildingFloorError={state.errors.buildingFloorError}
+        exclusiveAreaError={state.errors.exclusiveAreaError}
+        supplyAreaError={state.errors.supplyAreaError}
+        expenseError={state.errors.expenseError}
       />
       {state.showPortal && (
-        <RoomPostcode closeWindowPortal={closeWindowPortal}>
+        <RoomPostcode closeWindowPortal={onShowPortal}>
           <DaumPostcode
             style={{ width: "100%", height: "100%" }}
             onComplete={onCompletedPostcode}

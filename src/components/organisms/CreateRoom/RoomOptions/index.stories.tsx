@@ -1,4 +1,5 @@
 import { action } from "@storybook/addon-actions";
+import { boolean } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/react";
 import React from "react";
 import RoomOptions from ".";
@@ -20,6 +21,7 @@ export const BRoomOptions: React.FC = () => {
       onChange={action("onChange")}
       onClick={action("onClick")}
       isParking={"불가능"}
+      expenseError={boolean("expenseError", false)}
     />
   );
 };

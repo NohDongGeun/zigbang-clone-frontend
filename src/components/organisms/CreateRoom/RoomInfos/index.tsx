@@ -1,4 +1,5 @@
 import React from "react";
+import { FormProvider, useFormContext } from "react-hook-form";
 import {
   RegisterBox,
   RegisterBtn,
@@ -17,6 +18,12 @@ interface IRoomInfo {
   supplyArea: string;
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  rentError: boolean;
+  depositError: boolean;
+  floorError: boolean;
+  buildingFloorError: boolean;
+  exclusiveAreaError: boolean;
+  supplyAreaError: boolean;
 }
 
 const DEALTYPE = [
@@ -41,6 +48,12 @@ const RoomInfos: React.FC<IRoomInfo> = ({
   onClick,
   dealType,
   roomType,
+  rentError,
+  depositError,
+  floorError,
+  buildingFloorError,
+  exclusiveAreaError,
+  supplyAreaError,
 }) => {
   return (
     <RegisterBox label={"기본 정보"}>
@@ -81,6 +94,7 @@ const RoomInfos: React.FC<IRoomInfo> = ({
           label={"만원"}
           value={deposit}
           onChange={onChange}
+          isError={depositError}
         />
         <RegisterInput
           placeholder={"월세"}
@@ -88,6 +102,7 @@ const RoomInfos: React.FC<IRoomInfo> = ({
           label={"만원"}
           value={rent}
           onChange={onChange}
+          isError={rentError}
         />
       </RegisterLabel>
       <RegisterLabel label={"면적"}>
@@ -97,6 +112,7 @@ const RoomInfos: React.FC<IRoomInfo> = ({
           label={"㎡"}
           value={exclusiveArea}
           onChange={onChange}
+          isError={exclusiveAreaError}
         />
         <RegisterInput
           placeholder={"공급면적"}
@@ -104,6 +120,7 @@ const RoomInfos: React.FC<IRoomInfo> = ({
           label={"㎡"}
           value={supplyArea}
           onChange={onChange}
+          isError={supplyAreaError}
         />
       </RegisterLabel>
       <RegisterLabel label={"층수"}>
@@ -113,6 +130,7 @@ const RoomInfos: React.FC<IRoomInfo> = ({
           label={"층"}
           value={buildingFloor}
           onChange={onChange}
+          isError={buildingFloorError}
         />
         <RegisterInput
           placeholder={"해당층"}
@@ -120,6 +138,7 @@ const RoomInfos: React.FC<IRoomInfo> = ({
           label={"층"}
           value={floor}
           onChange={onChange}
+          isError={floorError}
         />
       </RegisterLabel>
     </RegisterBox>

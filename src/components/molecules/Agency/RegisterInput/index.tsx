@@ -1,13 +1,14 @@
-import React from "react";
-import { Input, Text} from "../../..";
-
+import React, { useEffect, useState } from "react";
+import { FormProvider, RegisterOptions, useFormContext } from "react-hook-form";
+import { Input, Text, UseFormInput } from "../../..";
 
 interface IAuthInputProps {
   placeholder: string;
   name: string;
   label: string;
-  value: string | number;
+  value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isError: boolean;
 }
 
 const RegisterInput: React.FC<IAuthInputProps> = ({
@@ -16,12 +17,15 @@ const RegisterInput: React.FC<IAuthInputProps> = ({
   label,
   value,
   onChange,
+  isError = false,
 }) => {
   return (
     <div
-      className={
-        "flex flex-row w-136 sm:w-200 mb-2 mr-2 even:mr-0 justify-end items-center border border-gray-300 focus-within:border-gray-400"
-      }
+      className={`flex flex-row w-136 sm:w-200 mb-2 mr-2 even:mr-0 justify-end items-center border ${
+        isError
+          ? "border-red-700"
+          : "border-gray-300 focus-within:border-gray-400"
+      }`}
     >
       <Input
         className={
@@ -30,7 +34,7 @@ const RegisterInput: React.FC<IAuthInputProps> = ({
         placeholder={placeholder}
         type={"number"}
         name={name}
-        required={true}
+        required
         onChange={onChange}
         value={value}
       />
