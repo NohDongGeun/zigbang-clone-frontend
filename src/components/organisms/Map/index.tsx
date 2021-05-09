@@ -39,18 +39,13 @@ const Map: React.FC<IMap> = ({ point }) => {
           getNorthEast.La,
           getSouthWest.Ma,
         ];
-        console.log(
-          getSouthWest.La,
-          getNorthEast.Ma,
-          getNorthEast.La,
-          getSouthWest.Ma
-        );
         const coordinates = [center.Ma, center.La];
         locationVar({ coordinates, dist });
       });
     });
   }, []);
 
+  //좌표 변경시 마다 마커 다시 그려주기
   useEffect(() => {
     if (!point || map === null) {
       return;
@@ -130,6 +125,17 @@ const Map: React.FC<IMap> = ({ point }) => {
       map.setLevel(3);
       // 지도 중심 이동
       map.setCenter(moveLatLon);
+      const center = map.getCenter();
+      const getNorthEast = map.getBounds().getNorthEast();
+      const getSouthWest = map.getBounds().getSouthWest();
+      const dist = [
+        getSouthWest.La,
+        getNorthEast.Ma,
+        getNorthEast.La,
+        getSouthWest.Ma,
+      ];
+      const coordinates = [center.Ma, center.La];
+      locationVar({ coordinates, dist });
     }
   }, [search]);
 

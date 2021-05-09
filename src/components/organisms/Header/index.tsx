@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Text } from "../..";
 import logo from "../../../assets/img/fontlogo.png";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
@@ -7,10 +7,12 @@ import { isFilterVar, sidebarVar } from "../../../apollo";
 import { useReactiveVar } from "@apollo/client";
 import Search from "../Search";
 import { BsFilterRight } from "react-icons/bs";
+import { matchPath, useLocation } from "react-router";
 
 const Header: React.FC = () => {
   const onSidebar = useReactiveVar(sidebarVar);
   const filtervar = useReactiveVar(isFilterVar);
+  const location = useLocation();
 
   const handleSidebar = () => {
     sidebarVar(!onSidebar);
@@ -18,6 +20,9 @@ const Header: React.FC = () => {
   const handleFilter = () => {
     isFilterVar(!filtervar);
   };
+  useEffect(() => {
+    console.log(location);
+  }, [location]);
 
   return (
     <div className={"flex flex-row w-screen overflow-x-hidden relative"}>
@@ -37,23 +42,31 @@ const Header: React.FC = () => {
               ></div>
             </Button>
           </li>
-          <li className={"flex-auto max-w-md sm:w-64 mr-1 sm:mr-3"}>
-            <Search />
-          </li>
-          <li className={"flex flex-shrink mr-1 sm:mr-0"}>
-            <Button
-              onClick={handleFilter}
-              className={
-                "flex flex-row justify-center items-center h-45 px-1 sm:px-3 rounded-xl bg-white shadow-3xl hover:opacity-75"
-              }
-            >
-              <BsFilterRight className={" mr-1 text-blue-dark"} size={"20"} />
-              <Text
-                className={"hidden sm:flex font-bold text-blue-dark"}
-                label={"필터"}
-              />
-            </Button>
-          </li>
+          {matchPath(location.pathname, { path: "/room" }) ||
+          matchPath(location.pathname, { path: "/room/:id" }) ? (
+            <>
+              <li className={"flex-auto max-w-md sm:w-64 mr-1 sm:mr-3"}>
+                <Search />
+              </li>
+              <li className={"flex flex-shrink mr-1 sm:mr-0"}>
+                <Button
+                  onClick={handleFilter}
+                  className={
+                    "flex flex-row justify-center items-center h-45 px-1 sm:px-3 rounded-xl bg-white shadow-3xl hover:opacity-75"
+                  }
+                >
+                  <BsFilterRight
+                    className={" mr-1 text-blue-dark"}
+                    size={"20"}
+                  />
+                  <Text
+                    className={"hidden sm:flex font-bold text-blue-dark"}
+                    label={"필터"}
+                  />
+                </Button>
+              </li>
+            </>
+          ) : null}
         </ul>
         <ul className={"flex-auto  flex justify-end items-center"}>
           <li className={""}>
