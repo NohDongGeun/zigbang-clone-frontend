@@ -26,6 +26,7 @@ export interface room_detail_guery_roomDetail_room_point {
 
 export interface room_detail_guery_roomDetail_room {
   __typename: "Room";
+  id: number;
   roomType: RoomType;
   dealType: DealType;
   floor: number;
@@ -44,6 +45,7 @@ export interface room_detail_guery_roomDetail_room {
   address: string;
   point: room_detail_guery_roomDetail_room_point;
   images: string[];
+  s3Code: string;
 }
 
 export interface room_detail_guery_roomDetail {

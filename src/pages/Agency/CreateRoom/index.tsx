@@ -80,59 +80,72 @@ const CreateRoom: React.FC = () => {
   //Submit handler
   const onSubmit = useCallback(
     async (e) => {
-      e.preventDefault();
-      const test = createRoomValidate(state.room, state.errors, state.prevUrl);
-      if (test?.error === true || test?.message !== "") {
-        return dispatch({ type: "SET_ERRORMESSAGE", message: test.message });
+      try {
+        e.preventDefault();
+        const test = createRoomValidate(
+          state.room,
+          state.errors,
+          state.prevUrl
+        );
+        if (test?.error === true || test?.message !== "") {
+          return dispatch({ type: "SET_ERRORMESSAGE", message: test.message });
+        }
+        dispatch({ type: "SET_ERRORMESSAGE", message: "" });
+        dispatch({ type: "SET_LOADING", isLoading: true });
+
+        const formBody = new FormData();
+
+        const random = Math.floor(
+          Math.random() * (9999 - 1000) + 1000
+        ).toString();
+        const code = `${Date.now()}${random}`;
+        formBody.append("id", code);
+        state.room.images.map((e, i) => {
+          return formBody.append("files", state.room.images[i]);
+        });
+        //이미지 s3에 업로드 후 url 받아오기
+        const { imagesPath: coverImg } = await (
+          await fetch("http://localhost:4000/uploads/", {
+            method: "POST",
+            body: formBody,
+          })
+        ).json();
+        const expenses = state.room.expenses?.map((e) => +e);
+        const options = state.room.options?.map((e) => +e);
+
+        create_room_mutation({
+          variables: {
+            input: {
+              isParking: state.room.isParking === "true",
+              rent: +state.room.rent,
+              deposit: +state.room.deposit,
+              posibleMove: state.room.possibleMove,
+              supplyArea: +state.room.supplyArea,
+              exclusiveArea: +state.room.exclusiveArea,
+              floor: +state.room.floor,
+              buildingFloor: +state.room.buildingFloor,
+              address: state.room.address,
+              title: state.room.title,
+              content: state.room.content,
+              images: coverImg,
+              expense: +state.room.expense,
+              roomType: state.room.roomType as RoomType,
+              dealType: state.room.dealType as DealType,
+              s3Code: code,
+            },
+            inputLocation: {
+              lat: +state.room.location[1],
+              lon: +state.room.location[0],
+            },
+            inputOpEx: {
+              expensesIds: expenses,
+              optionsIds: options,
+            },
+          },
+        });
+      } catch (error) {
+        console.log(error);
       }
-      dispatch({ type: "SET_ERRORMESSAGE", message: "" });
-      dispatch({ type: "SET_LOADING", isLoading: true });
-
-      const formBody = new FormData();
-      formBody.append("id", "1343");
-      state.room.images.map((e, i) => {
-        return formBody.append("files", state.room.images[i]);
-      });
-      //이미지 s3에 업로드 후 url 받아오기
-      const { imagesPath: coverImg } = await (
-        await fetch("http://localhost:4000/uploads/", {
-          method: "POST",
-          body: formBody,
-        })
-      ).json();
-      const expenses = state.room.expenses?.map((e) => +e);
-      const options = state.room.options?.map((e) => +e);
-
-      create_room_mutation({
-        variables: {
-          input: {
-            isParking: state.room.isParking === "true",
-            rent: +state.room.rent,
-            deposit: +state.room.deposit,
-            posibleMove: state.room.possibleMove,
-            supplyArea: +state.room.supplyArea,
-            exclusiveArea: +state.room.exclusiveArea,
-            floor: +state.room.floor,
-            buildingFloor: +state.room.buildingFloor,
-            address: state.room.address,
-            title: state.room.title,
-            content: state.room.content,
-            images: coverImg,
-            expense: +state.room.expense,
-            roomType: state.room.roomType as RoomType,
-            dealType: state.room.dealType as DealType,
-            s3Code: 23123,
-          },
-          inputLocation: {
-            lat: +state.room.location[1],
-            lon: +state.room.location[0],
-          },
-          inputOpEx: {
-            expensesIds: expenses,
-            optionsIds: options,
-          },
-        },
-      });
     },
     [state]
   );

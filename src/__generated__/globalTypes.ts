@@ -49,7 +49,7 @@ export interface CreateRoomInput {
   title: string;
   content: string;
   images: string[];
-  s3Code: number;
+  s3Code: string;
   expense: number;
   roomType: RoomType;
   dealType: DealType;
@@ -67,6 +67,27 @@ export interface EditProfileInput {
   name?: string | null;
   password?: string | null;
   newPassword?: string | null;
+}
+
+export interface EditRoomInput {
+  isParking?: boolean | null;
+  rent?: number | null;
+  deposit?: number | null;
+  posibleMove?: string | null;
+  supplyArea?: number | null;
+  exclusiveArea?: number | null;
+  floor?: number | null;
+  buildingFloor?: number | null;
+  address?: string | null;
+  title?: string | null;
+  content?: string | null;
+  images?: string[] | null;
+  s3Code?: string | null;
+  expense?: number | null;
+  roomType?: RoomType | null;
+  dealType?: DealType | null;
+  roomId: number;
+  deleteImages?: string[] | null;
 }
 
 export interface FindIdPhoneInput {

@@ -21,6 +21,10 @@ const useCreateRoom = ({ state, dispatch }: IUserCreateRoom) => {
   const [currentTitle, setCurrentTitle] = useState<number>(0);
   const [currentContent, setCurrentContent] = useState<number>(0);
 
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
+
   const onSubmit = () => {
     console.log("asd");
   };

@@ -53,14 +53,16 @@ const Agency: React.FC = () => {
     history.push(`/agency/room/${id}`);
   };
 
-  if (loading) return <Loading />;
+  if (loading || error) return <Loading />;
   return (
-    <AgencyMainTemplate
-      isAgency={true}
-      rooms={data.findActiveRooms.activeRooms}
-      unActiveRooms={data.findActiveRooms.unActiveRooms}
-      handleCard={handleCard}
-    />
+    data.findActiveRooms && (
+      <AgencyMainTemplate
+        isAgency={true}
+        rooms={data.findActiveRooms.activeRooms}
+        unActiveRooms={data.findActiveRooms.unActiveRooms}
+        handleCard={handleCard}
+      />
+    )
   );
 };
 
