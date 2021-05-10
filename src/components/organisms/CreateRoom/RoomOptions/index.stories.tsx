@@ -22,6 +22,7 @@ export const BRoomOptions: React.FC = () => {
       onClick={action("onClick")}
       isParking={"불가능"}
       expenseError={boolean("expenseError", false)}
+      possibleMoveError={boolean("possibleMoveError", false)}
     />
   );
 };

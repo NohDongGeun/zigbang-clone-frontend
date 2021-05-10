@@ -48,6 +48,9 @@ export const createRoomTemplate: React.FC = () => {
       exclusiveAreaError={boolean("exclusiveAreaError", false)}
       supplyAreaError={boolean("supplyAreaError", false)}
       expenseError={boolean("expenseError", false)}
+      contentError={boolean("contentError", false)}
+      titleError={boolean("titleError", false)}
+      possibleMoveError={boolean("possibleMoveError", false)}
     />
   );
 };

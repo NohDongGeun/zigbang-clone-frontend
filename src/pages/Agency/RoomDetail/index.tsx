@@ -1,42 +1,39 @@
-import React, { useCallback, useEffect, useReducer, useRef } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import {
-  Button,
   CreateRoomTemplate,
   Loading,
-  RoomImgs,
-  RoomLocation,
+  ChangeRoomBtn,
 } from "../../../components";
 import RoomPostcode from "../../../components/organisms/CreateRoom/RoomPostcode";
-import { registerReducer, initialState, Room } from "../CreateRoom/reducer";
-import DaumPostcode, { AddressData } from "react-daum-postcode";
+import { registerReducer, initialState } from "../CreateRoom/reducer";
+import DaumPostcode from "react-daum-postcode";
 import { useParams } from "react-router";
 import { ApolloError, gql, useMutation, useQuery } from "@apollo/client";
-import { room_detail_guery } from "../../../__generated__/room_detail_guery";
 import useCreateRoom from "../../../hooks/useCreateRoom";
 import { DealType, RoomType } from "../../../__generated__/globalTypes";
 import { createRoomValidate } from "../CreateRoom/validate";
-import { version } from "react-dom";
+import {
+  delete_room_mutation,
+  delete_room_mutationVariables,
+} from "../../../__generated__/delete_room_mutation";
+import {
+  edit_room_mutation,
+  edit_room_mutationVariables,
+} from "../../../__generated__/edit_room_mutation";
+import { S3_URL } from "../../../constants/constants";
+import { FIND_ACTIVEROOMS_QUERY } from "../Home";
+import {
+  room_active_mutation,
+  room_active_mutationVariables,
+} from "../../../__generated__/room_active_mutation";
+import { private_room_detail_query } from "../../../__generated__/private_room_detail_query";
+import { useConfirm } from "../../../hooks/useConfirm";
 
-export const EDIT_ROOM_MUTATION = gql`
-  mutation edit_room_mutation(
-    $optionsExpensesInput: OptionsExpensesInput!
-    $editRoomInput: EditRoomInput!
-    $createLocationInput: CreateLocationInput!
+export const PRIVATE_ROOM_DETAIL_QUERY = gql`
+  query private_room_detail_query(
+    $privateRoomDetailInput: PrivateRoomDetailInput!
   ) {
-    editRoom(
-      input2: $optionsExpensesInput
-      input: $editRoomInput
-      inputLocation: $createLocationInput
-    ) {
-      ok
-      error
-    }
-  }
-`;
-
-export const ROOM_DETAIL_QUERY = gql`
-  query room_detail_guery($roomDetailInput: RoomDetailInput!) {
-    roomDetail(input: $roomDetailInput) {
+    privateRoomDetail(input: $privateRoomDetailInput) {
       ok
       error
       room {
@@ -66,15 +63,46 @@ export const ROOM_DETAIL_QUERY = gql`
         }
         images
         s3Code
+        isActive
       }
     }
   }
 `;
 
-interface IinitailRoom {
-  room: Room;
-  prevUrl: string | string[];
-}
+export const EDIT_ROOM_MUTATION = gql`
+  mutation edit_room_mutation(
+    $optionsExpensesInput: OptionsExpensesInput!
+    $editRoomInput: EditRoomInput!
+    $createLocationInput: CreateLocationInput!
+  ) {
+    editRoom(
+      input2: $optionsExpensesInput
+      input: $editRoomInput
+      inputLocation: $createLocationInput
+    ) {
+      ok
+      error
+    }
+  }
+`;
+
+export const ROOM_ACTIVE_MUTATION = gql`
+  mutation room_active_mutation($changeActiveInput: ChangeActiveInput!) {
+    changeActive(input: $changeActiveInput) {
+      ok
+      error
+    }
+  }
+`;
+
+export const DELETE_ROOM_MUTATION = gql`
+  mutation delete_room_mutation($deleteRoomInput: DeleteRoomInput!) {
+    deleteRoom(input: $deleteRoomInput) {
+      ok
+      error
+    }
+  }
+`;
 
 interface IRoomDetailParams {
   id: string;
@@ -82,28 +110,8 @@ interface IRoomDetailParams {
 
 const RoomDetail: React.FC = () => {
   const [state, dispatch] = useReducer(registerReducer, initialState);
-  const initailRoom = useRef<IinitailRoom>();
   const { id } = useParams<IRoomDetailParams>();
-  const [edit_room_mutation] = useMutation(EDIT_ROOM_MUTATION, {
-    onCompleted: (data) => {
-      if (data.error) {
-        console.log(data.error);
-      }
-      if (data.ok) {
-        console.log(data.ok);
-      }
-    },
-  });
-  const { data, loading, error } = useQuery<room_detail_guery>(
-    ROOM_DETAIL_QUERY,
-    {
-      variables: {
-        roomDetailInput: {
-          roomId: +id,
-        },
-      },
-    }
-  );
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const {
     onShowPortal,
     onCompletedPostcode,
@@ -116,9 +124,91 @@ const RoomDetail: React.FC = () => {
     currentContent,
     history,
   } = useCreateRoom({ state, dispatch });
-  const onCompleted = (data: room_detail_guery) => {
-    if (data?.roomDetail.room) {
-      const { room } = data.roomDetail;
+
+  const onCompletedAcive = (data: room_active_mutation) => {
+    const {
+      changeActive: { ok },
+    } = data;
+
+    if (ok) {
+      history.push("/agency");
+    }
+  };
+
+  const [room_active_mutation] = useMutation<
+    room_active_mutation,
+    room_active_mutationVariables
+  >(ROOM_ACTIVE_MUTATION, {
+    onCompleted: onCompletedAcive,
+    refetchQueries: [{ query: FIND_ACTIVEROOMS_QUERY }],
+  });
+
+  const onCompletedDelete = (data: delete_room_mutation) => {
+    const {
+      deleteRoom: { ok, error },
+    } = data;
+    if (ok) {
+      history.push("/agency");
+    }
+    if (error) {
+      alert("삭제 중 오류가 발생했습니다.");
+    }
+  };
+
+  const [delete_room_mutation] = useMutation<
+    delete_room_mutation,
+    delete_room_mutationVariables
+  >(DELETE_ROOM_MUTATION, {
+    onCompleted: onCompletedDelete,
+    refetchQueries: [{ query: FIND_ACTIVEROOMS_QUERY }],
+  });
+  //방 업데이트 성공시
+  const onCompletedEdit = (data: edit_room_mutation) => {
+    const {
+      editRoom: { ok, error },
+    } = data;
+    if (ok) {
+      dispatch({ type: "SET_LOADING", isLoading: false });
+      history.push("/agency");
+    }
+    if (error) {
+      dispatch({ type: "SET_ERRORMESSAGE", message: error });
+    }
+  };
+  //방 업데이트 mutation
+  const [edit_room_mutation] = useMutation<
+    edit_room_mutation,
+    edit_room_mutationVariables
+  >(EDIT_ROOM_MUTATION, {
+    onCompleted: onCompletedEdit,
+    refetchQueries: [
+      { query: FIND_ACTIVEROOMS_QUERY },
+      {
+        query: PRIVATE_ROOM_DETAIL_QUERY,
+        variables: {
+          roomDetailInput: {
+            roomId: +id,
+          },
+        },
+      },
+    ],
+  });
+  //방 정보 (private)
+  const { data, loading, error } = useQuery<private_room_detail_query>(
+    PRIVATE_ROOM_DETAIL_QUERY,
+    {
+      variables: {
+        privateRoomDetailInput: {
+          roomId: +id,
+        },
+      },
+      fetchPolicy: "network-only",
+    }
+  );
+  //방 정보 query
+  const onCompleted = (data: private_room_detail_query) => {
+    if (data?.privateRoomDetail.room) {
+      const { room } = data.privateRoomDetail;
       const expenses = room.expenses?.map((e) => e.id.toString());
       const options = room.options?.map((e) => e.id.toString());
       const roomInit = {
@@ -148,126 +238,171 @@ const RoomDetail: React.FC = () => {
         room: roomInit,
         prevUrl,
       });
-      initailRoom.current = {
-        room: { ...roomInit, options, expenses },
-        prevUrl,
-      };
     }
   };
+  // 방 정보 error
   const onError = (error: ApolloError) => {
-    return <div>{error}</div>;
+    return <Loading />;
   };
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   useEffect(() => {
     if (!loading && !error && data) {
-      console.log("성공");
-      onCompleted(data);
+      const {
+        privateRoomDetail: { ok, error },
+      } = data;
+      if (ok) {
+        onCompleted(data);
+      }
+      if (error) {
+        history.push("agency");
+      }
     } else if (!loading && error) {
       onError(error);
     }
   }, [loading, data, error]);
 
-  const translate = () => {
-    const test1 = state.prevUrl.filter((v) =>
-      v.match("https://zigbangclones3.s3.amazonaws.com/items/")
-    );
+  //삭제된 이미지 찾기
+  const findDeleteImages = () => {
+    const allPrevUrl = state.prevUrl.filter((v) => v.match(S3_URL));
 
-    if (data?.roomDetail.room?.images) {
-      let test2 = [];
-      test2 = data.roomDetail.room.images.filter((v) => !test1.includes(v));
-      return test2;
+    if (data?.privateRoomDetail.room?.images) {
+      let deletePrevUrl = [];
+      deletePrevUrl = data.privateRoomDetail.room.images.filter(
+        (v) => !allPrevUrl.includes(v)
+      );
+      return deletePrevUrl;
     }
   };
+  //방 업데이트 submit
+  const handleUpdateRoom = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    try {
+      e.preventDefault();
 
-  const onSubmit = useCallback(
-    async (e) => {
-      try {
-        e.preventDefault();
-        const deleteImages = translate();
+      const deleteImages = findDeleteImages();
 
-        // const test = createRoomValidate(
-        //   state.room,
-        //   state.errors,
-        //   state.prevUrl
-        // );
-        // if (test?.error === true || test?.message !== "") {
-        //   return dispatch({ type: "SET_ERRORMESSAGE", message: test.message });
-        // }
-        // dispatch({ type: "SET_ERRORMESSAGE", message: "" });
-        // dispatch({ type: "SET_LOADING", isLoading: true });
-
-        const formBody = new FormData();
-        if (data?.roomDetail.room?.s3Code) {
-          formBody.append("id", data?.roomDetail.room.s3Code);
-          state.room.images.map((e, i) => {
-            return formBody.append("files", state.room.images[i]);
-          });
-        }
-        if (deleteImages) {
-          formBody.append("deleteImages", JSON.stringify(deleteImages));
-        }
-        //이미지 s3에 업로드 후 url 받아오기
-        const { imagesPath: coverImg } = await (
-          await fetch("http://localhost:4000/uploads/updates", {
-            method: "PUT",
-            body: formBody,
-          })
-        ).json();
-        console.log(coverImg);
-        const expenses = state.room.expenses?.map((e) => +e);
-        const options = state.room.options?.map((e) => +e);
-
-        if (data?.roomDetail.room?.id) {
-          console.log(+state.room.location[1], +state.room.location[0]);
-          edit_room_mutation({
-            variables: {
-              editRoomInput: {
-                roomId: data?.roomDetail.room?.id,
-                isParking: state.room.isParking === "true",
-                rent: +state.room.rent,
-                deposit: +state.room.deposit,
-                posibleMove: state.room.possibleMove,
-                supplyArea: +state.room.supplyArea,
-                exclusiveArea: +state.room.exclusiveArea,
-                floor: +state.room.floor,
-                buildingFloor: +state.room.buildingFloor,
-                address: state.room.address,
-                title: state.room.title,
-                content: state.room.content,
-                images: coverImg,
-                expense: +state.room.expense,
-                roomType: state.room.roomType as RoomType,
-                dealType: state.room.dealType as DealType,
-                s3Code: data.roomDetail.room.s3Code,
-                deleteImages,
-              },
-              createLocationInput: {
-                lat: +state.room.location[1],
-                lon: +state.room.location[0],
-              },
-              optionsExpensesInput: {
-                expensesIds: expenses,
-                optionsIds: options,
-              },
-            },
-          });
-        }
-      } catch (error) {
-        console.log(error);
+      const validation = createRoomValidate(
+        state.room,
+        state.errors,
+        state.prevUrl
+      );
+      if (validation?.error === true || validation?.message !== "") {
+        return dispatch({
+          type: "SET_ERRORMESSAGE",
+          message: validation.message,
+        });
       }
-    },
-    [state]
-  );
+      dispatch({ type: "SET_ERRORMESSAGE", message: "" });
+      dispatch({ type: "SET_LOADING", isLoading: true });
+
+      const formBody = new FormData();
+      if (data?.privateRoomDetail.room?.s3Code) {
+        formBody.append("id", data?.privateRoomDetail.room.s3Code);
+        state.room.images.map((e, i) => {
+          return formBody.append("files", state.room.images[i]);
+        });
+      }
+      if (deleteImages) {
+        formBody.append("deleteImages", JSON.stringify(deleteImages));
+      }
+      //이미지 s3에 업로드 후 url 받아오기
+      const { imagesPath: coverImg } = await (
+        await fetch("http://localhost:4000/uploads/updates", {
+          method: "PUT",
+          body: formBody,
+        })
+      ).json();
+
+      const expenses = state.room.expenses?.map((e) => +e);
+      const options = state.room.options?.map((e) => +e);
+
+      if (data?.privateRoomDetail.room?.id) {
+        edit_room_mutation({
+          variables: {
+            editRoomInput: {
+              roomId: data?.privateRoomDetail.room?.id,
+              isParking: state.room.isParking === "true",
+              rent: +state.room.rent,
+              deposit: +state.room.deposit,
+              posibleMove: state.room.possibleMove,
+              supplyArea: +state.room.supplyArea,
+              exclusiveArea: +state.room.exclusiveArea,
+              floor: +state.room.floor,
+              buildingFloor: +state.room.buildingFloor,
+              address: state.room.address,
+              title: state.room.title,
+              content: state.room.content,
+              images: coverImg,
+              expense: +state.room.expense,
+              roomType: state.room.roomType as RoomType,
+              dealType: state.room.dealType as DealType,
+              s3Code: data.privateRoomDetail.room.s3Code,
+              deleteImages,
+            },
+            createLocationInput: {
+              lat: +state.room.location[1],
+              lon: +state.room.location[0],
+            },
+            optionsExpensesInput: {
+              expensesIds: expenses,
+              optionsIds: options,
+            },
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //방 삭제 submit
+  const handleDeleteRoom = async () => {
+    try {
+      if (deleteLoading) return;
+      const { ok } = await (
+        await fetch(
+          `http://localhost:4000/uploads/delete/${data?.privateRoomDetail.room?.s3Code}`,
+          {
+            method: "DELETE",
+          }
+        )
+      ).json();
+
+      if (ok && data?.privateRoomDetail.room) {
+        delete_room_mutation({
+          variables: {
+            deleteRoomInput: {
+              roomId: data?.privateRoomDetail.room.id,
+            },
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //광고 on/off
+  const handleActiveRoom = () => {
+    if (data?.privateRoomDetail.room) {
+      room_active_mutation({
+        variables: {
+          changeActiveInput: {
+            roomId: data?.privateRoomDetail.room.id,
+            active: !data.privateRoomDetail.room.isActive,
+          },
+        },
+      });
+    }
+  };
+  //window confirm on
+  const confirmDelete = useConfirm("삭제하시겠습니까?", handleDeleteRoom);
 
   if (loading) return <Loading />;
 
   return (
     <>
       <CreateRoomTemplate
-        onSubmit={onSubmit}
+        onSubmit={handleUpdateRoom}
         addImages={addImages}
         onShowPortal={onShowPortal}
         onClick={onClick}
@@ -282,9 +417,9 @@ const RoomDetail: React.FC = () => {
         buildingFloor={state.room.buildingFloor}
         exclusiveArea={state.room.exclusiveArea}
         supplyArea={state.room.supplyArea}
-        currentMoveNum={12}
-        currentTitleNum={12}
-        currentContentNum={12}
+        currentMoveNum={currentPM}
+        currentTitleNum={currentTitle}
+        currentContentNum={currentContent}
         expense={state.room.expense}
         expenses={state.room.expenses}
         options={state.room.options}
@@ -304,7 +439,20 @@ const RoomDetail: React.FC = () => {
         exclusiveAreaError={state.errors.exclusiveAreaError}
         supplyAreaError={state.errors.supplyAreaError}
         expenseError={state.errors.expenseError}
-      />
+        contentError={state.errors.contentError}
+        titleError={state.errors.titleError}
+        possibleMoveError={state.errors.possibleMoveError}
+      >
+        <ChangeRoomBtn
+          onClickDelete={confirmDelete}
+          onClickActive={handleActiveRoom}
+          isActive={
+            data?.privateRoomDetail.room?.isActive
+              ? data?.privateRoomDetail.room?.isActive
+              : false
+          }
+        />
+      </CreateRoomTemplate>
       {state.showPortal && (
         <RoomPostcode closeWindowPortal={onShowPortal}>
           <DaumPostcode

@@ -1,4 +1,5 @@
 import { action } from "@storybook/addon-actions";
+import { boolean } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/react";
 import React from "react";
 import RoomTexts from ".";
@@ -16,6 +17,8 @@ export const roomTexts: React.FC = () => {
       currentTitleNum={3}
       title={"title"}
       content={"content"}
+      titleError={boolean("titleError", false)}
+      contentError={boolean("contentError", false)}
     />
   );
 };

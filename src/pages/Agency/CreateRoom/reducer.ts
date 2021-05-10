@@ -27,6 +27,9 @@ export type RoomErrors = {
   exclusiveAreaError: boolean;
   supplyAreaError: boolean;
   expenseError: boolean;
+  possibleMoveError: boolean;
+  titleError: boolean;
+  contentError: boolean;
 };
 export type CreateRoomState = {
   room: Room;
@@ -95,6 +98,9 @@ export const initialState: CreateRoomState = {
     exclusiveAreaError: false,
     supplyAreaError: false,
     expenseError: false,
+    possibleMoveError: false,
+    titleError: false,
+    contentError: false,
   },
 };
 

@@ -7,6 +7,8 @@ interface IRoomText {
   onChangeTextarea: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   title: string;
   content: string;
+  titleError: boolean;
+  contentError: boolean;
 }
 
 const RoomTexts: React.FC<IRoomText> = ({
@@ -15,6 +17,8 @@ const RoomTexts: React.FC<IRoomText> = ({
   onChangeTextarea,
   title,
   content,
+  titleError,
+  contentError,
 }) => {
   return (
     <RegisterBox label={"설명"}>
@@ -22,7 +26,7 @@ const RoomTexts: React.FC<IRoomText> = ({
         <RegisterTextArea
           label={`${currentTitleNum}자 입력 / 최소 7자~최대32자`}
           placeholder={"매물 정보를 간단히 입력하세요."}
-          isError={currentTitleNum > 32 ? true : false}
+          isError={titleError}
           size={"basic"}
           onChange={onChangeTextarea}
           name={"title"}
@@ -31,9 +35,9 @@ const RoomTexts: React.FC<IRoomText> = ({
       </RegisterLabel>
       <RegisterLabel label={"상세설명"}>
         <RegisterTextArea
-          label={`${currentContentNum}자 입력 / 최소 50자`}
+          label={`${currentContentNum}자 입력 / 최대 50자`}
           placeholder={"매물 구조와 특징을 자세히 입력하세요."}
-          isError={currentContentNum < 50 ? false : true}
+          isError={contentError}
           size={"big"}
           onChange={onChangeTextarea}
           name={"content"}

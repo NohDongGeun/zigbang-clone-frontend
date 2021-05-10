@@ -53,6 +53,9 @@ export interface ICreateRoomTemplate {
   exclusiveAreaError: boolean;
   supplyAreaError: boolean;
   expenseError: boolean;
+  possibleMoveError: boolean;
+  titleError: boolean;
+  contentError: boolean;
 }
 
 const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
@@ -93,6 +96,10 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
   exclusiveAreaError,
   supplyAreaError,
   expenseError,
+  possibleMoveError,
+  titleError,
+  contentError,
+  children,
 }) => {
   return (
     <div className={"w-full h-600 bg-white flex flex-col md:flex-row  mt-80 "}>
@@ -132,24 +139,30 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
           onChangeTextarea={onChangeTextarea}
           isParking={isParking}
           expenseError={expenseError}
+          possibleMoveError={possibleMoveError}
         />
         <RoomTexts
           currentTitleNum={currentTitleNum}
           currentContentNum={currentContentNum}
           onChangeTextarea={onChangeTextarea}
+          contentError={contentError}
+          titleError={titleError}
           title={title}
           content={content}
         />
         {message && <ErrorMessage message={message} />}
-        <section className={"w-full flex justify-center items-center"}>
+        <section
+          className={"w-full flex justify-center items-center relative px-3"}
+        >
           <Button
             type={"submit"}
             onClick={onSubmit}
             className={
-              "w-full sm:w-60 py-3 border border-yellow-600 bg-yellow-500 text-white font-bold"
+              "w-60 py-3 border border-blue-dark bg-blue-dark text-white font-bold"
             }
             label={label}
           />
+          {children}
         </section>
       </div>
     </div>

@@ -26,7 +26,7 @@ const RegisterTextArea: React.FC<IRegisterTextArea> = ({
       className={`${
         (size === "big" && "h-184") || (size === "basic" && "h-92")
       } flex flex-col border w-full   ${
-        isError ? "border-red-600" : "border-gray-300"
+        isError ? "border-red-700" : "border-gray-300"
       } p-2`}
     >
       <textarea

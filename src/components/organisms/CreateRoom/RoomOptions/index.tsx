@@ -44,6 +44,7 @@ interface IRoomOptions {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeTextarea: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   expenseError: boolean;
+  possibleMoveError: boolean;
 }
 const RoomOptions: React.FC<IRoomOptions> = ({
   expense,
@@ -56,6 +57,7 @@ const RoomOptions: React.FC<IRoomOptions> = ({
   onChangeTextarea,
   isParking,
   expenseError,
+  possibleMoveError,
 }) => {
   return (
     <RegisterBox label={"추가 정보"}>
@@ -120,7 +122,7 @@ const RoomOptions: React.FC<IRoomOptions> = ({
       </RegisterLabel>
       <RegisterLabel label={"입주가능일"}>
         <RegisterTextArea
-          isError={currentMoveNum > 20 ? true : false}
+          isError={possibleMoveError}
           label={`${currentMoveNum}자 입력 / 최대 20자`}
           placeholder={"예)즉시입주,날짜협의,8월 28일 이후"}
           size={"basic"}

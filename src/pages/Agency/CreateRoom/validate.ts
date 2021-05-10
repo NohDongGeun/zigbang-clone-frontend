@@ -5,6 +5,7 @@ export const validateInput = (name: string, value: string) => {
 
   if (value === "") return (error = true);
   const valueToNum = +value;
+  const valueTolength = value.length;
   switch (name) {
     case "deposit": {
       valueToNum > 0 && valueToNum < 100000 ? (error = false) : (error = true);
@@ -12,6 +13,24 @@ export const validateInput = (name: string, value: string) => {
     }
     case "rent": {
       valueToNum >= 0 && valueToNum <= 500 ? (error = false) : (error = true);
+      break;
+    }
+    case "possibleMove": {
+      valueTolength < 0 || valueTolength > 20
+        ? (error = true)
+        : (error = false);
+      break;
+    }
+    case "title": {
+      valueTolength < 7 || valueTolength > 32
+        ? (error = true)
+        : (error = false);
+      break;
+    }
+    case "content": {
+      valueTolength < 0 || valueTolength < 50
+        ? (error = true)
+        : (error = false);
       break;
     }
     case "floor":
@@ -40,6 +59,9 @@ export const createRoomValidate = (
     exclusiveAreaError,
     supplyAreaError,
     expenseError,
+    titleError,
+    contentError,
+    possibleMoveError,
   } = errors;
   //errors에 에러가 있는지 검사
   if (
@@ -49,7 +71,10 @@ export const createRoomValidate = (
     buildingFloorError === true ||
     exclusiveAreaError === true ||
     supplyAreaError === true ||
-    expenseError === true
+    expenseError === true ||
+    titleError === true ||
+    contentError === true ||
+    possibleMoveError === true
   ) {
     error = true;
     message = "입력란을 다시 확인해주세요.";
@@ -67,7 +92,10 @@ export const createRoomValidate = (
     room.buildingFloor === "" ||
     room.exclusiveArea === "" ||
     room.supplyArea === "" ||
-    room.expense === ""
+    room.expense === "" ||
+    room.title === "" ||
+    room.content === "" ||
+    room.possibleMove === ""
   ) {
     error = false;
     message = "입력란을 다시 확인해주세요.";
@@ -80,7 +108,7 @@ export const createRoomValidate = (
     return { error, message };
   }
   //이미지 검사
-  if (room.images.length < 1 && prevUrl.length < 1) {
+  if (prevUrl.length < 1) {
     error = true;
     message = "사진을 등록해 주세요.";
     return {

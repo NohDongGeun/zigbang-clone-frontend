@@ -43,6 +43,7 @@ export { default as NotAgencyBox } from "./molecules/Agency/NotAgencyBox";
 export { default as RegisterBox } from "./molecules/Agency/RegisterBox";
 export { default as RegisterLabel } from "./molecules/Agency/RegisterLabel";
 export { default as RegisterTextArea } from "./molecules/Agency/RegisterTextArea";
+export { default as ChangeRoomBtn } from "./molecules/Agency/ChageRoomBtn";
 //molecules/Detail
 export { default as DetailImg } from "./molecules/Details/DetailImg";
 export { default as DetailAgent } from "./molecules/Details/DetailAgent";

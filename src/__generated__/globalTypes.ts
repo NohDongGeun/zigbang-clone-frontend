@@ -25,6 +25,11 @@ export enum Verify {
   verified = "verified",
 }
 
+export interface ChangeActiveInput {
+  roomId: number;
+  active: boolean;
+}
+
 export interface CreateAccountInput {
   email: string;
   name: string;
@@ -60,6 +65,10 @@ export interface CreateVerifyInput {
 }
 
 export interface CreateZzimInput {
+  roomId: number;
+}
+
+export interface DeleteRoomInput {
   roomId: number;
 }
 
@@ -129,6 +138,10 @@ export interface OptionsExpensesInput {
 
 export interface PasswordEmailInput {
   email: string;
+}
+
+export interface PrivateRoomDetailInput {
+  roomId: number;
 }
 
 export interface RoomDetailInput {
