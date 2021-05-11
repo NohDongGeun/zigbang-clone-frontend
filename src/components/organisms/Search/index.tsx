@@ -1,12 +1,11 @@
-import { valueFromAST } from "graphql";
-import React, { useEffect, useReducer, useRef, useState } from "react";
-import { Button, Input, NoSearch, SearchBox, SearchItem, Text } from "../..";
+import React, { useEffect, useReducer } from "react";
+import { Button, NoSearch, SearchBox, SearchItem } from "../..";
 import { searchLocationVar } from "../../../apollo";
 import { BiSearch } from "react-icons/bi";
 import { FaTimes } from "react-icons/fa";
 import { useHistory } from "react-router";
 import { MdPlace, MdDirectionsSubway } from "react-icons/md";
-import { initialState, searchReducer, SearchItems } from "./reducer";
+import { initialState, searchReducer } from "./reducer";
 
 declare global {
   interface Window {
@@ -21,18 +20,9 @@ interface IKeyword {
 
 const Search: React.FC = () => {
   const [state, dispatch] = useReducer(searchReducer, initialState);
-  const history = useHistory();
-
-  // useEffect(() => {
-  //   console.log(state);
-  // }, [state]);
 
   useEffect(() => {
-    console.log(state);
-  }, [state]);
-
-  useEffect(() => {
-    if (state.keyword.length < 1 || state.loading) return;
+    if (state.keyword === "") return handleReset();
     const timer = setTimeout(() => handleSearchPlace(state.keyword), 1000);
     return () => {
       clearTimeout(timer);
@@ -41,36 +31,27 @@ const Search: React.FC = () => {
 
   const handleSearchPlace = (value: string) => {
     const isSubway = value.charAt(value.length - 1);
-    try {
-      dispatch({ type: "SET_LOADING", loading: true });
-      if (isSubway === "역") {
-        const subways = handleSubwaySearch(value);
-        dispatch({ type: "SET_LOADING", loading: false });
-        return;
-      }
-      const logic = () => {
-        return new Promise((resolve, reject) => {
-          const test1 = handleGeocoder(value);
-          const test2 = handleSubwaySearch(value);
-          resolve({ test1, test2 });
-        });
-      };
-      logic().then(() => dispatch({ type: "SET_LOADING", loading: false }));
-    } catch (error) {
-      console.log(error);
+    dispatch({ type: "SET_LOADING", loading: true });
+    if (isSubway === "역") {
+      const subways = handleSubwaySearch(value);
+      dispatch({ type: "SET_LOADING", loading: false });
+      return;
     }
+    handleGeocoder(value);
+    handleSubwaySearch(value);
+    return dispatch({ type: "SET_LOADING", loading: false });
   };
 
   const handleGeocoder = (value: string) => {
     const geocoder = new window.kakao.maps.services.Geocoder();
-    const regionw = geocoder.addressSearch(value, function (
+    const region = geocoder.addressSearch(value, function (
       result: any,
       status: any
     ) {
-      // 정상적으로 검색이 완료됐으면
       if (status !== window.kakao.maps.services.Status.OK) {
-        return;
+        return dispatch({ type: "SET_REGION", region: [] });
       }
+      // 정상적으로 검색이 완료됐으면
       const regions = result.reduce((acc: IKeyword[], cur: any, i: number) => {
         acc.push({ name: cur.address_name, location: [cur.y, cur.x] });
         return acc;
@@ -88,10 +69,12 @@ const Search: React.FC = () => {
   };
 
   const subwaySearchCB = (data: any) => {
+    console.log(data);
     const subways = data.reduce((acc: IKeyword[], cur: any, i: number) => {
       acc.push({ name: cur.place_name, location: [cur.y, cur.x] });
       return acc;
     }, []);
+    console.log(subways);
     dispatch({ type: "SET_SUBWAY", subway: subways });
   };
 
@@ -104,6 +87,9 @@ const Search: React.FC = () => {
 
   const handleButton = (point: string[]) => {
     searchLocationVar([point[0], point[1]]);
+    dispatch({ type: "SET_RESET" });
+  };
+  const handleReset = () => {
     dispatch({ type: "SET_RESET" });
   };
 
@@ -129,17 +115,16 @@ const Search: React.FC = () => {
           value={state.keyword}
         />
         {state.keyword && (
-          <Button onClick={console.log}>
+          <Button onClick={handleReset}>
             <FaTimes className={"text-gray-300"} />
           </Button>
         )}
         <div
           className={`${
-            state.keyword ? "flex h-80" : "hidden"
-          } absolute transform -translate-x-3 translate-y-48  flex-col rounded-xl bg-white w-full p-3`}
+            state.keyword ? "flex h-72 sm:h-80" : "hidden"
+          } absolute transform -translate-x-3 translate-y-44 sm:translate-y-48  flex-col rounded-xl bg-white  w-full p-3`}
         >
           <SearchBox loading={state.loading}>
-            {state.subway === [] && state.region === [] && <NoSearch />}
             {state.subway?.map((e, i) => {
               return (
                 <SearchItem
@@ -164,6 +149,7 @@ const Search: React.FC = () => {
                 />
               );
             })}
+            {state.subway.length < 1 && state.region.length < 1 && <NoSearch />}
           </SearchBox>
         </div>
       </div>

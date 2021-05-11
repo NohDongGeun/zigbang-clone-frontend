@@ -21,7 +21,7 @@ const NotFound: React.FC<INotFound> = ({ errorMessage, pathLabel, path }) => {
       />
       <Button
         className={
-          "border border-blue-dark bg-blue-dark py-3 px-6 font-semibold text-white rounded-lg mt-3 text-lg sm:text-xl"
+          "border border-blue-dark bg-blue-dark py-3 px-6 font-semibold text-white rounded-lg mt-3 text-lg sm:text-xl hover:opacity-75"
         }
         to={path}
         label={pathLabel}

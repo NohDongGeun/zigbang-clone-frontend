@@ -20,16 +20,21 @@ const SearchItem: React.FC<ISearchItem> = ({
   return (
     <Button
       className={
-        "p-3  flex flex-row w-full hover:bg-gray-200 rounded-xl justify-start items-center mt-1"
+        "p-0 py-1 md:px-3 md:py-3 flex flex-row w-full hover:bg-gray-200 rounded-xl justify-start items-center mt-1"
       }
       onClick={() => handleItem(coordinates)}
       value={value}
     >
       <Icon
-        className={"mr-1 text-gray-400 pointer-events-none"}
+        className={
+          "mr-1 text-gray-400 pointer-events-none group-hover:bg-gray-200"
+        }
         size={"25"}
       ></Icon>
-      <Text className={"text-gray-400"} label={name} />
+      <Text
+        className={"text-gray-400 truncate w-full  group-hover:bg-gray-500"}
+        label={name}
+      />
     </Button>
   );
 };
