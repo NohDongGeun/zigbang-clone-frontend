@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HeaderAndSidebar from "../../components/templates/HeaderTemplate";
+import NotFound from "../../pages/NotFound";
 
 import Room from "../../pages/Room";
 import FindId from "../../pages/User/Find/FindId";
@@ -36,6 +37,13 @@ const LoggedOutRouter = () => {
         </Route>
         <Route exact path="/my/search_password">
           <FindPassword />
+        </Route>
+        <Route>
+          <NotFound
+            errorMessage={"찾을 수 없는 페이지입니다. :)"}
+            path={"/room"}
+            pathLabel={"홈으로 가기"}
+          />
         </Route>
       </Switch>
     </Router>

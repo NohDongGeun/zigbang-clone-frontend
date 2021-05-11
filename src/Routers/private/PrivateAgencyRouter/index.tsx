@@ -1,6 +1,7 @@
 import React from "react";
 import { Route } from "react-router";
 import { useMe } from "../../../hooks/useMe";
+import NotFound from "../../../pages/NotFound";
 import { IPrivateRouter } from "../PrivateRouter";
 
 const PrivateAgencyRouter: React.FC<IPrivateRouter> = ({ children, path }) => {
@@ -13,7 +14,11 @@ const PrivateAgencyRouter: React.FC<IPrivateRouter> = ({ children, path }) => {
           {children}
         </Route>
       ) : (
-        <div></div>
+        <NotFound
+          errorMessage={"중개사 가입 후 이용해 주세요."}
+          path={"/my/register/agency"}
+          pathLabel={"중개사 가입 페이지로 이동"}
+        />
       )}
     </>
   );

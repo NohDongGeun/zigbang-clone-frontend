@@ -24,6 +24,7 @@ import PrivateRouter from "../private/PrivateRouter";
 import PrivatePhoneRouter from "../private/PrivatePhoneRouter";
 import PrivateAgencyRouter from "../private/PrivateAgencyRouter";
 import PrivateVerifiedRouter from "../private/PrivateVertifyRouter";
+import NotFound from "../../pages/NotFound";
 
 const USER_ROUTER = [
   { path: "/my/rooms", component: <Zzim /> },
@@ -90,7 +91,11 @@ const LoggedInRouter = () => {
           );
         })}
         <Route>
-          <div>sdasd</div>
+          <NotFound
+            errorMessage={"찾을 수 없는 페이지입니다."}
+            path={"/room"}
+            pathLabel={"홈으로 가기"}
+          />
         </Route>
       </Switch>
     </Router>
