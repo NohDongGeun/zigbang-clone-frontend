@@ -31,14 +31,14 @@ const Auth: React.FC = () => {
       createVerify: { ok, error },
     } = data;
     if (ok) {
-      history.push("/my/authNext");
+      history.push("/my/auth/code");
     }
     if (error) {
       setMessage(error);
     }
   };
 
-  const [verifyMutation, {loading }] = useMutation<
+  const [verifyMutation, { loading }] = useMutation<
     verifyMutation,
     verifyMutationVariables
   >(VERIFY_MUTATION, { onCompleted: onCompletedSms });
@@ -70,7 +70,7 @@ const Auth: React.FC = () => {
         message={message}
         registerOptions={{
           required: true,
-          pattern:/^(\d{10,11}|\d{3}-\d{3,4}-\d{4})$/
+          pattern: /^(\d{10,11}|\d{3}-\d{3,4}-\d{4})$/,
         }}
       />
     </FormProvider>

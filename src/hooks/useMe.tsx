@@ -9,6 +9,7 @@ export const ME_QUERY = gql`
       name
       phone
       verified
+      isAgency
     }
   }
 `;

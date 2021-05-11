@@ -111,7 +111,7 @@ interface IRoomDetailParams {
 const RoomDetail: React.FC = () => {
   const [state, dispatch] = useReducer(registerReducer, initialState);
   const { id } = useParams<IRoomDetailParams>();
-  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+  const [changeLoading, setChangeLoading] = useState<boolean>(false);
   const {
     onShowPortal,
     onCompletedPostcode,
@@ -131,6 +131,7 @@ const RoomDetail: React.FC = () => {
     } = data;
 
     if (ok) {
+      setChangeLoading(false);
       history.push("/agency");
     }
   };
@@ -148,6 +149,7 @@ const RoomDetail: React.FC = () => {
       deleteRoom: { ok, error },
     } = data;
     if (ok) {
+      setChangeLoading(false);
       history.push("/agency");
     }
     if (error) {
@@ -357,8 +359,9 @@ const RoomDetail: React.FC = () => {
   };
   //방 삭제 submit
   const handleDeleteRoom = async () => {
+    if (changeLoading) return;
     try {
-      if (deleteLoading) return;
+      setChangeLoading(true);
       const { ok } = await (
         await fetch(
           `http://localhost:4000/uploads/delete/${data?.privateRoomDetail.room?.s3Code}`,
@@ -383,7 +386,8 @@ const RoomDetail: React.FC = () => {
   };
   //광고 on/off
   const handleActiveRoom = () => {
-    if (data?.privateRoomDetail.room) {
+    if (data?.privateRoomDetail.room && changeLoading === false) {
+      setChangeLoading(true);
       room_active_mutation({
         variables: {
           changeActiveInput: {
@@ -397,7 +401,7 @@ const RoomDetail: React.FC = () => {
   //window confirm on
   const confirmDelete = useConfirm("삭제하시겠습니까?", handleDeleteRoom);
 
-  if (loading) return <Loading />;
+  if (loading || changeLoading) return <Loading />;
 
   return (
     <>

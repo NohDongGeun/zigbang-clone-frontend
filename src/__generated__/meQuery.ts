@@ -16,6 +16,7 @@ export interface meQuery_me {
   name: string;
   phone: string | null;
   verified: Verify;
+  isAgency: boolean;
 }
 
 export interface meQuery {

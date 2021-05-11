@@ -43,7 +43,6 @@ const Search: React.FC = () => {
     const isSubway = value.charAt(value.length - 1);
     try {
       dispatch({ type: "SET_LOADING", loading: true });
-      console.log("시작");
       if (isSubway === "역") {
         const subways = handleSubwaySearch(value);
         dispatch({ type: "SET_LOADING", loading: false });

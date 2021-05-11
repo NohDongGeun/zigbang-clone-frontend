@@ -19,22 +19,31 @@ import { useMe } from "../../hooks/useMe";
 import { Loading } from "../../components";
 import HeaderAndSidebar from "../../components/templates/HeaderTemplate";
 import Zzim from "../../pages/User/Zzim";
+import CreateAgency from "../../pages/Agency/CreateAgency";
+import PrivateRouter from "../private/PrivateRouter";
+import PrivatePhoneRouter from "../private/PrivatePhoneRouter";
+import PrivateAgencyRouter from "../private/PrivateAgencyRouter";
+import PrivateVerifiedRouter from "../private/PrivateVertifyRouter";
 
 const USER_ROUTER = [
   { path: "/my/rooms", component: <Zzim /> },
-  { path: "/my/auth/verify", component: <Auth /> },
-  { path: "/my/auth/code", component: <AuthNext /> },
   { path: "/my/profile/", component: <Profile /> },
   { path: "/my/profile/modify_name", component: <ModifyName /> },
   { path: "/my/profile/modify_password", component: <ModifyPassword /> },
+];
+
+const USER_VERIFIED_ROUTER = [
+  { path: "/my/auth/verify", component: <Auth /> },
+  { path: "/my/auth/code", component: <AuthNext /> },
+];
+const USER_PRIVATE_ROUTER = [
+  { path: "/my/register/agency", component: <CreateAgency /> },
 ];
 
 export const AGENCY_ROUTER = [
   { path: "/agency", component: <Agency /> },
   { path: "/agency/create-room", component: <CreateRoom /> },
   { path: "/agency/room/:id", component: <RoomDetail /> },
-  { path: "/agency/profile/:id", component: <AgencyProfile /> },
-  { path: "/agency/profile/:id", component: <RoomDetail /> },
 ];
 
 const LoggedInRouter = () => {
@@ -56,16 +65,28 @@ const LoggedInRouter = () => {
         })}
         {USER_ROUTER.map((route) => {
           return (
-            <Route exact path={route.path}>
+            <PrivateRouter path={route.path}>{route.component}</PrivateRouter>
+          );
+        })}
+        {USER_VERIFIED_ROUTER.map((route) => {
+          return (
+            <PrivateVerifiedRouter path={route.path}>
               {route.component}
-            </Route>
+            </PrivateVerifiedRouter>
+          );
+        })}
+        {USER_PRIVATE_ROUTER.map((route) => {
+          return (
+            <PrivatePhoneRouter path={route.path}>
+              {route.component}
+            </PrivatePhoneRouter>
           );
         })}
         {AGENCY_ROUTER.map((route) => {
           return (
-            <Route exact path={route.path}>
+            <PrivateAgencyRouter path={route.path}>
               {route.component}
-            </Route>
+            </PrivateAgencyRouter>
           );
         })}
         <Route>

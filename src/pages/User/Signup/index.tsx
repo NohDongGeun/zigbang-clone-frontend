@@ -5,6 +5,7 @@ import { useHistory } from "react-router";
 import { authTokenVar, isLoggedInVar } from "../../../apollo";
 import { SignupTemplate } from "../../../components";
 import { LOCALSTORAGE_TOKEN } from "../../../constants/constants";
+import { ME_QUERY } from "../../../hooks/useMe";
 import { ISignup } from "../../../interfaces/Auth";
 import {
   signupMutation,
@@ -36,7 +37,7 @@ const Signup: React.FC = () => {
       localStorage.setItem(LOCALSTORAGE_TOKEN, token);
       authTokenVar(token);
       isLoggedInVar(true);
-      history.push("/my/auth");
+      history.push("/my/auth/verify");
     }
     if (error) {
       setMessage(error);

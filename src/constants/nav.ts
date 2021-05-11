@@ -15,7 +15,8 @@ export const USER_NAV = [
 ];
 
 export const AGENCY_NAV = [
-  { name: "매물관리", url: "/room", Component: RiTaskLine },
-  { name: "매물등록", url: "/room", Component: RiDashboardLine },
+  { name: "매물관리", url: "/agency", Component: RiTaskLine },
+  { name: "매물등록", url: "/agency/create-room", Component: RiDashboardLine },
+  { name: "내 정보", url: "/agency/profile", Component: RiDashboardLine },
   { name: "중개사 페이지 나가기", url: "/room", Component: RiHomeLine },
 ];

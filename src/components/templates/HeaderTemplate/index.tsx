@@ -8,13 +8,15 @@ const HeaderAndSidebar = () => {
 
   return (
     <>
-      {(location.pathname !== "/my/auth/verify" ||
-        "/my/auth/code" ||
-        "/my/profile/modify_name" ||
-        "/my/profile/modify_password" ||
-        "/signup" ||
-        "my/search_email" ||
-        "/my/search_password") && (
+      {location.pathname === "/my/auth/verify" ||
+      location.pathname === "/my/auth/code" ||
+      location.pathname === "/my/profile/modify_name" ||
+      location.pathname === "/my/profile/modify_password" ||
+      location.pathname === "/signup" ||
+      location.pathname === "my/search_email" ||
+      location.pathname === "/my/search_password" ? (
+        <></>
+      ) : (
         <>
           <Header />
           <Sidebar />

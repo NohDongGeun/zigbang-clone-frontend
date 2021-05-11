@@ -25,16 +25,16 @@ const LoggedOutRouter = () => {
             </Route>
           );
         })}
-        <Route path="/login">
+        <Route exact path="/login">
           <Login />
         </Route>
-        <Route path="/signup">
+        <Route exact path="/signup">
           <Signup />
         </Route>
-        <Route path="/my/search_email">
+        <Route exact path="/my/search_email">
           <FindId />
         </Route>
-        <Route path="/my/search_password">
+        <Route exact path="/my/search_password">
           <FindPassword />
         </Route>
       </Switch>

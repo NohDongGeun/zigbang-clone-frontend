@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Loading } from "../../../components";
 import AgencyMainTemplate from "../../../components/templates/AgencyMain";
@@ -55,14 +55,12 @@ const Agency: React.FC = () => {
 
   if (loading || error) return <Loading />;
   return (
-    data.findActiveRooms && (
-      <AgencyMainTemplate
-        isAgency={true}
-        rooms={data.findActiveRooms.activeRooms}
-        unActiveRooms={data.findActiveRooms.unActiveRooms}
-        handleCard={handleCard}
-      />
-    )
+    <AgencyMainTemplate
+      isAgency={true}
+      rooms={data?.findActiveRooms.activeRooms}
+      unActiveRooms={data.findActiveRooms.unActiveRooms}
+      handleCard={handleCard}
+    />
   );
 };
 
