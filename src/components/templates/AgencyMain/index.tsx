@@ -23,7 +23,7 @@ const AgencyMainTemplate: React.FC<IAgencyMainTemplate> = ({
         <>
           <div
             className={
-              "xl:w-1280 lg:w-1024 md:w-768 mx-auto  h-full p-3  text-center sm:text-left"
+              "xl:w-1280 lg:w-1024 md:w-768 mx-auto  p-3  text-center sm:text-left flex-1"
             }
           >
             <RoomHeading label={"광고 중 매물"} />
@@ -34,7 +34,9 @@ const AgencyMainTemplate: React.FC<IAgencyMainTemplate> = ({
             <RoomUl rooms={rooms} handleCard={handleCard} />
           </div>
           <div
-            className={"xl:w-1280 lg:w-1024 md:w-768 mx-auto  h-full   p-3  "}
+            className={
+              "xl:w-1280 lg:w-1024 md:w-768 mx-auto   p-3 text-center sm:text-left flex-1"
+            }
           >
             <RoomHeading label={"광고 중지 매물"} />
             <RoomText

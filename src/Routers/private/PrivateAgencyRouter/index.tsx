@@ -1,16 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router";
-import { useMe } from "../../../hooks/useMe";
 import NotFound from "../../../pages/NotFound";
 import { IPrivateRouter } from "../PrivateRouter";
 
-const PrivateAgencyRouter: React.FC<IPrivateRouter> = ({ children, path }) => {
-  const { data } = useMe();
-
+const PrivateAgencyRouter: React.FC<IPrivateRouter> = ({
+  children,
+  path,
+  data,
+  exact,
+}) => {
+  useEffect(() => {
+    console.log(path);
+  }, [path]);
   return (
     <>
-      {data?.me.verified === "verified" && data?.me.isAgency === true ? (
-        <Route exact path={path}>
+      {data?.me.isAgency ? (
+        <Route exact={exact} path={path}>
           {children}
         </Route>
       ) : (

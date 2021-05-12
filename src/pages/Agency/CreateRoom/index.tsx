@@ -14,6 +14,7 @@ import { DealType, RoomType } from "../../../__generated__/globalTypes";
 import { room_detail_guery } from "../../../__generated__/room_detail_guery";
 import { initialState, registerReducer } from "./reducer";
 import useCreateRoom from "../../../hooks/useCreateRoom";
+import { FIND_ACTIVEROOMS_QUERY } from "../Home";
 
 export const CREATE_ROOM_MUTATION = gql`
   mutation create_room_mutation(
@@ -74,7 +75,7 @@ const CreateRoom: React.FC = () => {
   const [create_room_mutation] = useMutation<
     create_room_mutation,
     create_room_mutationVariables
-  >(CREATE_ROOM_MUTATION, { onCompleted });
+  >(CREATE_ROOM_MUTATION, { onCompleted,refetchQueries:[{query:FIND_ACTIVEROOMS_QUERY}] });
 
   //Submit handler
   const handleCreateRoom = async (

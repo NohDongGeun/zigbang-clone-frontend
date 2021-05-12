@@ -124,7 +124,7 @@ const Map: React.FC<IMap> = ({ point }) => {
       //지도 레벨 변경
       map.setLevel(3);
       // 지도 중심 이동
-      map.setCenter(moveLatLon);
+
       const center = map.getCenter();
       const getNorthEast = map.getBounds().getNorthEast();
       const getSouthWest = map.getBounds().getSouthWest();
@@ -136,6 +136,7 @@ const Map: React.FC<IMap> = ({ point }) => {
       ];
       const coordinates = [center.Ma, center.La];
       locationVar({ coordinates, dist });
+      map.setCenter(moveLatLon);
     }
   }, [search]);
 

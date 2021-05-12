@@ -7,9 +7,9 @@ import { IPrivateRouter } from "../PrivateRouter";
 const PrivateVerifiedRouter: React.FC<IPrivateRouter> = ({
   children,
   path,
+  exact,
+  data,
 }) => {
-  const { data } = useMe();
-
   return (
     <>
       {data?.me.verified === "verified" || !data?.me.id ? (
@@ -19,7 +19,7 @@ const PrivateVerifiedRouter: React.FC<IPrivateRouter> = ({
           pathLabel={"홈으로 가기"}
         />
       ) : (
-        <Route exact path={path}>
+        <Route exact={exact} path={path}>
           {children}
         </Route>
       )}

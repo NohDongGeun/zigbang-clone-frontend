@@ -28,6 +28,7 @@ import {
 } from "../../../__generated__/room_active_mutation";
 import { private_room_detail_query } from "../../../__generated__/private_room_detail_query";
 import { useConfirm } from "../../../hooks/useConfirm";
+import NotFound from "../../NotFound";
 
 export const PRIVATE_ROOM_DETAIL_QUERY = gql`
   query private_room_detail_query(
@@ -111,6 +112,7 @@ interface IRoomDetailParams {
 const RoomDetail: React.FC = () => {
   const [state, dispatch] = useReducer(registerReducer, initialState);
   const { id } = useParams<IRoomDetailParams>();
+  const [privateError, setPrivateError] = useState<boolean>(false);
   const [changeLoading, setChangeLoading] = useState<boolean>(false);
   const {
     onShowPortal,
@@ -183,17 +185,7 @@ const RoomDetail: React.FC = () => {
     edit_room_mutationVariables
   >(EDIT_ROOM_MUTATION, {
     onCompleted: onCompletedEdit,
-    refetchQueries: [
-      { query: FIND_ACTIVEROOMS_QUERY },
-      {
-        query: PRIVATE_ROOM_DETAIL_QUERY,
-        variables: {
-          roomDetailInput: {
-            roomId: +id,
-          },
-        },
-      },
-    ],
+    refetchQueries: [{ query: FIND_ACTIVEROOMS_QUERY }],
   });
   //방 정보 (private)
   const { data, loading, error } = useQuery<private_room_detail_query>(
@@ -207,6 +199,7 @@ const RoomDetail: React.FC = () => {
       fetchPolicy: "network-only",
     }
   );
+
   //방 정보 query
   const onCompleted = (data: private_room_detail_query) => {
     if (data?.privateRoomDetail.room) {
@@ -250,13 +243,14 @@ const RoomDetail: React.FC = () => {
   useEffect(() => {
     if (!loading && !error && data) {
       const {
-        privateRoomDetail: { ok, error },
+        privateRoomDetail: { ok, error, room },
       } = data;
       if (ok) {
         onCompleted(data);
+        setPrivateError(false);
       }
       if (error) {
-        history.push("agency");
+        setPrivateError(true);
       }
     } else if (!loading && error) {
       onError(error);
@@ -400,7 +394,15 @@ const RoomDetail: React.FC = () => {
   };
   //window confirm on
   const confirmDelete = useConfirm("삭제하시겠습니까?", handleDeleteRoom);
-
+  if (privateError) {
+    return (
+      <NotFound
+        errorMessage={"접근 할 수 없습니다."}
+        path={"/agency"}
+        pathLabel={"홈으로 가기"}
+      />
+    );
+  }
   if (loading || changeLoading) return <Loading />;
 
   return (

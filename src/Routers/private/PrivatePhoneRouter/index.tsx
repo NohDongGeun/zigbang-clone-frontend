@@ -4,13 +4,16 @@ import { useMe } from "../../../hooks/useMe";
 import NotFound from "../../../pages/NotFound";
 import { IPrivateRouter } from "../PrivateRouter";
 
-const PrivatePhoneRouter: React.FC<IPrivateRouter> = ({ children, path }) => {
-  const { data } = useMe();
-
+const PrivatePhoneRouter: React.FC<IPrivateRouter> = ({
+  children,
+  path,
+  exact,
+  data,
+}) => {
   return (
     <>
       {data?.me.verified === "verified" && data?.me.isAgency === false ? (
-        <Route exact path={path}>
+        <Route exact={exact} path={path}>
           {children}
         </Route>
       ) : (

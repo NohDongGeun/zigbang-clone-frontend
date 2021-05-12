@@ -10,11 +10,15 @@ const RoomUl: React.FC<IRoomUl> = ({ rooms, handleCard }) => {
   return (
     <ul
       className={
-        "  sm:-ml-5 flex flex-row flex-wrap   justify-center items-center sm:justify-start sm:items-start"
+        "sm:-ml-5 flex flex-row flex-wrap sm:justify-start sm:items-start"
       }
     >
       {rooms.map((e, i) => (
-        <li className={"lg:w-1/4 md:w-1/3 flex sm:justify-end sm:items-end  "}>
+        <li
+          className={
+            "lg:w-1/4 md:w-1/3 sm:w-1/2 flex sm:justify-end sm:items-end justify-center items-center w-full   "
+          }
+        >
           <RoomCard
             id={e.id}
             point={e.point}
@@ -28,6 +32,7 @@ const RoomUl: React.FC<IRoomUl> = ({ rooms, handleCard }) => {
             exclusiveArea={e.exclusiveArea}
             expense={e.expense}
             handleCard={handleCard}
+            key={i}
           />
         </li>
       ))}
