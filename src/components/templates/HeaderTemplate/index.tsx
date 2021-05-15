@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useLocation } from "react-router";
 import { Header } from "../..";
+import { headerLocation } from "../../../constants/location";
 import Sidebar from "../../organisms/Sidebar";
 
 const HeaderAndSidebar = () => {
@@ -8,14 +9,7 @@ const HeaderAndSidebar = () => {
 
   return (
     <>
-      {location.pathname === "/my/auth/verify" ||
-      location.pathname === "/my/auth/code" ||
-      location.pathname === "/my/profile/modify_name" ||
-      location.pathname === "/my/profile/modify_password" ||
-      location.pathname === "/signup" ||
-      location.pathname === "/login" ||
-      location.pathname === "my/search_email" ||
-      location.pathname === "/my/search_password" ? (
+      {headerLocation.indexOf(location.pathname) !== -1 ? (
         <></>
       ) : (
         <>

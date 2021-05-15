@@ -42,7 +42,7 @@ const USER_VERIFIED_ROUTER = [
   { path: "/my/auth/code", component: <AuthNext />, exact: true },
 ];
 const USER_PRIVATE_ROUTER = [
-  { path: "/my/register/agency", component: <CreateAgency />, exact: true },
+  { path: "/my/register", component: <CreateAgency />, exact: true },
 ];
 
 export const AGENCY_ROUTER = [

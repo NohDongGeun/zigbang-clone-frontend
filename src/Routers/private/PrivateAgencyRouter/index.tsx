@@ -21,7 +21,7 @@ const PrivateAgencyRouter: React.FC<IPrivateRouter> = ({
       ) : (
         <NotFound
           errorMessage={"중개사 가입 후 이용해 주세요."}
-          path={"/my/register/agency"}
+          path={"/my/register"}
           pathLabel={"중개사 가입 페이지로 이동"}
         />
       )}

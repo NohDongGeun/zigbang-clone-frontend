@@ -69,11 +69,8 @@ const Sidebar = () => {
         </FormProvider>
       ) : (
         <>
-          {location.pathname === "/agency" ||
-          location.pathname === "/agency/create-room" ||
-          location.pathname === "/agency/profile/:id" ||
-          location.pathname === "/agency/profile/:id" ? (
-            <SidebarAgencyNav />
+          {location.pathname.includes("/agency") ? (
+            <SidebarAgencyNav />  
           ) : (
             <SidebarUserNav isAgency={data.me.isAgency} />
           )}

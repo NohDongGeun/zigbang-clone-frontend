@@ -16,7 +16,7 @@ const SidebarUserNav: React.FC<ISidebarUserNav> = ({ isAgency }) => {
         ))}
         {!isAgency && (
           <NavItem
-            to={"/my/register/agency"}
+            to={"/my/register"}
             Component={BiUserPlus}
             label={"중개사 가입하기"}
           />
