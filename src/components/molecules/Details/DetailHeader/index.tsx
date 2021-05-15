@@ -1,5 +1,6 @@
 import React from "react";
 import { DetailImg, Heading, Img, Text } from "../../..";
+import { useRoomType } from "../../../../hooks/useRoomType";
 
 interface IDetailHeaderProps {
   /** 방 거래유형 */
@@ -97,17 +98,7 @@ const DetailHeader: React.FC<IDetailHeaderProps> = ({
         >
           <Text label={"구조"} className={"sm:text-sm text-xs"} />
           <Text
-            label={
-              structure === "oneRoom"
-                ? "원룸"
-                : structure === "twoRoom"
-                ? "투룸"
-                : structure === "threeRoom"
-                ? "쓰리룸"
-                : structure === "threeRoomPlus"
-                ? "포룸이싱"
-                : "원룸"
-            }
+            label={useRoomType(structure)}
             className={"font-bold sm:text-xl text-base text-blue-800"}
           />
         </div>

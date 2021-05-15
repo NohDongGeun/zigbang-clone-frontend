@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Img, Text } from "../..";
+import { useRoomType } from "../../../hooks/useRoomType";
 import { find_zzim_query_findZzimRooms_rooms_point } from "../../../__generated__/find_zzim_query";
 
 export interface IRoomCard {
@@ -46,17 +47,7 @@ const RoomCard: React.FC<IRooms> = ({
         <div className={"flex-1  flex flex-col justify-start items-start py-2"}>
           <Text
             className={"text-gray-500 text-sm font-semibold"}
-            label={
-              roomType === "oneRoom"
-                ? "원룸"
-                : roomType === "twoRoom"
-                ? "투룸"
-                : roomType === "threeRoom"
-                ? "쓰리룸"
-                : roomType === "threeRoomPlus"
-                ? "포룸이싱"
-                : "원룸"
-            }
+            label={useRoomType(roomType)}
           />
           <Text
             className={"text-gray-900 text-xl font-bold my-1"}

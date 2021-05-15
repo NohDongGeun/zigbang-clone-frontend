@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Img, Heading, Text } from "../..";
+import { useRoomType } from "../../../hooks/useRoomType";
 import { ICardProps } from "../../../interfaces/Card";
 import "./styles.css";
 
@@ -35,17 +36,7 @@ const Card: React.FC<ICardProps> = ({
         </div>
         <div className={"flex flex-col w-3/5 justify-center items-start px-3"}>
           <Text
-            label={
-              roomType === "oneRoom"
-                ? "원룸"
-                : roomType === "twoRoom"
-                ? "투룸"
-                : roomType === "threeRoom"
-                ? "쓰리룸"
-                : roomType === "threeRoomPlus"
-                ? "포룸이싱"
-                : "원룸"
-            }
+            label={useRoomType(roomType)}
             className={"font-bold text-sm text-gray-500"}
           />
           <Heading
