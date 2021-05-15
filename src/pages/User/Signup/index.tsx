@@ -33,6 +33,7 @@ const Signup: React.FC = () => {
     const {
       createAccount: { ok, error, token },
     } = data;
+
     if (ok && token) {
       localStorage.setItem(LOCALSTORAGE_TOKEN, token);
       authTokenVar(token);
@@ -43,6 +44,7 @@ const Signup: React.FC = () => {
       setMessage(error);
     }
   };
+
   const [signupMutation, data] = useMutation<
     signupMutation,
     signupMutationVariables
@@ -60,6 +62,7 @@ const Signup: React.FC = () => {
       },
     });
   };
+
   return (
     <FormProvider {...method}>
       <SignupTemplate

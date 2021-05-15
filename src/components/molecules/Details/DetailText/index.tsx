@@ -18,7 +18,9 @@ const DetailText: React.FC<IDetailText> = ({ wysiwyg, label }) => {
   return (
     <DetailBar label={label}>
       <div className={"flex flex-1 px-3 py-4"}>
-        <Text label={wysiwyg} className={"break-all"} />
+        <pre className={"whitespace-pre-wrap"}>
+          <Text label={wysiwyg} className={"break-all"} />
+        </pre>
       </div>
     </DetailBar>
   );

@@ -20,19 +20,18 @@ const Header: React.FC = () => {
   const handleFilter = () => {
     isFilterVar(!filtervar);
   };
-  useEffect(() => {
-    console.log(location);
-  }, [location]);
 
   return (
-    <div className={"flex flex-row w-screen overflow-x-hidden relative"}>
+    <div
+      className={"flex flex-row w-screen overflow-x-hidden relative min-w-320"}
+    >
       <nav
         className={
-          "bg-light w-screen px-1 sm:px-5 py-3 flex flex-row  h-20 fixed  z-10"
+          "bg-light w-screen px-1 sm:px-5 py-3 flex flex-row  h-20 fixed  z-10 min-w-320"
         }
       >
         <ul className={"flex-auto  flex justify-around items-center "}>
-          <li className={"flex-auto h-full mr-1 sm:mr-0"}>
+          <li className={"flex-auto h-full mr-1 sm:mr-0 flex flex-row"}>
             <Button to={"/room"} className={" h-full "}>
               <div
                 className={
@@ -41,6 +40,7 @@ const Header: React.FC = () => {
                 style={{ backgroundImage: `url(${logo})` }}
               ></div>
             </Button>
+            <div className={"w-full h-full"}></div>
           </li>
           {matchPath(location.pathname, { path: "/room" }) ||
           matchPath(location.pathname, { path: "/room/:id" }) ? (

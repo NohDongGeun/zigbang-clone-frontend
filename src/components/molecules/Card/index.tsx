@@ -33,18 +33,7 @@ const Card: React.FC<ICardProps> = ({
             style={{ backgroundImage: `url(${image})` }}
           ></div>
         </div>
-        <div
-          className={"flex flex-col   sm:w-3/5 justify-center items-start px-3"}
-        >
-          <Heading
-            label={
-              dealType === "month"
-                ? `월세 ${deposit}/${rent}`
-                : `전세 ${deposit}`
-            }
-            className={"font-bold lg:text-xl text-base"}
-            Type={"h2"}
-          />
+        <div className={"flex flex-col w-3/5 justify-center items-start px-3"}>
           <Text
             label={
               roomType === "oneRoom"
@@ -59,17 +48,28 @@ const Card: React.FC<ICardProps> = ({
             }
             className={"font-bold text-sm text-gray-500"}
           />
+          <Heading
+            label={
+              dealType === "month"
+                ? `월세 ${deposit}/${rent}`
+                : `전세 ${deposit}`
+            }
+            className={"font-bold lg:text-lg text-base"}
+            Type={"h2"}
+          />
           <Text
             label={
               unitChange
-                ? `${exclusiveArea}㎡ ${floor}층`
-                : `${Math.round(exclusiveArea / 3.306)}평 ${floor}층`
+                ? `${exclusiveArea}㎡ · ${floor}층`
+                : `${Math.round(exclusiveArea / 3.306)}평 · ${floor}층`
             }
             className={"font-medium text-sm text-gray-700"}
           />
           <Text
             label={address}
-            className={"font-medium text-sm text-gray-700"}
+            className={
+              "font-medium text-sm text-gray-700 truncate  whitespace-nowrap w-full"
+            }
           />
           <Text
             label={title}

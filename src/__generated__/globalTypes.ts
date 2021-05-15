@@ -36,6 +36,13 @@ export interface CreateAccountInput {
   password: string;
 }
 
+export interface CreateAgencyInput {
+  name: string;
+  agent: string;
+  address: string;
+  image: string;
+}
+
 export interface CreateLocationInput {
   lat: number;
   lon: number;
@@ -51,6 +58,7 @@ export interface CreateRoomInput {
   floor: number;
   buildingFloor: number;
   address: string;
+  secretAddress: string;
   title: string;
   content: string;
   images: string[];
@@ -88,6 +96,7 @@ export interface EditRoomInput {
   floor?: number | null;
   buildingFloor?: number | null;
   address?: string | null;
+  secretAddress?: string | null;
   title?: string | null;
   content?: string | null;
   images?: string[] | null;

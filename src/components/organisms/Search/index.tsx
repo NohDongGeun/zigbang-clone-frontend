@@ -3,7 +3,6 @@ import { Button, NoSearch, SearchBox, SearchItem } from "../..";
 import { searchLocationVar } from "../../../apollo";
 import { BiSearch } from "react-icons/bi";
 import { FaTimes } from "react-icons/fa";
-import { useHistory } from "react-router";
 import { MdPlace, MdDirectionsSubway } from "react-icons/md";
 import { initialState, searchReducer } from "./reducer";
 

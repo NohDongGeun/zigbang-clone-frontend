@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FormProvider, useFormContext } from "react-hook-form";
 import {
   AuthLink,
@@ -21,8 +21,9 @@ const SideLoginForm: React.FC<ISideLoginForm> = ({
   loading,
 }) => {
   const methods = useFormContext<{ name: string; password: string }>();
-
-  if (loading) return <Loading />;
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
 
   return (
     <FormProvider {...methods}>
@@ -66,7 +67,7 @@ const SideLoginForm: React.FC<ISideLoginForm> = ({
           />
         </div>
         <AuthLink />
-        {error && <ErrorMessage message={methods.errors.name?.message} />}
+        {error && <ErrorMessage message={error} />}
         <div className={"flex flex-1 justify-end items-center mt-3"}>
           <Button
             type={"submit"}
@@ -75,10 +76,9 @@ const SideLoginForm: React.FC<ISideLoginForm> = ({
                 ? "text-white bg-eroom"
                 : "text-gray-700 bg-gray-300 pointer-events-none"
             }`}
-            label={"시작하기"}
+            label={loading ? "Loading..." : "시작하기"}
           />
         </div>
-        <div></div>
       </form>
     </FormProvider>
   );

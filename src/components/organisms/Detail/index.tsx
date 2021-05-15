@@ -1,13 +1,5 @@
-import {
-  gql,
-  useLazyQuery,
-  useMutation,
-  useQuery,
-  useReactiveVar,
-} from "@apollo/client";
+import { gql, useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { History } from "history";
-import useReactRouter from "use-react-router";
 import {
   DetailAgent,
   DetailExpenses,
@@ -20,6 +12,7 @@ import {
   DetailRoadview,
   Loading,
   Button,
+  NoDetail,
 } from "../..";
 import { IDetailOption } from "../../../interfaces/Option";
 import { roomDetail } from "../../../__generated__/roomDetail";
@@ -137,6 +130,7 @@ export const ROOM_QUERY = gql`
         floor
         buildingFloor
         address
+        secretAddress
         title
         dealType
         rent
@@ -146,8 +140,9 @@ export const ROOM_QUERY = gql`
         agency {
           id
           name
-          phoneNum
           agent
+          image
+          phoneNum
         }
         expenses {
           name
@@ -199,6 +194,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
   const [room, setRoom] = useState<any>(null);
   const [heart, setHeart] = useState<boolean>(false);
   const [roadview, setRoadview] = useState<boolean>(false);
+  const [errorView, setErrorView] = useState<boolean>(false);
 
   const { loading, data, error } = useQuery<roomDetail>(ROOM_QUERY, {
     variables: {
@@ -217,7 +213,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
       return setHeart(true);
     }
     if (error) {
-      console.log(error);
+      return <NoDetail />;
     }
   };
   const [zzim_mutation] = useMutation<zzim_mutation, zzim_mutationVariables>(
@@ -300,9 +296,17 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
 
   //data 변경시 room setter
   useEffect(() => {
-    console.log(data);
-    if (!loading && !error) {
-      setRoom(data?.roomDetail.room);
+    if (!loading && !error && data) {
+      const {
+        roomDetail: { ok, error, room },
+      } = data;
+      if (ok) {
+        setRoom(room);
+        setErrorView(false);
+      }
+      if (error) {
+        setErrorView(true);
+      }
       if (data?.roomDetail.like) {
         setHeart(data.roomDetail.like);
       }
@@ -345,6 +349,9 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
   const goBack = () => {
     history.goBack();
   };
+  if (errorView) {
+    return <NoDetail />;
+  }
 
   return (
     <>
@@ -359,7 +366,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
               src={roadview ? xImg : arrowLeft}
               alt={"뒤로가기"}
               isDetail={true}
-              label={roadview ? "위치보기" : room.address}
+              label={roadview ? "위치보기" : room.secretAddress}
               handleUnit={handleUnit}
               isRoadview={roadview}
               onClick={roadview ? handleRoadview : goBack}
@@ -394,7 +401,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
                       deposit={room.deposit}
                       rent={room.rent}
                       images={room.images}
-                      text={room.text}
+                      text={room.title}
                       structure={room.roomType}
                       id={room.id}
                       exclusiveArea={room.exclusiveArea}
@@ -410,7 +417,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
                       completionDate={room.completionDate}
                       floor={room.floor}
                       buildingFloor={room.buildingFloor}
-                      address={room.address}
+                      address={room.secretAddress}
                       unitChange={unit}
                     />
                     <DetailOptions options={room.options} />
@@ -420,19 +427,15 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
                     />
                     <DetailText label={"상세 설명"} wysiwyg={room.content} />
                     <DetailMap
-                      address={room.address}
+                      address={room.secretAddress}
                       lat={room.point.coordinates[1]}
                       lon={room.point.coordinates[0]}
                       onRoadview={handleRoadview}
                     />
                     <DetailAgent
                       name={room.agency.name}
-                      img={room.agency.agent}
+                      img={room.agency.image}
                       phone={room.agency.phoneNum}
-                    />
-                    <DetailText
-                      label={"중개사무소 인사말"}
-                      wysiwyg={room.agency.name}
                     />
                   </>
                 )}

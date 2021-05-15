@@ -1,6 +1,6 @@
 import React from "react";
 import { IconType } from "react-icons/lib";
-import { RiHomeLine } from "react-icons/ri";
+
 import { Button, Text } from "../../..";
 import { sidebarVar } from "../../../../apollo";
 

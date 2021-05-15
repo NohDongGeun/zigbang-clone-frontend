@@ -47,6 +47,7 @@ export interface private_room_detail_query_privateRoomDetail_room {
   images: string[];
   s3Code: string;
   isActive: boolean;
+  secretAddress: string;
 }
 
 export interface private_room_detail_query_privateRoomDetail {

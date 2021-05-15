@@ -21,7 +21,7 @@ const DetailExpenses: React.FC<IDetailExpenses> = ({
 }) => {
   return (
     <DetailBar label={"관리비 포함 항목"} subLabel={`관리비 : ${expense}만원`}>
-      <div className={"flex flex-1 flex-row flex-wrap mt-2"}>
+      <div className={"flex flex-1 flex-row flex-wrap mt-6"}>
         {expenseOptions ? (
           expenseOptions.map((expense, i) => {
             return (

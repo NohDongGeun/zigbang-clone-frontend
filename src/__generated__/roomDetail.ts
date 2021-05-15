@@ -18,8 +18,9 @@ export interface roomDetail_roomDetail_room_agency {
   __typename: "Agency";
   id: number;
   name: string;
-  phoneNum: string | null;
   agent: string;
+  image: string;
+  phoneNum: string;
 }
 
 export interface roomDetail_roomDetail_room_expenses {
@@ -46,6 +47,7 @@ export interface roomDetail_roomDetail_room {
   floor: number;
   buildingFloor: number;
   address: string;
+  secretAddress: string;
   title: string;
   dealType: DealType;
   rent: number;

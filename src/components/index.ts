@@ -55,6 +55,7 @@ export { default as DetailOptions } from "./molecules/Details/DetailOptions";
 export { default as DetailMap } from "./molecules/Details/DetailMap";
 export { default as DetailText } from "./molecules/Details/DetailText";
 export { default as DetailRoadview } from "./molecules/Details/DetailRoadview";
+export { default as NoDetail } from "./molecules/Details/NoDetail";
 //molecules/Filter
 export { default as FilterBox } from "./molecules/Filter/FilterBox";
 export { default as FilterFixed } from "./molecules/Filter/FilterFixed";

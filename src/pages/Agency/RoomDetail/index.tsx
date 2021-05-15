@@ -65,6 +65,7 @@ export const PRIVATE_ROOM_DETAIL_QUERY = gql`
         images
         s3Code
         isActive
+        secretAddress
       }
     }
   }
@@ -225,6 +226,7 @@ const RoomDetail: React.FC = () => {
         title: room.title,
         location: room.point.coordinates,
         images: [],
+        secretAddress: room.secretAddress,
       };
       const prevUrl = room.images;
 
@@ -327,6 +329,7 @@ const RoomDetail: React.FC = () => {
               floor: +state.room.floor,
               buildingFloor: +state.room.buildingFloor,
               address: state.room.address,
+              secretAddress: state.room.secretAddress,
               title: state.room.title,
               content: state.room.content,
               images: coverImg,

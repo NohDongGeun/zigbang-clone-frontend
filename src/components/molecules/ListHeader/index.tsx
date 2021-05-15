@@ -37,20 +37,28 @@ const ListHeader: React.FC<IListHeader> = ({
           </Button>
         )}
         <Heading
-          className={"text-lg sm:text-xl text-black"}
+          className={
+            "text-lg sm:text-xl text-black truncate w-44 md:w-60 sm:w-48"
+          }
           Type={"h1"}
           label={label}
         />
       </div>
-      <div className={`flex flex-auto flex-row justify-end items-center `}>
+      <div className={`flex flex-initial  flex-row justify-end items-center`}>
         {isDetail && (
           <>
             {isHeart ? (
-              <Button onClick={handleUnHeart} className={"mr-5"}>
+              <Button
+                onClick={handleUnHeart}
+                className={`mr-5 ${isRoadview && "hidden"}`}
+              >
                 <AiFillHeart className={"text-red-500"} size={"27"} />
               </Button>
             ) : (
-              <Button onClick={handleHeart} className={"mr-5"}>
+              <Button
+                onClick={handleHeart}
+                className={`mr-5 ${isRoadview && "hidden"}`}
+              >
                 <AiOutlineHeart className={"text-gray-300"} size={"27"} />
               </Button>
             )}

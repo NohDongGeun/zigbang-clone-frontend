@@ -13,7 +13,7 @@ interface IDetailOptions {
 const DetailOptions: React.FC<IDetailOptions> = ({ options }) => {
   return (
     <DetailBar label={"옵션 정보"}>
-      <div className={"flex flex-1 flex-row flex-wrap mt-2"}>
+      <div className={"flex flex-1 flex-row flex-wrap mt-5"}>
         {options ? (
           options.map((option, i) => {
             return (

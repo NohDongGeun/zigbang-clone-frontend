@@ -43,10 +43,13 @@ const useCreateRoom = ({ state, dispatch }: IUserCreateRoom) => {
     geocoder.addressSearch(data.address, function (result: any, status: any) {
       //주소로 좌표변환 성공시
       if (status === window.kakao.maps.services.Status.OK) {
+        const secretAddressArray = data.address.split(" ");
+        const secretAddress = `${secretAddressArray[1]} ${secretAddressArray[2]}`;
         dispatch({
           type: "SET_LOCATION",
           location: [+result[0].x, +result[0].y],
           address: data.address,
+          secretAddress,
         });
       }
     });
@@ -148,7 +151,6 @@ const useCreateRoom = ({ state, dispatch }: IUserCreateRoom) => {
       target: { files },
     } = e;
     if (files) {
-      console.log(files);
       dispatch({ type: "SET_IMAGES", images: [...Array.from(files)] });
       Array.from(files).map(async (e, i) => {
         checkFile(files[i]);

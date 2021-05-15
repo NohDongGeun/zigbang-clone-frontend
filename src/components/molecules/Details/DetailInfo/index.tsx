@@ -44,7 +44,6 @@ const DetailInfo: React.FC<IDetailInfo> = ({
   exclusiveArea,
   expense,
   structure,
-  completionDate,
   floor,
   buildingFloor,
   address,
@@ -81,7 +80,6 @@ const DetailInfo: React.FC<IDetailInfo> = ({
             : `${Math.round(exclusiveArea / 3.306)}평`
         }
       />
-      <DetailItem label={"준공날짜"} value={completionDate} />
       <DetailItem
         label={"층/건물층수"}
         value={`${floor}층/${buildingFloor}층`}

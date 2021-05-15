@@ -39,9 +39,6 @@ declare global {
   }
 }
 
-interface IRoomDetailParams {
-  id?: string;
-}
 
 const CreateRoom: React.FC = () => {
   const [state, dispatch] = useReducer(registerReducer, initialState);
@@ -75,7 +72,10 @@ const CreateRoom: React.FC = () => {
   const [create_room_mutation] = useMutation<
     create_room_mutation,
     create_room_mutationVariables
-  >(CREATE_ROOM_MUTATION, { onCompleted,refetchQueries:[{query:FIND_ACTIVEROOMS_QUERY}] });
+  >(CREATE_ROOM_MUTATION, {
+    onCompleted,
+    refetchQueries: [{ query: FIND_ACTIVEROOMS_QUERY }],
+  });
 
   //Submit handler
   const handleCreateRoom = async (
@@ -135,6 +135,7 @@ const CreateRoom: React.FC = () => {
             floor: +state.room.floor,
             buildingFloor: +state.room.buildingFloor,
             address: state.room.address,
+            secretAddress: state.room.secretAddress,
             title: state.room.title,
             content: state.room.content,
             images: coverImg,

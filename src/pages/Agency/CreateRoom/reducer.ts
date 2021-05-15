@@ -17,6 +17,7 @@ export type Room = {
   address: string;
   location: number[];
   images: File[];
+  secretAddress: string;
 };
 
 export type RoomErrors = {
@@ -54,7 +55,12 @@ export type Action =
   | { type: "SET_ISPARKING"; isParking: string }
   | { type: "SET_EXPENSES"; expenses: string }
   | { type: "SET_OPTIONS"; options: string }
-  | { type: "SET_LOCATION"; location: number[]; address: string }
+  | {
+      type: "SET_LOCATION";
+      location: number[];
+      address: string;
+      secretAddress: string;
+    }
   | { type: "SET_IMAGES"; images: File[] }
   | { type: "REMOVE_IMAGES"; i: number }
   | { type: "SET_PORTAL"; portal: boolean }
@@ -84,6 +90,7 @@ export const initialState: CreateRoomState = {
     address: "",
     location: [],
     images: [],
+    secretAddress: "",
   },
   ErrorMessage: "",
   isLoading: false,
@@ -171,6 +178,7 @@ export const registerReducer = (state: CreateRoomState, action: Action) => {
           ...state.room,
           address: action.address,
           location: action.location,
+          secretAddress: action.secretAddress,
         },
       };
     }
