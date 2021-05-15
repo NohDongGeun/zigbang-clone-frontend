@@ -1,3 +1,4 @@
+import { boolean } from "@storybook/addon-knobs";
 import { Meta } from "@storybook/react";
 import React from "react";
 import { SidebarUserNav } from "../../..";
@@ -8,5 +9,5 @@ export default {
 } as Meta;
 
 export const BasicSidebarUserNav: React.FC = () => {
-  return <SidebarUserNav />;
+  return <SidebarUserNav isAgency={boolean("isAgency", false)} />;
 };

@@ -11,7 +11,7 @@ import {
 import logo from "../../../assets/img/zigbang_logo.png";
 import { FormProvider, useFormContext } from "react-hook-form";
 import { ILogin } from "../../../interfaces/Auth";
-
+import fontlogo from "../../../assets/img/fontlogo.png";
 interface ILoginTemplate {
   onSubmit: () => void;
   message?: string;
@@ -32,7 +32,11 @@ const LoginTemplate: React.FC<ILoginTemplate> = ({ onSubmit, message }) => {
           <div
             className={"flex flex-col pt-5 pb-8 justify-center items-center"}
           >
-            <Img className={"w-28 h-12 mb-3"} src={logo} alt={"홈으로 가기"} />
+            <Img
+              className={"w-28 h-12 mb-3"}
+              src={fontlogo}
+              alt={"홈으로 가기"}
+            />
             <Text
               className={"text-xl font-light"}
               label={"간편하게 로그인하고"}

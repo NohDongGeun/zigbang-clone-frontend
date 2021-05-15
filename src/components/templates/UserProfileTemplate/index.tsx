@@ -49,7 +49,7 @@ const UserProfileTemplate: React.FC<IUserProfile> = ({
         <div className={"flex  flex-row pb-3 justify-center items-center"}>
           <Text
             className={"text-xs mr-1 sm:mr-0 text-gray-400 "}
-            label={"직방을 더이상 사용하지 않으시려면"}
+            label={"이룸을 더이상 사용하지 않으시려면"}
           />
           <Button
             className={"text-xs sm:px-1 text-gray-400 border-b border-gray-400"}

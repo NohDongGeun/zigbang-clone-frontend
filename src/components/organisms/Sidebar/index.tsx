@@ -17,12 +17,14 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useLogin } from "../../../hooks/useLogin";
 import { useMe } from "../../../hooks/useMe";
 import { useHistory, useLocation } from "react-router";
+import { useLogout } from "../../../hooks/useLogout";
 
 const Sidebar = () => {
   const { data } = useMe();
   const location = useLocation();
   const history = useHistory();
   const onSidebar = useReactiveVar(sidebarVar);
+  const logout = useLogout();
   const ref = useRef<HTMLDivElement>(null);
   const method = useForm<{ email: string; password: string }>({
     mode: "onChange",
@@ -42,13 +44,6 @@ const Sidebar = () => {
         },
       });
     }
-  };
-  const handleLogout = () => {
-    localStorage.clear();
-    authTokenVar("");
-    isLoggedInVar(false);
-    sidebarVar(false);
-    history.push("/room/");
   };
 
   const handleSidebar = () => {
@@ -80,11 +75,11 @@ const Sidebar = () => {
           location.pathname === "/agency/profile/:id" ? (
             <SidebarAgencyNav />
           ) : (
-            <SidebarUserNav />
+            <SidebarUserNav isAgency={data.me.isAgency} />
           )}
           <div className={"flex flex-1 justify-center items-end"}>
             <Button
-              onClick={handleLogout}
+              onClick={logout}
               className={
                 "border border-gray-300 p-5 w-full font-bold text-gray-500 hover:bg-gray-200"
               }

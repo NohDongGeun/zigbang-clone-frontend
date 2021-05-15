@@ -13,6 +13,7 @@ const HeaderAndSidebar = () => {
       location.pathname === "/my/profile/modify_name" ||
       location.pathname === "/my/profile/modify_password" ||
       location.pathname === "/signup" ||
+      location.pathname === "/login" ||
       location.pathname === "my/search_email" ||
       location.pathname === "/my/search_password" ? (
         <></>

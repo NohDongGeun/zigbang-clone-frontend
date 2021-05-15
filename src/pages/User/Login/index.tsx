@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import LoginTemplate from "../../../components/templates/LoginTemplate";
 import { LOCALSTORAGE_TOKEN } from "../../../constants/constants";
 import { ILogin } from "../../../interfaces/Auth";
+
 import {
   loginMutation,
   loginMutationVariables,
