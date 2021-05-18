@@ -78,7 +78,7 @@ module.exports = {
         "630": "calc(100% - 60px)",
         "620": "calc(100% - 62px)",
         "700": "calc(100% - 40px)",
-        "600": "calc(100vh - 80px)",
+        "600": "calc(100% - 80px)",
       },
       lineHeight: {
         "42": "42px",
