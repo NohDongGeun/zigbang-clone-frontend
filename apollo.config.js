@@ -4,7 +4,7 @@ module.exports = {
     tagName: "gql",
     service: {
       name: "zigbang-clone-backend",
-      url: "http://localhost:4000/graphql",
+      url: "https://eroom-backend.herokuapp.com/graphql",
     },
   },
 };

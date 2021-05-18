@@ -29,7 +29,7 @@ export const locationVar = makeVar<ILocation>({
   ],
 });
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: "https://eroom-backend.herokuapp.com/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
