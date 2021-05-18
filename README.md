@@ -2,13 +2,14 @@
 
 ## 사용 기술
 
+
 ### FRONTEND
 
-    React
-    Typescript
-    Tailwind CSS
-    Apollo
-    Storybook
+    1.React
+    2.Typescript
+    3.Tailwind CSS
+    4.Apollo
+    5.Storybook
 
 ### BACKEND
 
