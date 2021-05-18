@@ -2,30 +2,25 @@
 
 ## 사용 기술
 
-    ### FRONTEND
+### FRONTEND
 
-        React
-        Typescript
-        Tailwind CSS
-        Apollo 
-        Storybook
-    
-    ### BACKEND
+    React
+    Typescript
+    Tailwind CSS
+    Apollo
+    Storybook
 
-        Nest.js
-        TypeORM
-        GraphQL
-        PostgreSQL
+### BACKEND
 
-    ### API
+    Nest.js
+    TypeORM
+    GraphQL
+    PostgreSQL
 
-        Kakao Map
-        Daum Postcode
-        Naver SENS
-        Mailgun
-        AWS S3
-        
-        
+### API
 
-
-
+    Kakao Map
+    Daum Postcode
+    Naver SENS
+    Mailgun
+    AWS S3
