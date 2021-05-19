@@ -9,7 +9,7 @@ function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
 
   return (
-    <div className={`w-screen h-screen relative overflow-x-hidden min-w-320`}>
+    <div className={`w-screen h-full relative overflow-x-hidden min-w-320`}>
       <div
         style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
         className={`fixed top-0 z-40 left-0 ${
