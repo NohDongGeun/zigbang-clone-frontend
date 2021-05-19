@@ -111,7 +111,7 @@ const LoggedInRouter = () => {
         <Route>
           <NotFound
             errorMessage={"찾을 수 없는 페이지입니다."}
-            path={"/room"}
+            path={"/"}
             pathLabel={"홈으로 가기"}
           />
         </Route>
