@@ -15,7 +15,7 @@ const PrivateVerifiedRouter: React.FC<IPrivateRouter> = ({
       {data?.me.verified === "verified" || !data?.me.id ? (
         <NotFound
           errorMessage={"이미 인증 받은 아이디입니다."}
-          path={"/room"}
+          path={"/"}
           pathLabel={"홈으로 가기"}
         />
       ) : (

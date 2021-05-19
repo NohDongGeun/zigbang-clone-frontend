@@ -32,7 +32,7 @@ const Header: React.FC = () => {
       >
         <ul className={"flex-auto  flex justify-around items-center "}>
           <li className={"flex-auto h-full mr-1 sm:mr-0 flex flex-row"}>
-            <Button to={"/room"} className={" h-full "}>
+            <Button to={"/"} className={" h-full "}>
               <div
                 className={
                   "w-20 md:w-28 h-full bg-no-repeat bg-contain bg-center"

@@ -21,13 +21,7 @@ const useCreateRoom = ({ state, dispatch }: IUserCreateRoom) => {
   const [currentTitle, setCurrentTitle] = useState<number>(0);
   const [currentContent, setCurrentContent] = useState<number>(0);
 
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
-
-  const onSubmit = () => {
-    console.log("asd");
-  };
+  const onSubmit = () => {};
   //portal 창 닫을 시 showportal false
   const closeWindowPortal = () => {
     dispatch({ type: "SET_PORTAL", portal: false });
@@ -76,7 +70,6 @@ const useCreateRoom = ({ state, dispatch }: IUserCreateRoom) => {
   }, [state.room.title]);
   useEffect(() => {
     setCurrentContent(state.room.content.length);
-    console.log(state.room.content);
   }, [state.room.content]);
 
   //버튼 클릭 시 reducer 찾아서 업데이트
@@ -135,7 +128,6 @@ const useCreateRoom = ({ state, dispatch }: IUserCreateRoom) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       if (reader.result) {
-        console.log(reader.result);
         dispatch({
           type: "SET_PREVURL",
           prevUrl: reader.result.toString(),

@@ -25,7 +25,7 @@ const LoginTemplate: React.FC<ILoginTemplate> = ({ onSubmit, message }) => {
       <FormProvider {...methods}>
         <AuthForm
           label={"시작하기"}
-          to={"/room"}
+          to={"/"}
           onSubmit={handleSubmit(onSubmit)}
           message={message}
         >

@@ -29,7 +29,6 @@ const Filter: React.FC = () => {
   //filter state가 변경될때마다 cache에 저장
   useEffect(() => {
     filterVar(state);
-    console.log(filterVar());
   }, [state]);
 
   //filter on/off

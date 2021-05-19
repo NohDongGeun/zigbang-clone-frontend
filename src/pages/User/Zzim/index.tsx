@@ -33,9 +33,6 @@ export const FIND_ZZIM_QUERY = gql`
 const Zzim: React.FC = () => {
   const { loading, data, error } = useQuery<find_zzim_query>(FIND_ZZIM_QUERY);
   const history = useHistory();
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   const handleCard = (point: number[], id: number) => {
     sidebarVar(false);

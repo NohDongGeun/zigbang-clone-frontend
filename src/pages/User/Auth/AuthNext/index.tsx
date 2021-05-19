@@ -44,7 +44,7 @@ const AuthNext: React.FC = () => {
       verifyPhone: { ok, error },
     } = data;
     if (ok) {
-      history.push("/room");
+      history.push("/");
     }
     if (error) {
       setMessage(error);

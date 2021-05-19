@@ -108,7 +108,7 @@ const Map: React.FC<IMap> = ({ point }) => {
         },
       ],
     });
-    console.log(positions);
+
     clusterer.setMinClusterSize(1);
     clusterer.addMarkers(positions);
 
@@ -141,7 +141,11 @@ const Map: React.FC<IMap> = ({ point }) => {
   }, [search]);
 
   return (
-    <article className={"w-full sm:w-700  md:w-800 h-full flex-1 sm:flex-initial relative"}>
+    <article
+      className={
+        "w-full sm:w-700  md:w-800 h-full flex-1 sm:flex-initial relative"
+      }
+    >
       <Filter />
       <div ref={container} className={"w-full h-full"}></div>
     </article>

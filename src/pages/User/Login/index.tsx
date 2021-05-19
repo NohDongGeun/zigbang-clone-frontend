@@ -30,7 +30,7 @@ const Login: React.FC = () => {
       localStorage.setItem(LOCALSTORAGE_TOKEN, token);
       authTokenVar(token);
       isLoggedInVar(true);
-      history.push("/room");
+      history.push("/");
     }
     if (error) {
       setMessage(error);

@@ -21,9 +21,6 @@ const SideLoginForm: React.FC<ISideLoginForm> = ({
   loading,
 }) => {
   const methods = useFormContext<{ name: string; password: string }>();
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
 
   return (
     <FormProvider {...methods}>

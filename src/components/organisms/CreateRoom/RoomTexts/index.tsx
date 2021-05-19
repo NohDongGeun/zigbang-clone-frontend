@@ -35,7 +35,7 @@ const RoomTexts: React.FC<IRoomText> = ({
       </RegisterLabel>
       <RegisterLabel label={"상세설명"}>
         <RegisterTextArea
-          label={`${currentContentNum}자 입력 / 최대 50자`}
+          label={`${currentContentNum}자 입력 / 최소 50자`}
           placeholder={"매물 구조와 특징을 자세히 입력하세요."}
           isError={contentError}
           size={"big"}

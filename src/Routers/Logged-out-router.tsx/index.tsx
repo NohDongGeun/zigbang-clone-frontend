@@ -10,7 +10,7 @@ import Login from "../../pages/User/Login";
 import Signup from "../../pages/User/Signup";
 
 export const COMMON_ROUTER = [
-  { path: "/room", component: <Room /> },
+  { path: "/", component: <Room /> },
   { path: "/room/:id", component: <Room /> },
 ];
 
@@ -19,9 +19,6 @@ const LoggedOutRouter = () => {
     <Router>
       <HeaderAndSidebar />
       <Switch>
-        <Route exact path="/">
-          <Room />
-        </Route>
         {COMMON_ROUTER.map((route) => {
           return (
             <Route exact path={route.path}>
@@ -44,7 +41,7 @@ const LoggedOutRouter = () => {
         <Route>
           <NotFound
             errorMessage={"찾을 수 없는 페이지입니다. :)"}
-            path={"/room"}
+            path={"/"}
             pathLabel={"홈으로 가기"}
           />
         </Route>

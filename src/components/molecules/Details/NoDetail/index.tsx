@@ -17,7 +17,7 @@ const NoDetail: React.FC = () => {
           label={"매물 정보를 찾을 수 없습니다."}
         />
         <Button
-          to={"/room"}
+          to={"/"}
           label={"방 찾기"}
           className={
             "py-2 px-5 font-bold bg-blue-dark border border-blue-dark text-lg text-white rounded-lg mt-3"

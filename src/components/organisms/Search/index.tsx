@@ -68,12 +68,11 @@ const Search: React.FC = () => {
   };
 
   const subwaySearchCB = (data: any) => {
-    console.log(data);
     const subways = data.reduce((acc: IKeyword[], cur: any, i: number) => {
       acc.push({ name: cur.place_name, location: [cur.y, cur.x] });
       return acc;
     }, []);
-    console.log(subways);
+
     dispatch({ type: "SET_SUBWAY", subway: subways });
   };
 
