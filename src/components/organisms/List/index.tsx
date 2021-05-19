@@ -30,6 +30,7 @@ export const ROOMS_MUTATION = gql`
         title
         exclusiveArea
         address
+        secretAddress
         floor
         images
       }
