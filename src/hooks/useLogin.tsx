@@ -29,7 +29,7 @@ export const useLogin = (email: string, password: string) => {
       localStorage.setItem(LOCALSTORAGE_TOKEN, token);
       authTokenVar(token);
       isLoggedInVar(true);
-      history.push("/room");
+      history.push("/");
     }
     if (error) {
       setError(error);

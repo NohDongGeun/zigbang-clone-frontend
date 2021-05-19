@@ -9,7 +9,7 @@ export const useLogout = () => {
     authTokenVar("");
     isLoggedInVar(false);
     sidebarVar(false);
-    history.push("/room");
+    history.push("/");
   };
   return logout;
 };

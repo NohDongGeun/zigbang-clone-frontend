@@ -42,7 +42,7 @@ const Header: React.FC = () => {
             </Button>
             <div className={"w-full h-full"}></div>
           </li>
-          {matchPath(location.pathname, { path: "/room" }) ||
+          {matchPath(location.pathname, { path: "/" }) ||
           matchPath(location.pathname, { path: "/room/:id" }) ? (
             <>
               <li className={"flex-auto max-w-md sm:w-64 mr-1 sm:mr-3"}>
