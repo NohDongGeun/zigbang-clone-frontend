@@ -11,7 +11,7 @@ const NotFound: React.FC<INotFound> = ({ errorMessage, pathLabel, path }) => {
   return (
     <div
       className={
-        "flex flex-col justify-center items-center flex-1 h-full bg-white "
+        "flex flex-col justify-center items-center flex-1 h-screen bg-white "
       }
     >
       <Heading
