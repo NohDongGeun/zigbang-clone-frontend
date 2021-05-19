@@ -4,6 +4,7 @@ export const headerLocation = [
   "/my/profile",
   "/my/profile/modify_name",
   "/my/profile/modify_password",
+  "/my/register",
   "/signup",
   "/login",
   "/my/search_email",
