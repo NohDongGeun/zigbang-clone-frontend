@@ -19,6 +19,9 @@ const LoggedOutRouter = () => {
     <Router>
       <HeaderAndSidebar />
       <Switch>
+        <Route exact path="/">
+          <Room />
+        </Route>
         {COMMON_ROUTER.map((route) => {
           return (
             <Route exact path={route.path}>
