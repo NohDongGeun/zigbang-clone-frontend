@@ -102,7 +102,9 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
   children,
 }) => {
   return (
-    <div className={"w-full h-600 bg-white flex flex-col md:flex-row  mt-80 "}>
+    <div
+      className={"w-full h-600 bg-white flex flex-col md:flex-row  sm:mt-80 "}
+    >
       <div className={"flex flex-col p-2  bg-white m-auto"}>
         <RoomLocation
           onShowPortal={onShowPortal}
@@ -152,7 +154,7 @@ const CreateRoomTemplate: React.FC<ICreateRoomTemplate> = ({
         />
         {message && <ErrorMessage message={message} />}
         <section
-          className={"w-full flex justify-center items-center relative px-3"}
+          className={"w-full flex  justify-center items-center relative px-3"}
         >
           <Button
             type={"submit"}

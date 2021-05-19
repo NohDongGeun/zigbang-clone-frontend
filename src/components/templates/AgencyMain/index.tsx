@@ -18,7 +18,7 @@ const AgencyMainTemplate: React.FC<IAgencyMainTemplate> = ({
   handleCard,
 }) => {
   return (
-    <div className={"w-full h-600 flex flex-col md:flex-col  mt-64 md:mt-80"}>
+    <div className={"w-full h-600 flex flex-col md:flex-col  md:mt-80"}>
       {isAgency ? (
         <>
           <div

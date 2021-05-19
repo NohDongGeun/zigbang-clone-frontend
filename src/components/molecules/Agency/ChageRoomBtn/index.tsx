@@ -13,7 +13,7 @@ const ChangeRoomBtn: React.FC<IChageRoomBtnProps> = ({
   isActive,
 }) => {
   return (
-    <div className={"absolute transform right-0 px-3 z-10 "}>
+    <div className={"sm:absolute my-3 transform right-0 px-3 z-10 "}>
       <Button
         onClick={onClickDelete}
         label={"삭제하기"}
