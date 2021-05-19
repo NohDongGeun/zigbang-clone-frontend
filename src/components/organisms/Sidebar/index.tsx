@@ -54,7 +54,7 @@ const Sidebar = () => {
   return (
     <aside
       ref={ref}
-      className={`fixed h-full w-80 sm:w-400 bg-light flex flex-col z-50  transform ease-out duration-500 ${
+      className={`fixed h-full w-80 sm:w-400 bg-light flex flex-col z-50  transform ease-out duration-500 overflow-y-auto ${
         onSidebar ? "top-0 right-0" : "-right-400"
       }`}
     >
