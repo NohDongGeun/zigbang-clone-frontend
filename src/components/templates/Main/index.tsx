@@ -18,7 +18,7 @@ interface IMain {
 const Main: React.FC<IMain> = ({ logged, name, point, params, count }) => {
   const { data } = useMe();
   return (
-    <div className={"w-full h-600  flex flex-col sm:flex-row  mt-80"}>
+    <div className={"w-full h-600  flex flex-col sm:flex-row  sm:mt-80"}>
       <Map point={point} />
 
       {params ? (

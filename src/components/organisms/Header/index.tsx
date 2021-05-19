@@ -27,7 +27,7 @@ const Header: React.FC = () => {
     >
       <nav
         className={
-          "bg-light w-screen px-1 sm:px-5 py-3 flex flex-row  h-20 fixed  z-10 min-w-320"
+          "bg-light w-screen px-1 sm:px-5 py-3 flex flex-row  h-20 sm:fixed  z-10 min-w-320"
         }
       >
         <ul className={"flex-auto  flex justify-around items-center "}>
