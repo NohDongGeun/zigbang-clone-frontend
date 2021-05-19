@@ -123,7 +123,7 @@ const List: React.FC<IList> = ({ count }) => {
   return (
     <article
       className={
-        "md:w-400 sm:w-340 flex flex-col h-full justify-start bg-white"
+        "md:w-400 sm:w-340 flex flex-col h-full flex-1 sm:flex-initial justify-start bg-white"
       }
     >
       <div className={"w-full "}>

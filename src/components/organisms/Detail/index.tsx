@@ -358,7 +358,7 @@ const Detail: React.FC<IDetail & RouteComponentProps> = ({
       {room !== null && (
         <article
           className={
-            "w-full sm:w-340 md:w-400  flex flex-col h-full justify-start bg-white "
+            "w-full sm:w-340 md:w-400  flex flex-col h-full flex-1 sm:flex-initial justify-start bg-white "
           }
         >
           <div className={"w-full"}>
