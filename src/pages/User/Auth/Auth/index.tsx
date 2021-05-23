@@ -47,6 +47,7 @@ const Auth: React.FC = () => {
   const onSubmit = () => {
     if (!loading) {
       const { phone } = method.getValues();
+      console.log(phone);
       verifyMutation({
         variables: {
           createVerifyInput: {
